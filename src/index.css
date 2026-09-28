@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  :root {
+    --brand-pink: #63DCA8;
+    --brand-pink-deep: #20B777;
+    --brand-black: #050907;
+    --brand-charcoal: #101A14;
+    --brand-card: #0D1711;
+    --brand-champagne: #AFD9BF;
+    --brand-muted: #A7B8AD;
+    --brand-white: #F8F6F7;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    width: 100%;
+    overflow-x: clip;
+    min-height: 100%;
+    background-color: #050907;
+    color: #F8F6F7;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .font-editorial {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050907;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #63DCA8;
+}
+
+/* Standard continuous document flow section styles with responsive breathing room */
+.landing-section {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: auto;
+  overflow: visible;
+  scroll-margin-top: 88px;
+  padding-top: clamp(64px, 8vw, 120px);
+  padding-bottom: clamp(64px, 8vw, 120px);
+}
+
+/* Ensure headings never clip ascenders, descenders or gradient text */
+.heading-display {
+  line-height: 1.15;
+  padding-bottom: 0.12em;
+  overflow: visible;
+}
+
+/* Glow and gradient subtle utility */
+.glow-pink-subtle {
+  box-shadow: 0 0 35px -10px rgba(99, 220, 168, 0.25);
+}
+
+.glass-card {
+  background: rgba(16, 26, 20, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-hover:hover {
+  border-color: rgba(99, 220, 168, 0.4);
+  background: rgba(20, 38, 27, 0.85);
+}
+
+/* Hero continuous infinite marquee animation */
+.hero-marquee {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: hero-marquee-scroll 42s linear infinite;
+  animation-play-state: running !important;
+  will-change: transform;
+}
+
+.hero-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+@keyframes hero-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* SnapSell surface polish. Original section geometry and media stay intact. */
+button[class~="bg-[#63DCA8]"] {
+  color: #04180f;
+  background-image: linear-gradient(135deg, #63dca8, #2fc088 55%, #20b777);
+}
+
+#hero-primary-join-btn,
+#hero-secondary-works-btn,
+#meet-kata-start-btn,
+#explore-opportunities-btn,
+#discover-snapsell-btn,
+#submit-application-btn {
+  border-radius: 9px;
+}
+
+#submit-application-btn {
+  color: #04180f;
+}
+
+button:focus-visible, a:focus-visible {
+  outline: 2px solid #63dca8;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-marquee-track { animation: none; }
+}

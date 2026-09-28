@@ -1,0 +1,97 @@
+.flex-carousel {
+  --carousel-card-width: 148px;
+  --carousel-card-height: 215px;
+  position: relative;
+  width: 100%;
+  height: calc(var(--carousel-card-height) + 24px);
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+}
+.flex-carousel > canvas { position: absolute; inset: 0; pointer-events: none; }
+.flex-carousel__cards { position: absolute; inset: 0; }
+.flex-carousel__card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--carousel-card-width);
+  height: var(--carousel-card-height);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 20px;
+  text-align: left;
+  color: #fff;
+  background: transparent;
+  cursor: pointer;
+  visibility: hidden;
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color .18s, box-shadow .18s;
+}
+.flex-carousel__card[data-expanded=true] {
+  border-color: #63dca8;
+  box-shadow: 0 0 18px #63dca82b;
+  z-index: 3;
+}
+.flex-carousel__fallback-image { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.flex-carousel[data-renderer=webgl] .flex-carousel__fallback-image { visibility: hidden; }
+.flex-carousel__controls {
+  position: absolute;
+  z-index: 5;
+  right: 16px;
+  top: 4px;
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  background: #08140ff2;
+  border: 1px solid #63dca840;
+  border-radius: 20px;
+}
+.flex-carousel__controls button {
+  padding: 3px 7px;
+  color: #c3e8d2;
+  font-size: 10px;
+  line-height: 18px;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+}
+.flex-carousel__controls button:hover { color: #63dca8; background: #63dca81a; }
+.flex-carousel__live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.carousel-card-shade { position: absolute; inset: 0; background: linear-gradient(transparent 20%, #0004 50%, #000e); pointer-events: none; }
+.carousel-card-tag {
+  position: absolute; top: 10px; left: 10px; right: 8px;
+  display: flex; align-items: center; gap: 4px; width: fit-content; max-width: calc(100% - 18px);
+  padding: 3px 7px; border: 1px solid #ffffff30; border-radius: 20px;
+  background: #000b; backdrop-filter: blur(10px); color: #fff;
+  font-size: 9px; font-weight: 600; line-height: 1.3;
+}
+.carousel-card-tag svg { width: 11px; height: 11px; color: #63dca8; flex-shrink: 0; }
+.carousel-card-summary { position: absolute; inset: auto 0 0; padding: 12px; transition: opacity .18s; }
+.carousel-card-summary strong { display: block; font-size: 12px; line-height: 1.3; }
+.carousel-card-summary p { font-size: 10px; line-height: 1.3; margin-top: 3px; color: #ffffffcf; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.carousel-card-summary .assistant-status { color: #63dca8; font-size: 9px; margin-bottom: 5px; }
+.carousel-card-detail {
+  position: absolute; inset: auto 0 0; padding: 36px 13px 15px;
+  background: linear-gradient(transparent, #06140bef 25%, #06140bfa);
+  opacity: 0; transform: translateY(12px); visibility: hidden;
+  transition: opacity .2s, transform .2s, visibility .2s;
+}
+.carousel-card-detail strong { display: block; font-size: 13px; line-height: 1.25; color: #fff; }
+.carousel-card-detail p { font-size: 11px; line-height: 1.5; color: #c4dccd; margin: 7px 0 0; }
+.carousel-card-detail small { display: block; font-size: 8px; color: #63dca8; margin-top: 10px; }
+.flex-carousel__card[data-expanded=true] .carousel-card-summary { opacity: 0; }
+.flex-carousel__card[data-expanded=true] .carousel-card-detail { opacity: 1; transform: translateY(0); visibility: visible; }
+@media (min-width: 640px) { .flex-carousel { --carousel-card-width: 172px; --carousel-card-height: 246px; } .flex-carousel__card { border-radius: 24px; } }
+@media (min-width: 1024px) { .flex-carousel { --carousel-card-width: 186px; --carousel-card-height: 266px; } }
+@media (prefers-reduced-motion: reduce) { .flex-carousel__card, .carousel-card-detail, .carousel-card-summary { transition: none; } }

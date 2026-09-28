@@ -1,0 +1,6 @@
+{
+  "name": "Kata x SnapSell Academy",
+  "description": "Join Kata’s SnapSell Academy and learn how to use AI chat support, AI content creation and SnapSell direct sales to build a more scalable creator business.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

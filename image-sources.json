@@ -1,0 +1,83 @@
+[
+  {
+    "asset": "/images/editorial/content.webp",
+    "source": "https://www.pexels.com/photo/13929374/",
+    "license": "https://www.pexels.com/license/",
+    "description": "A creator editing video at a laptop with a recording microphone"
+  },
+  {
+    "asset": "/images/editorial/coaching.webp",
+    "source": "https://www.pexels.com/photo/7731368/",
+    "license": "https://www.pexels.com/license/",
+    "description": "Two women reviewing work together on a laptop"
+  },
+  {
+    "asset": "/images/editorial/studio.webp",
+    "source": "https://www.pexels.com/photo/7206505/",
+    "license": "https://www.pexels.com/license/",
+    "description": "A photographer directing a model in a white photography studio"
+  },
+  {
+    "asset": "/images/editorial/network.webp",
+    "source": "https://www.pexels.com/photo/36729758/",
+    "license": "https://www.pexels.com/license/",
+    "description": "Friends talking together over coffee at a cafe"
+  },
+  {
+    "asset": "/images/editorial/retreat.webp",
+    "source": "https://www.pexels.com/photo/358223/",
+    "license": "https://www.pexels.com/license/",
+    "description": "The colorful Positano coastline overlooking the Mediterranean Sea"
+  },
+  {
+    "asset": "/images/editorial/team.webp",
+    "source": "https://www.pexels.com/photo/8297683/",
+    "license": "https://www.pexels.com/license/",
+    "description": "Colleagues discussing plans at a laptop"
+  },
+  {
+    "asset": "/images/editorial/campaign.webp",
+    "source": "https://www.pexels.com/photo/15763879/",
+    "license": "https://www.pexels.com/license/",
+    "description": "Street fashion portrait of a woman in a patterned coat"
+  },
+  {
+    "asset": "/images/editorial/wellness.webp",
+    "source": "https://www.pexels.com/photo/8018933/",
+    "license": "https://www.pexels.com/license/",
+    "description": "A woman practicing yoga on a pier beside the ocean"
+  },
+  {
+    "asset": "/images/editorial/interior.webp",
+    "source": "https://www.pexels.com/photo/7534563/",
+    "license": "https://www.pexels.com/license/",
+    "description": "A photographed apartment interior with large windows and warm wood floors"
+  },
+  {
+    "asset": "/images/editorial/overwhelm.webp",
+    "source": "https://www.pexels.com/photo/8085258/",
+    "license": "https://www.pexels.com/license/",
+    "description": "Handwritten plans, notebooks and stationery on a work desk"
+  },
+  {
+    "asset": "/images/editorial/systems.webp",
+    "source": "https://www.pexels.com/photo/5124877/",
+    "license": "https://www.pexels.com/license/",
+    "description": "A paper weekly planner and notebook on a desk"
+  },
+  {
+    "asset": "/images/editorial/mentor.webp",
+    "source": "https://res.cloudinary.com/n5nqkpmk/image/upload/v1789595215/Pic_5_cl8ssl.png",
+    "provenance": "Original portrait supplied in kata-x-snapsell-academy.zip"
+  },
+  {
+    "asset": "/images/editorial/chat.webp",
+    "source": "public/images/editorial/chat.svg",
+    "provenance": "Code-drawn illustrative interface, not a live product screenshot"
+  },
+  {
+    "asset": "/images/editorial/commerce.webp",
+    "source": "public/images/editorial/commerce.svg",
+    "provenance": "Code-drawn illustrative interface, not a live product screenshot"
+  }
+]
