@@ -64,9 +64,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-4xl mx-auto mb-3.5 sm:mb-4"
         >
-          <h1 className="font-extrabold font-display text-white leading-[1.08] sm:leading-[1.04] text-[clamp(2.6rem,6vw,5.5rem)]">
+          <h1 className="font-semibold font-editorial text-white leading-[1.16] text-[clamp(2.6rem,6vw,5.5rem)]">
             <span className="block text-white"><span className="inline-block">Build More.</span>{' '}<span className="inline-block">Work Less.</span></span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#63DCA8] via-[#8CE8BC] to-[#20B777]">
+            <span className="block pb-[0.12em] font-normal italic text-transparent bg-clip-text bg-gradient-to-r from-[#63DCA8] via-[#8CE8BC] to-[#20B777]">
               Live Bigger.
             </span>
           </h1>

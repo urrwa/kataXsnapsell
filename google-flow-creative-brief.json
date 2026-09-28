@@ -1,0 +1,170 @@
+{
+  "status": "Generated in Google Flow, reviewed, optimized and integrated into the website.",
+  "provider": "Google Flow",
+  "site": "Kata x SnapSell Academy",
+  "rules": [
+    "Match each image to the stated heading and service, not only to the colour palette.",
+    "Use a varied mix of devices, materials, locations and occasional context-specific hands; do not fill every slot with faces.",
+    "Retain the real supplied Kata portrait and coaching video.",
+    "Keep current website structure; use new imagery only where it supports the existing content.",
+    "Verify screen text, fingers, equipment, crop and visible quality before integrating.",
+    "Videos are short, silent, optional previews with poster images and reduced-motion support."
+  ],
+  "assets": [
+    {
+      "id": "chat",
+      "type": "image",
+      "heading": "Stay Available Without Being Online All Day",
+      "placement": "Pillar 01 card and AI assistant carousel card",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. A tangible smartphone resting at a slight angle on a dark desk beside a closed laptop at blue hour. Close product photograph; the phone screen shows a calm minimal chat exchange and one small product-link preview using simple readable interface shapes, no fabricated testimonials or prices. A warm lamp is softly visible in the distance. The scene communicates ongoing conversations while the creator is away. No people. Keep phone upright and centred, with enough context to distinguish a real photograph from a flat interface mockup.",
+      "flowAssetId": "906f52d6-9a90-4d88-a125-46771370dbb6",
+      "asset": "/images/flow/chat.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "content",
+      "type": "image",
+      "heading": "Create More Without Filming Every Day",
+      "placement": "Pillar 02 card and AI content carousel card",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. An art-directed but authentic top-down creator content-editing desk: one graphite tablet displaying a photo contact sheet, a short clip timeline and a small caption draft area; beside it two real printed landscape/architecture contact sheets. Pale neutral surface, natural morning light, clean practical composition. Emphasise one source becoming several formats rather than filming equipment or a generic person using a laptop. No people, no collage borders, no extra screens.",
+      "flowAssetId": "28d8a084-ac2d-4d01-9a03-368f85bb883d",
+      "asset": "/images/flow/content.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "commerce",
+      "type": "image",
+      "heading": "Your Content. Your Price. One Link.",
+      "placement": "Pillar 03 card and SnapSell carousel card",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. Close real product photograph of a smartphone held by one natural hand above a stone cafe table. On screen a clean digital product collection with a landscape cover, a compact price line and a single green checkout button; keep on-screen labels minimal and coherent, never claim revenue or actual transactions. The phone is sharply in focus with realistic reflected light; the cafe is softly present but not a glamour portrait. It should communicate buying a digital download through one simple link. No face, no floating shopping bags, no money piles.",
+      "flowAssetId": "fabea727-5b98-413a-b701-ef7dea1b4458",
+      "asset": "/images/flow/commerce.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "coaching",
+      "type": "image",
+      "heading": "Learn From Kata",
+      "placement": "Creator coaching carousel card; retain actual Kata portrait/video in Meet Kata section",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. Candid documentary detail from a practical creator strategy session. Two sets of adult hands beside a paper content plan, one pencil pointing to a clearly drawn three-stage diagram, a laptop partly cropped at the edge. Notebook texture, natural unstyled sleeves, slight tabletop wear, believable hand anatomy. Eye-level diagonal close crop, soft daylight, warm neutral colours. Coaching is the story, not an invented portrait of the founder. No visible faces, no boardroom group, no fake motivational text.",
+      "flowAssetId": "db07bcd2-fa6b-42bd-86a9-0604c6ee2d00",
+      "asset": "/images/flow/coaching.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "studio",
+      "type": "image",
+      "heading": "Work With World-Class Creatives",
+      "placement": "Studio productions carousel card",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. A working professional camera on a sturdy tripod in a real editorial photography studio. Side close-up with believable controls and lens; one softbox edge and a softly blurred neutral seamless backdrop establish the setting. Camera fills the lower centre; authentic tiny scuffs and real cables. Crisp directional studio light with deep charcoal and natural silver highlights. No model, no people posing, no fake branding, no neon.",
+      "flowAssetId": "9b214ad6-21eb-4361-a726-5443c9a5abe3",
+      "asset": "/images/flow/studio.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "systems",
+      "type": "image",
+      "heading": "You don't need to work harder. You need a better system.",
+      "placement": "Smart Systems carousel card",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. Quiet, organised small creative workspace photographed from the doorway: an oak desk, closed laptop, compact paper weekly planner, a single task lamp and a comfortable chair. Morning window light creates an imperfect diagonal across a warm plaster wall. Clean enough to suggest less repetitive work, lived-in enough to avoid a furniture render. No people, no huge empty luxury office, no piles of props, no green filter.",
+      "flowAssetId": "08a4c4ba-8ea5-4a08-aca1-dd298c9362e1",
+      "asset": "/images/flow/systems.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "network",
+      "type": "image",
+      "heading": "Create Content Around the World",
+      "placement": "Global opportunities carousel card and application atmosphere",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. Documentary travel photograph of a Mediterranean production location: weathered limestone terrace framed by olive foliage, textured stucco arch and a glimpse of blue coast. A discreet camera case and folded reflector at the edge suggest a creator shoot location, not a generic resort advertisement. Strong natural daylight and honest architectural details. No people, no infinity pool, no impossible luxury geometry. Keep central framing useful for a narrow card and wide dimmed background.",
+      "flowAssetId": "d65f2b4b-7442-4408-bb85-a8a2a8cbf0e0",
+      "asset": "/images/flow/network.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "team",
+      "type": "image",
+      "heading": "You Stay the Face. We Support the Business.",
+      "placement": "Expert Team supporting visual",
+      "ratio": "4:5",
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. A candid overhead photograph of a real creative production desk during a work session: editing console, one monitor with a believable content timeline, colour swatches and a concise printed scheduling sheet. At the edges two adult hands are engaged in different tasks; no faces or group portrait. Cool daylight with a restrained warm practical lamp. The image should explain skilled behind-the-scenes production and operations rather than a smiling office team. Avoid excessive gadgets and avoid readable fabricated metrics.",
+      "flowAssetId": "89bdee20-6b30-42f1-b9f9-5130c228628b",
+      "asset": "/images/flow/team.webp",
+      "model": "Nano Banana Pro",
+      "actualDimensions": {
+        "width": 896,
+        "height": 1200
+      }
+    },
+    {
+      "id": "content-workflow",
+      "type": "video",
+      "heading": "Create More Without Filming Every Day",
+      "placement": "Short optional AI content process preview",
+      "ratio": "16:9",
+      "durationSeconds": 8,
+      "prompt": "For Kata x SnapSell Academy: a premium creator education and business website whose message is AI-assisted content creation, automated conversations, direct digital sales and professional support. Photographic realism: physical materials, believable light falloff, restrained contrast, realistic perspective, subtle imperfections. No plastic skin, fake lens blur, excessive teal grading, floating interfaces, robots, holograms, CGI glass, motivational posters, invented logos or illegible decorative lettering. Preserve space for the website's own headings; do not bake headings into the image. The site is charcoal/black with mint accents (#63DCA8), but the photograph should retain its natural colours. Important subject in central 65% so portrait and landscape crops remain useful. An eight-second silent photographic product shot: slow, almost imperceptible camera slide past a real tablet on a neutral editing desk. The tablet displays a content contact sheet and a simple video timeline. On-screen playhead advances gently; physical light and reflections stay consistent. One continuous shot, no morphing objects, no text appearing in the environment, no hands or people, no rapid cuts. End composition close enough to opening composition for a subtle website loop. Prioritise realistic geometry and readable visual hierarchy over spectacle.",
+      "flowAssetId": "b9ee6c02-3507-4ec8-9820-f472a93311d0",
+      "asset": "/videos/flow/content-workflow.mp4",
+      "model": "Omni 1.1 Flash",
+      "actualDimensions": {
+        "width": 1280,
+        "height": 720
+      },
+      "poster": "/images/flow/content-workflow-poster.webp"
+    },
+    {
+      "id": "production-detail",
+      "type": "video",
+      "heading": "Work With World-Class Creatives",
+      "placement": "Short optional production preview",
+      "ratio": "16:9",
+      "durationSeconds": 8,
+      "prompt": "Single continuous live-action cinematography shot, eight seconds, 16:9. An unbranded professional black mirrorless camera with a cinema lens mounted on a tripod in a small real photography studio. The camera is physically stationary. The filming viewpoint moves sideways very slowly by a few centimetres; a softbox reflection glides naturally across the lens glass. Shallow but physically realistic depth of field, subtle worn metal and rubber textures, natural black and silver, neutral grey backdrop, quiet ambient light. Full-bleed actual camera footage from edge to edge. Absolutely NO webpage, NO website screenshot, NO browser, NO user interface, NO top or bottom bars, NO menus, NO text, NO captions, NO logos, NO watermarks or brand names, NO frames or borders. No people. No object transformation or morphing. Silent. The only subject is the real physical camera and studio around it.",
+      "flowAssetId": "35547510-e000-4648-8878-c7f0c6443f93",
+      "asset": "/videos/flow/production-detail.mp4",
+      "model": "Omni 1.1 Flash",
+      "actualDimensions": {
+        "width": 1280,
+        "height": 720
+      },
+      "poster": "/images/flow/production-detail-poster.webp"
+    }
+  ],
+  "projectUrl": "https://flow.google.com/project/3539ef1c-3b83-4705-92b0-b2d0266f730c"
+}

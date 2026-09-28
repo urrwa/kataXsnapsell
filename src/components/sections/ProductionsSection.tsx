@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, useReducedMotion } from 'motion/react';
 import { Camera, Film, Palette, Scissors, MapPin, BadgeCheck, Star } from 'lucide-react';
+import { FilmPreview } from '../FilmPreview';
 
 const ROSTER = [
   {
@@ -162,6 +163,8 @@ export const ProductionsSection: React.FC = () => {
         </div>
 
         {/* Platform badge strip */}
+        <FilmPreview title="Inside the production studio" description="A short look at the craft behind professional content." src="/videos/flow/production-detail.mp4" poster="/images/flow/production-detail-poster.webp" />
+
         <motion.div
           initial={reduced ? false : { opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}

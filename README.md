@@ -1,6 +1,6 @@
 # Kata × SnapSell Academy
 
-A visual refinement of the supplied React / TypeScript website. The original centered hero, scrolling media strip, all 13 sections, section order, content and interactive components are retained. The card and section imagery now uses a varied set of real editorial photographs, the supplied Kata portrait and simple interface illustrations. SnapSell-inspired mint/emerald accents, dark surfaces, typography and button styling are applied without restructuring the page.
+A visual refinement of the supplied React / TypeScript website. The original centered hero, scrolling media strip, all 13 sections, section order, content and interactive components are retained. The card and section imagery uses eight purpose-made Google Flow photographs, two optional video previews and the supplied real Kata portrait. SnapSell-inspired mint/emerald accents, dark surfaces, typography and button styling are applied without restructuring the page.
 
 ## Run locally
 
@@ -24,7 +24,11 @@ Open http://localhost:3000. Use `npm run lint` for TypeScript validation and `np
 - `src/data/content.ts`: source content and section image mappings.
 - `src/data/images.ts`: local image paths and descriptive alt text.
 - `public/images/editorial/`: optimized WebP photographs, supplied portrait and code-drawn interface illustrations.
-- `image-sources.json`: source and license records for the current images. Earlier generated artwork is no longer referenced by the website.
+- `public/images/flow/`: eight optimized section-specific photos and two video posters generated in Google Flow.
+- `public/videos/flow/`: two 8-second 720p video examples; both load on demand through `FilmPreview` and do not autoplay.
+- `google-flow-creative-brief.json`: heading-to-asset mapping, prompts, model, Flow asset IDs and project link.
+- `higgsfield-image-sources.json`: provenance for the earlier imagery exploration, superseded by the active Flow assets.
+- `image-sources.json`: provenance for generated and retained assets. Earlier assets remain available but replaced paths are no longer used by the active image registry.
 - `src/components/ApplicationForm.tsx`: validated application form.
 - `src/components/Modal.tsx`: existing policy content, with keyboard dismissal and focus management.
 
@@ -34,7 +38,7 @@ The form defaults to an explicitly labelled preview. It validates locally and do
 
 To enable real submissions, set `VITE_APPLICATION_ENDPOINT` in `.env.local` to your public HTTPS intake endpoint and restart/rebuild. The endpoint must accept JSON POST requests with `firstName`, `email`, `socialHandle`, `creatorStage`, `mainGoal` and `confirmedAge`, and return a successful HTTP status only after accepting an application. Cross-origin endpoints must allow the deployed site's origin. Keep authentication secrets on your server, never in a `VITE_` variable. Validate, protect against spam and handle storage server-side.
 
-Existing legal copy is carried over from the supplied project. Editorial stock photos and interface illustrations are served locally. Stock scenes illustrate themes rather than actual academy facilities; the founder portrait comes from the supplied project. The original coaching video remains available on play from Cloudinary; fonts use Google Fonts. No AI API key is needed to render this landing page.
+Existing legal copy is carried over from the supplied project. Generated scenes and interface illustrations are served locally. Generated people and settings illustrate services rather than depicting actual academy staff or events; the real founder portrait comes from the supplied project. The original coaching video remains available on play from Cloudinary; fonts use Google Fonts. No AI API key is needed to render this landing page.
 
 ## Pillar cards
 

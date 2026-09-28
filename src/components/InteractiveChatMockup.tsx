@@ -1,4 +1,3 @@
-import { EDITORIAL_IMAGES } from '../data/images';
 import React, { useState, useEffect } from 'react';
 import { Send, CheckCheck, UserCheck, ShoppingBag, Sparkles, RefreshCw } from 'lucide-react';
 
@@ -27,12 +26,7 @@ export const InteractiveChatMockup: React.FC = () => {
         <div className="px-4 py-3 bg-[#142219] border-b border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="relative">
-              <img loading="lazy" decoding="async"
-                src={EDITORIAL_IMAGES.chat.src}
-                alt="AI assistant visual"
-                referrerPolicy="no-referrer"
-                className="w-9 h-9 rounded-full object-cover ring-2 ring-[#63DCA8]"
-              />
+              <span className="w-9 h-9 rounded-full bg-[#204832] flex items-center justify-center ring-2 ring-[#63DCA8]" aria-hidden="true"><Sparkles className="w-4 h-4 text-[#63DCA8]" /></span>
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 rounded-full ring-2 ring-[#142219]" />
             </div>
             <div>

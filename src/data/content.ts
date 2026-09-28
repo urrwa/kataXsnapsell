@@ -140,11 +140,11 @@ export const THREE_PILLARS = [
   }
 ];
 
-// Editorial stock illustrates themes; only the supplied portrait depicts Kata.
+// Generated scenes illustrate services; only the supplied portrait depicts Kata.
 export const ASSET_SLOTS = {
   heroKata: { slotName: "AI Assistant Visual", ...EDITORIAL_IMAGES.chat },
   kataPortrait: { slotName: "Supplied Kata Portrait", ...EDITORIAL_IMAGES.mentor },
-  kataCoachingVideoPoster: { slotName: "Coaching Session Cover", ...EDITORIAL_IMAGES.coaching },
+  kataCoachingVideoPoster: { slotName: "Kata Coaching Video Cover", ...EDITORIAL_IMAGES.mentor },
   creatorOverwhelm: { slotName: "Creator Workflow Overload", ...EDITORIAL_IMAGES.overwhelm },
   teamLineup: { slotName: "Creative Team Workspace", ...EDITORIAL_IMAGES.team },
   btsShoot: { slotName: "Production Studio", ...EDITORIAL_IMAGES.studio },
