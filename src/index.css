@@ -73,6 +73,41 @@
   overflow: visible;
 }
 
+/* Global display heading refinement — tighter tracking, optical alternates */
+h1, h2, h3, .font-display {
+  letter-spacing: -0.02em;
+  font-feature-settings: "ss01", "cv01";
+}
+
+/* Radial section glow — place behind key headlines */
+.section-glow {
+  position: relative;
+}
+.section-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 70% 40% at 50% -5%, rgba(99,220,168,0.08) 0%, transparent 65%);
+  z-index: 0;
+}
+.section-glow > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtle grain texture for section variety */
+.section-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.018;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  z-index: 0;
+}
+
 /* Glow and gradient subtle utility */
 .glow-pink-subtle {
   box-shadow: 0 0 35px -10px rgba(99, 220, 168, 0.25);

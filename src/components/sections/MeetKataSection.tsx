@@ -127,13 +127,13 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
 
         {/* Right Column: Editorial Copy */}
         <div className="lg:col-span-6 text-left space-y-6">
-          <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#63DCA8] font-bold">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#63DCA8]" />
-            <span>YOUR CREATOR COACH</span>
+          <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-white/40 font-semibold">
+            <span className="h-px w-8 bg-[#63DCA8]/40" />
+            <span className="text-[#63DCA8]">Your Creator Coach</span>
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white">
+            <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold font-display text-white leading-[1.1]">
               Learn From Kata
             </h2>
             <div className="text-base sm:text-lg font-semibold text-[#AFD9BF] tracking-wide font-display">
@@ -154,14 +154,14 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
           </blockquote>
 
           {/* Key Mentor Pillars */}
-          <div className="grid grid-cols-2 gap-3 text-xs text-white/70 pt-1">
-            <div className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#63DCA8] shrink-0" />
-              <span>Authentic Personal Brand Architecture</span>
+          <div className="grid grid-cols-2 gap-3 pt-1">
+            <div className="p-4 rounded-2xl bg-[#0D1711] border border-white/[0.07] flex flex-col gap-2">
+              <div className="text-[#63DCA8] text-lg font-bold font-display">20 yrs</div>
+              <div className="text-xs text-white/60 leading-snug">Coaching and training experience</div>
             </div>
-            <div className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-[#63DCA8] shrink-0" />
-              <span>Automated High-Ticket Direct Sales</span>
+            <div className="p-4 rounded-2xl bg-[#0D1711] border border-white/[0.07] flex flex-col gap-2">
+              <div className="text-[#AFD9BF] text-lg font-bold font-display">Personal</div>
+              <div className="text-xs text-white/60 leading-snug">Hands-on direct sales methodology</div>
             </div>
           </div>
 

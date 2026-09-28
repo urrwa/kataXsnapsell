@@ -46,9 +46,9 @@ export const FinalApplicationSection: React.FC<FinalApplicationSectionProps> = (
             <span>YOUR NEXT CHAPTER</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1 overflow-visible">
+          <h2 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-extrabold font-display text-white leading-[1.08] pb-1 overflow-visible">
             Ready to Stop <br />
-            <span className="text-[#63DCA8] inline-block">Doing Everything Alone?</span>
+            <span className="text-[#63DCA8] inline-block">Doing It All Alone?</span>
           </h2>
 
           <p className="text-sm sm:text-base text-white/80 leading-relaxed max-w-xl">

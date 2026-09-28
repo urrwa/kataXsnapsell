@@ -1,7 +1,6 @@
-import { EDITORIAL_IMAGES } from '../../data/images';
 import { SlideButton } from '../SlideButton';
 import React, { useState } from 'react';
-import { Globe, ArrowUpRight, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { Globe, ArrowUpRight, MapPin, Camera, Users, Sparkles, Building2 } from 'lucide-react';
 
 interface GlobalLifestyleSectionProps {
   onExploreOpportunities: () => void;
@@ -9,155 +8,160 @@ interface GlobalLifestyleSectionProps {
 
 const DESTINATIONS = [
   {
-    title: "International Shoots",
-    tagline: "Mediterranean Coastal Villas",
-    location: "French Riviera & Balearics",
-    image: EDITORIAL_IMAGES.retreat.src,
-    desc: "Curated multi-day photography sets with international lighting crews and natural golden-hour backdrops."
+    num: '01',
+    icon: Camera,
+    title: 'International Shoots',
+    tagline: 'Mediterranean Coastal Villas',
+    location: 'French Riviera & Balearics',
+    desc: 'Curated multi-day photography sets with international lighting crews and natural golden-hour backdrops.',
+    coords: '43.7° N, 7.2° E',
+    accent: '#63DCA8',
   },
   {
-    title: "Premium Locations",
-    tagline: "Modern Architectural Sanctuaries",
-    location: "Zurich & Milan Penthouses",
-    image: EDITORIAL_IMAGES.interior.src,
-    desc: "High-contrast minimalist spaces crafted specifically for luxury lifestyle branding and editorial lookbooks."
+    num: '02',
+    icon: Building2,
+    title: 'Premium Locations',
+    tagline: 'Modern Architectural Sanctuaries',
+    location: 'Zurich & Milan Penthouses',
+    desc: 'High-contrast minimalist spaces crafted specifically for luxury lifestyle branding and editorial lookbooks.',
+    coords: '45.4° N, 9.1° E',
+    accent: '#63DCA8',
   },
   {
-    title: "Creator Events",
-    tagline: "Private Masterclass Summits",
-    location: "Dubai & London Salons",
-    image: EDITORIAL_IMAGES.team.src,
-    desc: "Intimate roundtables, live AI workflow intensives, and private strategy sessions led directly by Kata."
+    num: '03',
+    icon: Sparkles,
+    title: 'Creator Events',
+    tagline: 'Private Masterclass Summits',
+    location: 'Dubai & London Salons',
+    desc: 'Intimate roundtables, live AI workflow intensives, and private strategy sessions led directly by Kata.',
+    coords: '25.2° N, 55.2° E',
+    accent: '#63DCA8',
   },
   {
-    title: "Global Networking",
-    tagline: "Empowered Creator Collective",
-    location: "Worldwide Community",
-    image: EDITORIAL_IMAGES.network.src,
-    desc: "Collaborate with trusted, ambitious female peers building high-value independent media businesses."
-  }
+    num: '04',
+    icon: Users,
+    title: 'Global Networking',
+    tagline: 'Empowered Creator Collective',
+    location: 'Worldwide Community',
+    desc: 'Collaborate with trusted, ambitious female peers building high-value independent media businesses.',
+    coords: 'Worldwide',
+    accent: '#63DCA8',
+  },
 ];
 
 export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
-  onExploreOpportunities
+  onExploreOpportunities,
 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const prev = () => setCurrentIndex((c) => (c === 0 ? DESTINATIONS.length - 1 : c - 1));
-  const next = () => setCurrentIndex((c) => (c === DESTINATIONS.length - 1 ? 0 : c + 1));
+  const [active, setActive] = useState<number | null>(null);
 
   return (
     <section
       id="section-10"
-      className="landing-section bg-[#080F0A] px-4 sm:px-6 lg:px-8"
+      className="landing-section bg-[#050907] px-4 sm:px-6 lg:px-8"
       aria-label="Global Creator Lifestyle"
     >
-      <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-center space-y-8">
-        {/* Header Block */}
-        <div className="max-w-3xl space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#63DCA8]/10 border border-[#63DCA8]/30 text-[#63DCA8] text-xs font-bold tracking-widest uppercase">
-            <Globe className="w-3.5 h-3.5" />
-            <span>MORE POSSIBILITIES</span>
+      <div className="max-w-6xl mx-auto w-full flex flex-col items-center space-y-14">
+
+        {/* Header */}
+        <div className="text-center max-w-2xl space-y-4">
+          <div className="flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest text-white/40 font-semibold">
+            <span className="h-px w-8 bg-white/20" />
+            <Globe className="w-3 h-3 text-[#63DCA8]" />
+            <span className="text-[#63DCA8]">More Possibilities</span>
+            <span className="h-px w-8 bg-white/20" />
           </div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1 overflow-visible">
-            Create Content <span className="text-[#63DCA8] inline-block">Around the World</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-white leading-[1.1]">
+            The World Is{' '}
+            <span className="text-[#63DCA8]">Your Studio</span>
           </h2>
-
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">
-            Selected members may access international productions, creator trips, events and professional collaborations.
+          <p className="text-sm sm:text-base text-white/60">
+            Selected members access international productions, creator trips, events and professional collaborations.
           </p>
         </div>
 
-        {/* 4 Visual Opportunity Cards (Grid on desktop, carousel on mobile) */}
-        <div className="hidden lg:grid grid-cols-4 gap-4 w-full">
-          {DESTINATIONS.map((item, idx) => (
-            <div
-              key={idx}
-              className="group relative h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-[#63DCA8]/60 transition-all duration-300 shadow-xl flex flex-col justify-end p-5 text-left bg-black"
-            >
-              <img loading="lazy" decoding="async"
-                src={item.image}
-                alt={item.title}
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-
-              <div className="relative z-10 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-[11px] text-[#AFD9BF] font-semibold">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>{item.location}</span>
+        {/* Destination Grid */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">
+          {DESTINATIONS.map((item, idx) => {
+            const Icon = item.icon;
+            const isActive = active === idx;
+            return (
+              <div
+                key={idx}
+                onMouseEnter={() => setActive(idx)}
+                onMouseLeave={() => setActive(null)}
+                className={`group relative flex flex-col gap-5 p-8 cursor-default transition-colors duration-300 ${
+                  isActive ? 'bg-[#0D1A12]' : 'bg-[#080F0A]'
+                }`}
+              >
+                {/* Number + Icon row */}
+                <div className="flex items-start justify-between">
+                  <span className="text-[11px] font-bold tracking-widest text-white/20 tabular-nums">
+                    {item.num}
+                  </span>
+                  <div
+                    className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-colors duration-300 ${
+                      isActive
+                        ? 'bg-[#63DCA8]/15 border-[#63DCA8]/40'
+                        : 'bg-white/[0.04] border-white/10'
+                    }`}
+                  >
+                    <Icon
+                      className={`w-4 h-4 transition-colors duration-300 ${
+                        isActive ? 'text-[#63DCA8]' : 'text-white/40'
+                      }`}
+                      strokeWidth={1.8}
+                    />
+                  </div>
                 </div>
-                <h4 className="text-lg font-bold font-display text-white">{item.title}</h4>
-                <div className="text-xs text-[#63DCA8] font-medium">{item.tagline}</div>
-                <p className="text-[11px] text-white/70 line-clamp-2 pt-1">{item.desc}</p>
+
+                {/* Text content */}
+                <div className="space-y-2">
+                  <p className="text-[10px] font-bold tracking-widest text-[#63DCA8]/70 uppercase flex items-center gap-1.5">
+                    <MapPin className="w-3 h-3" />
+                    {item.location}
+                  </p>
+                  <h3 className="text-xl font-bold font-display text-white leading-snug">
+                    {item.title}
+                  </h3>
+                  <p
+                    className={`text-xs font-semibold transition-colors duration-300 ${
+                      isActive ? 'text-[#63DCA8]' : 'text-white/30'
+                    }`}
+                  >
+                    {item.tagline}
+                  </p>
+                  <p className="text-sm text-white/50 leading-relaxed pt-1">
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Coordinates footer */}
+                <div className="mt-auto pt-4 border-t border-white/[0.06] flex items-center justify-between">
+                  <span className="text-[10px] text-white/20 font-mono tracking-wider">
+                    {item.coords}
+                  </span>
+                  <ArrowUpRight
+                    className={`w-4 h-4 transition-all duration-300 ${
+                      isActive ? 'text-[#63DCA8] translate-x-0.5 -translate-y-0.5' : 'text-white/10'
+                    }`}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Mobile / Tablet Carousel View */}
-        <div className="lg:hidden w-full max-w-md relative">
-          <div className="relative h-[360px] rounded-3xl overflow-hidden border border-white/15 shadow-2xl bg-black flex flex-col justify-end p-6 text-left">
-            <img loading="lazy" decoding="async"
-              src={DESTINATIONS[currentIndex].image}
-              alt={DESTINATIONS[currentIndex].title}
-              referrerPolicy="no-referrer"
-              className="absolute inset-0 w-full h-full object-cover opacity-85"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-
-            <div className="relative z-10 space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs text-[#AFD9BF] font-semibold">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>{DESTINATIONS[currentIndex].location}</span>
-              </div>
-              <h4 className="text-xl font-bold font-display text-white">{DESTINATIONS[currentIndex].title}</h4>
-              <div className="text-xs text-[#63DCA8] font-medium">{DESTINATIONS[currentIndex].tagline}</div>
-              <p className="text-xs text-white/70 pt-1">{DESTINATIONS[currentIndex].desc}</p>
-            </div>
-          </div>
-
-          {/* Carousel controls */}
-          <div className="flex items-center justify-between mt-3 px-2">
-            <button
-              onClick={prev}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
-              aria-label="Previous destination"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-            <div className="flex gap-1.5">
-              {DESTINATIONS.map((_, i) => (
-                <span
-                  key={i}
-                  className={`w-2 h-2 rounded-full ${i === currentIndex ? 'w-5 bg-[#63DCA8]' : 'bg-white/20'}`}
-                />
-              ))}
-            </div>
-            <button
-              onClick={next}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
-              aria-label="Next destination"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* CTA Button & Mandatory Qualification Line */}
-        <div className="space-y-3 max-w-xl">
+        {/* CTA */}
+        <div className="flex flex-col items-center gap-3">
           <SlideButton
             id="explore-opportunities-btn"
             onClick={onExploreOpportunities}
-            className="px-7 py-3.5 rounded-full bg-[#63DCA8] hover:bg-[#20B777] text-white font-bold text-sm flex items-center gap-2 mx-auto shadow-xl shadow-[#63DCA8]/20 transition-all active:scale-95"
+            className="px-7 py-3.5 rounded-full bg-[#63DCA8] hover:bg-[#20B777] text-[#050907] font-bold text-sm flex items-center gap-2 shadow-xl shadow-[#63DCA8]/20 transition-all active:scale-95"
           >
             <span>Explore Opportunities</span>
             <ArrowUpRight className="w-4 h-4" />
           </SlideButton>
-
-          <p className="text-[11px] text-white/50 leading-relaxed">
+          <p className="text-[11px] text-white/30">
             * Opportunities depend on selection, availability and individual agreements.
           </p>
         </div>

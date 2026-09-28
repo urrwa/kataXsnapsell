@@ -52,12 +52,11 @@ export const ThreePillarsSection: React.FC<ThreePillarsSectionProps> = ({ onSele
   <section id="section-4" className="landing-section bg-[#080F0A] px-4 sm:px-6 lg:px-8" aria-label="Three Pillars">
     <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-center space-y-10">
       <div className="max-w-2xl space-y-3">
-        <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#63DCA8] font-bold"><span className="w-1.5 h-1.5 rounded-full bg-[#63DCA8]" /><span>THE COMPLETE SYSTEM</span></div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1">Three Pillars. <br className="sm:hidden" /><span className="text-[#63DCA8] inline-block">One Creator Business.</span></h2>
+        <div className="flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest text-white/40 font-semibold"><span className="h-px w-8 bg-white/20" /><span>The Complete System</span><span className="h-px w-8 bg-white/20" /></div>
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-white leading-[1.1] pb-1">Three Pillars. <br className="sm:hidden" /><span className="text-[#63DCA8] inline-block">One Creator Business.</span></h2>
         <p className="text-sm sm:text-base text-white/70 font-medium">Create attention. Build conversations. Turn interest into sales.</p>
       </div>
       <div className="pillar-card-grid">{THREE_PILLARS.map(pillar => <PillarCard key={pillar.id} pillar={pillar} onSelectPillar={onSelectPillar} />)}</div>
-      <p className="pillar-card-hint">Click, tap or drag to flip.</p>
     </div>
   </section>
 );

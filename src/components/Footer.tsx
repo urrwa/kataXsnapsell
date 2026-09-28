@@ -16,13 +16,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenModal, onNavigate }) => {
           <div className="space-y-1.5 text-left">
             <button
               onClick={() => onNavigate('section-1')}
-              className="flex items-center gap-2 text-white font-extrabold font-display text-lg tracking-wider"
+              className="flex items-center gap-2.5 text-white font-extrabold font-display text-2xl sm:text-3xl tracking-tight leading-none"
             >
               <span>Kata</span>
-              <span className="text-[#63DCA8]">×</span>
+              <span className="text-[#63DCA8] text-2xl sm:text-3xl">×</span>
               <span>SnapSell</span>
-              <span className="text-white/40 font-normal text-sm font-sans">Academy</span>
             </button>
+            <div className="text-[11px] text-white/30 tracking-widest uppercase font-sans font-semibold mt-1">Academy</div>
             <p className="text-white/50 text-xs max-w-sm">
               AI Chat Support • AI Content Creation • Direct Sales With SnapSell
             </p>

@@ -52,7 +52,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           className="mb-6 sm:mb-7"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#63DCA8]/10 border border-[#63DCA8]/30 text-[#63DCA8] text-xs font-bold tracking-widest uppercase shadow-sm">
-            <span className="w-2 h-2 rounded-full bg-[#63DCA8] animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#63DCA8]" />
             <span>KATA X SNAPSELL ACADEMY</span>
           </div>
         </motion.div>
@@ -64,7 +64,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           className="w-full max-w-4xl mx-auto mb-3.5 sm:mb-4"
         >
-          <h1 className="font-extrabold font-display text-white tracking-tight leading-[1.08] sm:leading-[1.05] text-[clamp(2.25rem,4.8vw,4.25rem)]">
+          <h1 className="font-extrabold font-display text-white leading-[1.08] sm:leading-[1.04] text-[clamp(2.6rem,6vw,5.5rem)]">
             <span className="block text-white"><span className="inline-block">Build More.</span>{' '}<span className="inline-block">Work Less.</span></span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#63DCA8] via-[#8CE8BC] to-[#20B777]">
               Live Bigger.
@@ -79,7 +79,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           transition={{ duration: 0.5, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
           className="text-sm sm:text-base lg:text-lg text-white/80 max-w-xl mx-auto leading-relaxed font-sans px-2"
         >
-          Join Kata’s SnapSell Academy and build a creator business powered by AI, direct sales and professional support.
+          Powered by AI. Built around you.
         </motion.p>
         {/* Primary actions stay directly beneath the hero copy. */}
         <motion.div
@@ -100,7 +100,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <button
             id="hero-secondary-works-btn"
             onClick={onExplore}
-            className="px-8 py-3.5 sm:py-4 rounded-full bg-white/5 hover:bg-white/10 text-white font-semibold text-sm sm:text-base border border-white/15 hover:border-white/30 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+            className="px-8 py-3.5 sm:py-4 rounded-full bg-transparent hover:bg-white/5 text-white/80 hover:text-white font-semibold text-sm sm:text-base border border-white/15 hover:border-white/25 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
           >
             <span>See How It Works</span>
           </button>

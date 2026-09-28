@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
     >
       <div className={`transition-colors duration-300 ${isScrolled || mobileMenuOpen ? 'bg-[#050907]/95 backdrop-blur-xl' : 'bg-transparent'}`}>
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-[44px_1fr_44px] lg:grid-cols-[1fr_auto_1fr] items-center gap-2 lg:gap-6 min-h-[72px] lg:min-h-[80px] border-b border-white/25">
+          <div className="grid grid-cols-[44px_1fr_44px] lg:grid-cols-[1fr_auto_1fr] items-center gap-2 lg:gap-6 min-h-[72px] lg:min-h-[80px] border-b border-white/[0.07]">
             <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-5 xl:gap-8 text-xs text-white/85">
               {[
                 { label: 'The System', target: 'section-4' },
@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 id="header-join-cta"
                 onClick={() => handleLinkClick('section-13')}
-                className="px-4 py-2.5 rounded-[4px] bg-[#2d8554] hover:bg-[#369d64] text-white font-semibold transition-colors whitespace-nowrap"
+                className="px-4 py-2.5 rounded-xl bg-[#2d8554] hover:bg-[#369d64] text-white font-semibold transition-colors whitespace-nowrap"
               >
                 Join Academy
               </button>

@@ -25,7 +25,7 @@ export const StruggleSection: React.FC<StruggleSectionProps> = ({ onNext }) => {
         <div className="creator-workspace__eyebrow"><span className="creator-workspace__index">02 /</span><span>The creator bottleneck</span><span className="creator-workspace__rule" /></div>
         <div className="creator-workspace__layout">
           <motion.div className="creator-workspace__copy" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
-            <h2 id="bottleneck-title">One creator.<br /><span>Too many hats.</span></h2>
+            <h2 id="bottleneck-title" style={{fontSize:'clamp(2.6rem,6vw,5rem)',lineHeight:1.08}}>One creator.<br /><span>Too many hats.</span></h2>
             <p className="creator-workspace__intro">Still doing everything alone? Your best work deserves more of you. Your busywork deserves a better system.</p>
             <div className="creator-workspace__tasks" aria-label="Explore the four creator bottlenecks">
               {TASKS.map((item, index) => {
@@ -61,7 +61,7 @@ export const StruggleSection: React.FC<StruggleSectionProps> = ({ onNext }) => {
               </div>
               <div className="creator-desk__footer"><span className="creator-desk__footer-dot" /><span>{organized ? 'More room for the work only you can do.' : 'Your attention is the only thing connecting it all.'}</span><span className="creator-desk__counter">{organized ? '01 system' : '04 demands'}</span></div>
             </div>
-            <div className="creator-workspace__note"><img src={EDITORIAL_IMAGES.systems.src} alt="" loading="lazy" decoding="async" /><p>You don’t need to work harder.<br /><span>You need a better system.</span></p><span className="creator-workspace__note-symbol" aria-hidden="true">↳</span></div>
+            <div className="creator-workspace__note"><p>You don’t need to work harder.<br /><span>You need a better system.</span></p><span className="creator-workspace__note-symbol" aria-hidden="true">↳</span></div>
           </motion.div>
         </div>
       </div>

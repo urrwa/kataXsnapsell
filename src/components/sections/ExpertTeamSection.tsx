@@ -26,7 +26,7 @@ export const ExpertTeamSection: React.FC = () => {
               src={ASSET_SLOTS.teamLineup.src}
               alt={ASSET_SLOTS.teamLineup.alt}
               referrerPolicy="no-referrer"
-              className="w-full h-[460px] object-cover"
+              className="w-full aspect-[4/5] object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
@@ -59,9 +59,9 @@ export const ExpertTeamSection: React.FC = () => {
 
         {/* Right Column: Copy & Role Labels */}
         <div className="lg:col-span-6 text-left space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#63DCA8]/10 border border-[#63DCA8]/30 text-[#63DCA8] text-xs font-bold tracking-widest uppercase">
-            <Users className="w-3.5 h-3.5" />
-            <span>YOU’RE NOT ALONE</span>
+          <div className="flex items-center gap-3 text-[11px] uppercase tracking-widest text-white/40 font-semibold">
+            <span className="h-px w-8 bg-[#63DCA8]/40" />
+            <span className="text-[#63DCA8]">You’re Not Alone</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1 overflow-visible">
