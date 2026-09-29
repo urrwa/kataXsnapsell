@@ -1,0 +1,42 @@
+.meet-kata { background: #080808; padding-inline: clamp(22px, 4vw, 64px); }
+.meet-kata-layout { max-width: 1280px; margin-inline: auto; display: grid; grid-template-columns: 1.08fr 1fr; align-items: center; gap: clamp(40px, 6vw, 88px); }
+.meet-kata-visuals { position: relative; min-width: 0; padding: 0 64px 58px 0; isolation: isolate; }
+.meet-kata-visuals::before { content: ''; position: absolute; z-index: -1; inset: -40px -20px; background: radial-gradient(ellipse at 42% 45%, rgb(32 201 151 / .09), transparent 66%); pointer-events: none; }
+.meet-kata-portrait, .meet-kata-video { position: relative; overflow: hidden; border: 1px solid rgb(123 222 190 / .24); border-radius: 24px; background: #111815; }
+.meet-kata-portrait { aspect-ratio: .84; }
+.meet-kata-portrait > img { position: absolute; top: 0; left: 0; width: 100%; height: 155%; max-width: none; object-fit: cover; object-position: 53% top; }
+.meet-kata-portrait::after { content: ''; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgb(0 0 0 / .48)); pointer-events: none; }
+.meet-kata-experience { position: absolute; z-index: 1; left: 17px; bottom: 18px; display: flex; align-items: center; gap: 9px; padding: 11px 12px; border: 1px solid rgb(123 222 190 / .18); border-radius: 13px; background: rgb(8 20 15 / .82); backdrop-filter: blur(12px); color: #82dfc2; }
+.meet-kata-experience strong { display: block; color: #f0f6f3; font-size: 11px; font-weight: 600; }
+.meet-kata-experience span { display: block; margin-top: 3px; font-size: 10px; color: #b4c4be; }
+.meet-kata-video { position: absolute; right: 0; bottom: 0; width: 47%; aspect-ratio: 1.26; box-shadow: 0 16px 40px rgb(0 0 0 / .4); }
+.meet-kata-video video { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.08); }
+.meet-kata-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; gap: 9px; padding: 16px 10px; background: linear-gradient(transparent 30%, rgb(0 0 0 / .65)); color: #fff; font-size: 12px; font-weight: 600; }
+.meet-kata-play-icon { display: flex; align-items: center; justify-content: center; width: 43px; height: 43px; border-radius: 50%; background: #20c997; color: #062219; transition: scale .2s ease; }
+.meet-kata-play:hover .meet-kata-play-icon { scale: 1.08; }
+.meet-kata-sound { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: white; background: rgb(0 0 0 / .5); }
+.meet-kata-copy { min-width: 0; }
+.meet-kata-eyebrow { display: flex; align-items: center; gap: 9px; color: #20c997; font-size: 10px; font-weight: 600; letter-spacing: .15em; }
+.meet-kata-eyebrow > span { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.meet-kata-copy h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.2; letter-spacing: -.045em; font-weight: 500; color: #f4f7f5; }
+.meet-kata-subtitle { margin-top: 17px; color: #bdc4c0; font-size: 14px; line-height: 1.7; }
+.meet-kata-subtitle span { color: #71daba; }
+.meet-kata-description { color: #aeb8b2; font-size: 14px; line-height: 1.9; max-width: 490px; }
+.meet-kata-note { border-left: 2px solid rgb(32 201 151 / .65); padding: 1px 0 1px 17px; max-width: 420px; font-size: 15px; line-height: 1.75; color: #dde4df; }
+.meet-kata-benefits { color: #98aaa0; font-size: 11px; line-height: 1.8; }
+.meet-kata-cta { padding: 14px 26px; border-radius: 100px; background: #20c997; color: #071a13; font-size: 13px; font-weight: 600; }
+@media (max-width: 760px) {
+  .meet-kata-layout { grid-template-columns: 1fr; gap: 40px; max-width: 560px; }
+  .meet-kata-visuals { width: 100%; max-width: 480px; margin-inline: auto; }
+  .meet-kata-copy h2 { font-size: clamp(31px, 7.8vw, 42px); }
+}
+@media (max-width: 420px) {
+  .meet-kata-visuals { padding-right: 38px; padding-bottom: 55px; }
+  .meet-kata-video { width: 49%; border-radius: 20px; }
+  .meet-kata-experience { left: 10px; bottom: 14px; padding: 8px; gap: 5px; }
+  .meet-kata-experience strong { font-size: 9px; }
+  .meet-kata-experience span { font-size: 8px; }
+  .meet-kata-experience svg { width: 15px; }
+  .meet-kata-play { padding-bottom: 12px; font-size: 10px; gap: 6px; }
+  .meet-kata-play-icon { width: 35px; height: 35px; }
+}

@@ -1,6 +1,7 @@
-import React from 'react';
-import FlexCarousel from './FlexCarousel';
-import { EDITORIAL_IMAGES } from '../data/images';
+import { AnimatedButton } from './AnimatedButton';
+import { t, useLanguage } from '../i18n';
+import React, { useState } from 'react';
+import { ASSET_SLOTS } from '../data/content';
 import { Sparkles, ShoppingBag, MessageSquare } from 'lucide-react';
 
 interface MediaCard {
@@ -18,135 +19,196 @@ interface MediaCard {
 const CARDS_DATA: MediaCard[] = [
   {
     id: 'hero-kata',
-    image: EDITORIAL_IMAGES.chat.src,
-    alt: EDITORIAL_IMAGES.chat.alt,
-    objectPosition: 'object-center',
+    image: ASSET_SLOTS.heroKata.src,
+    alt: 'Katharina als Mentorin der Katharina Academy',
+    objectPosition: 'object-[center_top]',
     isAiAssistant: true,
-    tag: 'Kata AI Assistant',
-    headline: 'Active 24/7',
-    caption: '“Hey! Here is your exclusive Mediterranean Lookbook link & style presets.”'
+    tag: "Katharina AI Assistenz",
+    headline: "Chat-Demo",
+    caption: "„Hey! Hier findest du den Link zu meinem Lookbook und den Styling-Ideen.“"
   },
   {
     id: 'ai-visual-sync',
-    image: EDITORIAL_IMAGES.content.src,
-    alt: EDITORIAL_IMAGES.content.alt,
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1790000079/pexels-jeny-godjali-2159216127-39193783_rwaym3.jpg',
+    alt: 'Fashion Editorial with AI Visual Sync',
     objectPosition: 'object-center',
-    tag: 'AI Visual Sync',
+    tag: "AI Content Creation",
     icon: Sparkles,
-    headline: 'Consistent Identity',
-    caption: 'Multi-format studio outputs ready'
+    headline: "Dein persönlicher Stil",
+    caption: "Ein Konzept. Viele Formate."
   },
   {
     id: 'creator-coaching',
-    image: EDITORIAL_IMAGES.coaching.src,
-    alt: EDITORIAL_IMAGES.coaching.alt,
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789999591/Pic_12_ngbd1w.png',
+    alt: 'Coaching mit Katharina',
     objectPosition: 'object-center',
-    tag: 'Creator Masterclass',
+    tag: "Creator Masterclass",
     icon: MessageSquare,
-    headline: 'Kata Coaching',
-    caption: 'Intimate Masterclass & Strategy'
+    headline: "Katharina Coaching",
+    caption: "Persönlich lernen und wachsen"
   },
   {
     id: 'direct-sales',
-    image: EDITORIAL_IMAGES.commerce.src,
-    alt: EDITORIAL_IMAGES.commerce.alt,
+    image: ASSET_SLOTS.finishedCampaign.src,
+    alt: 'Direct sales finished campaign photoshoot',
     objectPosition: 'object-center',
-    tag: 'SnapSell Direct Sales',
+    tag: "Creator CRM & Direct Sales",
     icon: ShoppingBag,
-    headline: 'One Simple Link',
-    caption: 'Instant Digital Checkout & Delivery'
+    headline: "Dein digitales Angebot",
+    caption: "Payment-Link und Auslieferung"
   },
   {
     id: 'production-pipeline',
-    image: EDITORIAL_IMAGES.studio.src,
-    alt: EDITORIAL_IMAGES.studio.alt,
+    image: ASSET_SLOTS.btsShoot.src,
+    alt: 'Behind the scenes content studio production',
     objectPosition: 'object-center',
-    tag: 'Studio Productions',
+    tag: "Content-Produktion",
     icon: Sparkles,
-    headline: 'Automated Pipeline',
-    caption: 'Create more without daily filming'
+    headline: "Dein Content-System",
+    caption: "Mehr Content, weniger tägliche Produktion"
   },
   {
     id: 'founder-kata',
-    image: EDITORIAL_IMAGES.mentor.src,
-    alt: EDITORIAL_IMAGES.mentor.alt,
-    objectPosition: 'object-center',
-    tag: 'Creator Coach',
-    headline: 'Founder Kata',
-    caption: '20 Years Coaching & Training'
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789999603/Pic_3_rvyxyr.png',
+    alt: 'Katharina – Creatorin, Coach und Trainerin',
+    objectPosition: 'object-[center_20%]',
+    tag: "Creator-Mentorin",
+    headline: "Katharina – The Creator Mama",
+    caption: "20+ Jahre Erfahrung"
   },
   {
     id: 'streamlined-workflow',
-    image: EDITORIAL_IMAGES.systems.src,
-    alt: EDITORIAL_IMAGES.systems.alt,
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789999657/images_3_fdcnor.jpg',
+    alt: 'Streamlined creator studio workflow',
     objectPosition: 'object-center',
-    tag: 'Zero Burnout',
-    headline: 'Smart Systems',
-    caption: 'Sustainable Growth & Balance'
+    tag: "Mehr Freiraum",
+    headline: "Klare Systeme",
+    caption: "Wachstum mit Struktur"
   },
   {
     id: 'global-network',
-    image: EDITORIAL_IMAGES.network.src,
-    alt: EDITORIAL_IMAGES.network.alt,
+    image: ASSET_SLOTS.finalCommunity.src,
+    alt: 'Katharina Creator Circle – illustratives Community-Bild',
     objectPosition: 'object-center',
-    tag: 'SnapSell Network',
-    headline: 'Global Creators',
-    caption: 'Community of Confident Creators'
+    tag: "Katharina Creator Circle",
+    headline: "Gemeinsam wachsen",
+    caption: "Eine Community für Creatorinnen"
   }
 ];
 
-const CARD_DETAILS: Record<string, string> = {
-  'hero-kata': 'AI chat support answers everyday questions and guides interested buyers to your offers—even while you are offline.',
-  'ai-visual-sync': 'Turn your approved identity and style into photos, clips and captions. You stay in control of the final content.',
-  'creator-coaching': 'Build your personal brand with practical coaching, creator strategy and hands-on guidance from Kata.',
-  'direct-sales': 'Upload your digital content, set your price and share one SnapSell link for checkout and delivery.',
-  'production-pipeline': 'Create with photographers, filmmakers and production teams. Available support depends on your program.',
-  'founder-kata': 'Learn from Kata’s around 20 years of coaching and training experience, focused on your next chapter as a creator.',
-  'streamlined-workflow': 'Connect your content, conversations and sales in one workflow, with less repetitive work and more time to create.',
-  'global-network': 'Explore creator connections, productions and international opportunities, subject to selection and availability.'
+// Double the cards in each group so a single group is wider than any widescreen monitor (~3200px)
+const GROUP_CARDS = [...CARDS_DATA, ...CARDS_DATA];
+
+export const HeroMediaStrip: React.FC = () => {
+  useLanguage();
+
+  const [paused,setPaused] = useState(false);
+  const renderCard = (card: MediaCard, keyPrefix: string, index: number) => {
+    const Icon = card.icon;
+    const cardKey = `${keyPrefix}-${card.id}-${index}`;
+
+    return (
+      <div
+        key={cardKey}
+        role="article"
+        aria-label={`${t(card.headline || card.tag || 'Media card')}: ${t(card.caption || card.alt)}`}
+        className="group relative shrink-0 w-[148px] sm:w-[172px] lg:w-[186px] h-[215px] sm:h-[246px] lg:h-[266px] rounded-[20px] sm:rounded-[24px] overflow-hidden bg-[#121113] border border-white/15 hover:border-[#20C997]/70 transition-all duration-300 hover:scale-[1.03] shadow-[0_12px_32px_rgba(0,0,0,0.85)] hover:shadow-[0_15px_35px_rgba(32, 201, 151,0.25)] select-none"
+      >
+        {/* Media Image */}
+        <img
+          src={card.image}
+          alt={t(card.alt)}
+          referrerPolicy="no-referrer"
+          loading={keyPrefix === 'group-1' && index < 4 ? 'eager' : 'lazy'}
+          className={`w-full h-full object-cover ${card.objectPosition || 'object-center'} transition-transform duration-700 group-hover:scale-105 pointer-events-none`}
+        />
+
+        {/* Ambient atmospheric gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/35 to-black/10 group-hover:via-black/20 transition-all duration-300 pointer-events-none" />
+
+        {/* Card Overlays */}
+        {t(card.isAiAssistant ? (
+          /* Star Card: Kata AI Assistant Info at Bottom, keeping Kata's face and hair 100% visible */
+          <div className="absolute bottom-0 inset-x-0 p-2.5 sm:p-3 z-10 flex flex-col justify-end text-left pointer-events-none bg-gradient-to-t from-black/95 via-black/70 to-transparent pt-8">
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#141416]/95 border border-[#20C997]/50 text-white text-[9px] font-bold w-fit mb-1 shadow-md">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span className="text-[#20C997]">{t("Katharina AI Assistenz")}</span>
+              <span className="text-white/30">{t("•")}</span>
+              <span className="text-white/70 text-[8px]">{t("Chat-Demo")}</span>
+            </div>
+            <p className="text-[10px] sm:text-[10.5px] text-white/90 font-medium line-clamp-2 leading-snug">
+              {t(card.caption)}
+            </p>
+          </div>
+        ) : (
+          /* Standard Cards: Top Pill Tag + Bottom Caption */
+          <>
+            {t(card.tag && (
+              <div className="absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[8.5px] sm:text-[9px] font-semibold tracking-wide">
+                {t(Icon && <Icon className="w-2.5 h-2.5 text-[#20C997]" />)}
+                <span className="truncate max-w-[125px]">{t(card.tag)}</span>
+              </div>
+            ))}
+
+            <div className="absolute bottom-0 inset-x-0 p-2.5 sm:p-3 z-10 flex flex-col justify-end text-left pointer-events-none bg-gradient-to-t from-black/95 via-black/60 to-transparent pt-6">
+              {t(card.headline && (
+                <div className="text-[11px] sm:text-xs font-bold text-white tracking-tight flex items-center gap-1 drop-shadow-sm">
+                  <span>{t(card.headline)}</span>
+                </div>
+              ))}
+              {t(card.caption && (
+                <p className="text-[9px] sm:text-[10px] text-white/80 font-medium line-clamp-2 leading-tight mt-0.5">
+                  {t(card.caption)}
+                </p>
+              ))}
+            </div>
+          </>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div
+      className="hero-marquee relative w-full overflow-hidden py-2 sm:py-3 select-none"
+      aria-label={t("Katharina Academy – Creator-Bildstreifen")}
+    >
+      {/* Explicit Inline Styles for 100% Guaranteed Keyframe Activation */}
+      <style>{t(`
+        @keyframes hero-marquee-scroll {
+          0% {
+            transform: translate3d(0, 0, 0);
+          }
+          100% {
+            transform: translate3d(-50%, 0, 0);
+          }
+        }
+        .hero-marquee-track-animated {
+          display: flex !important;
+          width: max-content !important;
+          animation: hero-marquee-scroll 42s linear infinite !important;
+          animation-play-state: running;
+          will-change: transform !important;
+        }
+      `)}</style>
+
+      {/* Subtle edge fade overlays with pointer-events-none */}
+      <div className="absolute left-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-r from-[#080808] to-transparent pointer-events-none z-20" />
+      <div className="absolute right-0 inset-y-0 w-12 sm:w-24 bg-gradient-to-l from-[#080808] to-transparent pointer-events-none z-20" />
+
+      <AnimatedButton onClick={() => setPaused(!paused)} className="relative z-30 mx-auto mb-3 block rounded-full border border-white/15 px-3 py-1 text-[10px] text-white/65">{t(paused ? 'Bildstreifen starten' : 'Bildstreifen pausieren')}</AnimatedButton>
+      {/* Continuously animated track */}
+      <div className="hero-marquee-track hero-marquee-track-animated" style={{animationPlayState: paused ? 'paused' : 'running'}}>
+        {/* First group */}
+        <div className="hero-marquee-group flex shrink-0 gap-3 sm:gap-4 pr-3 sm:pr-4">
+          {t(GROUP_CARDS.map((card, idx) => renderCard(card, 'group-1', idx)))}
+        </div>
+
+        {/* Second identical group for seamless infinite looping */}
+        <div className="hero-marquee-group flex shrink-0 gap-3 sm:gap-4 pr-3 sm:pr-4" aria-hidden="true">
+          {t(GROUP_CARDS.map((card, idx) => renderCard(card, 'group-2', idx)))}
+        </div>
+      </div>
+    </div>
+  );
 };
-
-const CAROUSEL_ITEMS = CARDS_DATA.map(card => ({
-  ...card,
-  src: card.image,
-  title: card.tag || card.headline,
-}));
-
-export const HeroMediaStrip: React.FC = () => (
-  <FlexCarousel
-    items={CAROUSEL_ITEMS}
-    label="SnapSell Academy creator visual media slider"
-    className="academy-flex-carousel"
-    intro="none"
-    autoplay
-    continuous
-    speed={48}
-    fixedCardSize
-    gap={16}
-    radius={24}
-    bend={0}
-    dispersion={0}
-    liquid={0}
-    squeeze={0}
-    focusOnClick={false}
-    captureWheel={false}
-    captions={false}
-    renderItem={(card, { expanded, detailId }) => {
-      const Icon = card.icon;
-      return <>
-        <span className="carousel-card-shade" aria-hidden="true" />
-        <span className="carousel-card-tag">{Icon && <Icon />}{card.tag}</span>
-        <span className="carousel-card-summary" aria-hidden={expanded}>
-          {card.isAiAssistant && <span className="assistant-status">● Active 24/7</span>}
-          {!card.isAiAssistant && <strong>{card.headline}</strong>}
-          <p>{card.caption}</p>
-        </span>
-        <span className="carousel-card-detail" id={detailId} aria-hidden={!expanded}>
-          <strong>{card.headline}</strong>
-          <p>{CARD_DETAILS[card.id]}</p>
-          <small>Move away to resume · Tap to close</small>
-        </span>
-      </>;
-    }}
-  />
-);

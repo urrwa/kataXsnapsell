@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+/* Only initialized, off-screen blocks are hidden; content remains accessible. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-scroll-reveal="pending"] { opacity: 0; }
+  [data-scroll-reveal="pending"]:focus-within { opacity: 1; }
+}
+@media print {
+  [data-scroll-reveal] { opacity: 1 !important; translate: none !important; }
 }
 
 @layer base {
   :root {
-    --brand-pink: #63DCA8;
-    --brand-pink-deep: #20B777;
-    --brand-black: #050907;
-    --brand-charcoal: #101A14;
-    --brand-card: #0D1711;
-    --brand-champagne: #AFD9BF;
-    --brand-muted: #A7B8AD;
+    --brand-pink: #20C997;
+    --brand-pink-deep: #169B74;
+    --brand-black: #080808;
+    --brand-charcoal: #141414;
+    --brand-card: #121113;
+    --brand-champagne: #D7BE8A;
+    --brand-muted: #B8B3B6;
     --brand-white: #F8F6F7;
   }
 
@@ -24,13 +29,13 @@
     width: 100%;
     overflow-x: clip;
     min-height: 100%;
-    background-color: #050907;
+    background-color: #080808;
     color: #F8F6F7;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
   h1, h2, h3, .font-display {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Syne', sans-serif;
   }
 
   .font-editorial {
@@ -44,14 +49,14 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050907;
+  background: #080808;
 }
 ::-webkit-scrollbar-thumb {
   background: #262626;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #63DCA8;
+  background: #20C997;
 }
 
 /* Standard continuous document flow section styles with responsive breathing room */
@@ -73,55 +78,20 @@
   overflow: visible;
 }
 
-/* Global display heading refinement — tighter tracking, optical alternates */
-h1, h2, h3, .font-display {
-  letter-spacing: -0.02em;
-  font-feature-settings: "ss01", "cv01";
-}
-
-/* Radial section glow — place behind key headlines */
-.section-glow {
-  position: relative;
-}
-.section-glow::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 70% 40% at 50% -5%, rgba(99,220,168,0.08) 0%, transparent 65%);
-  z-index: 0;
-}
-.section-glow > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* Subtle grain texture for section variety */
-.section-grain::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.018;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-size: 128px 128px;
-  z-index: 0;
-}
-
 /* Glow and gradient subtle utility */
 .glow-pink-subtle {
-  box-shadow: 0 0 35px -10px rgba(99, 220, 168, 0.25);
+  box-shadow: 0 0 35px -10px rgba(32, 201, 151, 0.25);
 }
 
 .glass-card {
-  background: rgba(16, 26, 20, 0.7);
+  background: rgba(20, 20, 20, 0.7);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-card-hover:hover {
-  border-color: rgba(99, 220, 168, 0.4);
-  background: rgba(20, 38, 27, 0.85);
+  border-color: rgba(32, 201, 151, 0.4);
+  background: rgba(28, 22, 26, 0.85);
 }
 
 /* Hero continuous infinite marquee animation */
@@ -135,7 +105,7 @@ h1, h2, h3, .font-display {
   display: flex;
   width: max-content;
   animation: hero-marquee-scroll 42s linear infinite;
-  animation-play-state: running !important;
+  animation-play-state: running;
   will-change: transform;
 }
 
@@ -155,31 +125,25 @@ h1, h2, h3, .font-display {
   }
 }
 
-/* SnapSell surface polish. Original section geometry and media stay intact. */
-button[class~="bg-[#63DCA8]"] {
-  color: #04180f;
-  background-image: linear-gradient(135deg, #63dca8, #2fc088 55%, #20b777);
-}
 
-#hero-primary-join-btn,
-#hero-secondary-works-btn,
-#meet-kata-start-btn,
-#explore-opportunities-btn,
-#discover-snapsell-btn,
-#submit-application-btn {
-  border-radius: 9px;
-}
+/* Prompt updates: retain original layout, typography and black surfaces. */
+:root{--brand-green:#20C997;--brand-green-deep:#169B74;--brand-pink:var(--brand-green);--brand-pink-deep:var(--brand-green-deep)}
+:focus-visible{outline:2px solid #20C997!important;outline-offset:4px}
+button.bg-\[\#20C997\],a.bg-\[\#20C997\]{color:#080808}
+.hero-marquee:hover .hero-marquee-track-animated,.hero-marquee:focus-within .hero-marquee-track-animated{animation-play-state:paused!important}
+[hidden]{display:none!important}
+input,select{min-width:0;max-width:100%}
+@media(min-width:1280px) and (min-height:850px){html{scroll-snap-type:y proximity}main>section{scroll-snap-align:start;min-height:100svh}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;scroll-snap-type:none}*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.hero-marquee-track,.hero-marquee-track-animated{animation:none!important}.hero-marquee{overflow-x:auto}}
 
-#submit-application-btn {
-  color: #04180f;
-}
+@media(prefers-reduced-motion:reduce){:root .hero-marquee .hero-marquee-track-animated{animation:none!important}}
 
-button:focus-visible, a:focus-visible {
-  outline: 2px solid #63dca8;
-  outline-offset: 4px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .hero-marquee-track { animation: none; }
+/* Compact bilingual control using the existing SnapSell accent. */
+.language-switch { display: inline-flex; flex-shrink: 0; padding: 3px; gap: 2px; border: 1px solid rgb(255 255 255 / .16); border-radius: 999px; background: rgb(8 8 8 / .75); }
+.language-switch button { min-width: 34px; min-height: 32px; padding: 5px 7px; border-radius: 999px; color: rgb(255 255 255 / .7); font-size: 11px; font-weight: 700; line-height: 1; }
+.language-switch button[aria-pressed="true"] { background: #20C997; color: #080808; }
+.language-switch button:hover { color: white; }
+.language-switch button[aria-pressed="true"]:hover { color: #080808; }
+@media (max-width: 639px) {
+  html[lang="de"] #section-1 h1 { font-size: clamp(1.7rem, 8.5vw, 3rem); }
 }

@@ -7,18 +7,18 @@ export interface SectionConfig {
   supportingCopy?: string;
 }
 
-export type CreatorStage =
-  | 'Planning to Start'
-  | 'New Creator'
-  | 'Active Creator'
-  | 'Established Creator'
+export type CreatorStage = 
+  | 'Planning to Start' 
+  | 'New Creator' 
+  | 'Active Creator' 
+  | 'Established Creator' 
   | 'Creator Agency';
 
-export type MainGoal =
-  | 'Create More Content'
-  | 'Automate Conversations'
-  | 'Increase Direct Sales'
-  | 'Get Professional Support'
+export type MainGoal = 
+  | 'Create More Content' 
+  | 'Automate Conversations' 
+  | 'Increase Direct Sales' 
+  | 'Get Professional Support' 
   | 'Access International Opportunities';
 
 export interface ApplicationFormData {

@@ -1,5 +1,4 @@
 node_modules/
-.npm-cache/
 build/
 dist/
 coverage/
@@ -8,13 +7,7 @@ coverage/
 .env*
 !.env.example
 
-# Local design explorations and delivery snapshots
-/artwork/
-/*-preview.png
-/*.zip
-/asset-generation-prompts.json
-/public/images/saas/
-
-# Unoptimized source photos (the website uses WebP assets)
-/public/images/editorial/*.jpg
-/public/images/editorial/mentor.png
+reference-update-backup/
+video-inspection/
+preview*.png
+*.bak

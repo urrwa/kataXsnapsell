@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import { useScrollReveal } from './hooks/useScrollReveal';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Modal, ModalType } from './components/Modal';
@@ -18,22 +19,25 @@ import { ProductionsSection } from './components/sections/ProductionsSection';
 import { GrowthSection } from './components/sections/GrowthSection';
 import { FinalApplicationSection } from './components/sections/FinalApplicationSection';
 
-import { SECTIONS } from './data/content';
+import { SectionProgress, AcademySection } from './components/BriefAdditions';
+import { MotionConfig } from 'motion/react';
 
 export default function App() {
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  useScrollReveal(containerRef);
+
   // Smooth Navigation to any Section
   const scrollToSection = useCallback((sectionId: string) => {
     const el = document.getElementById(sectionId);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
     }
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#050907] text-[#F8F6F7] selection:bg-[#63DCA8] selection:text-white overflow-x-clip">
+    <MotionConfig reducedMotion="user"><div className="relative min-h-screen bg-[#080808] text-[#F8F6F7] selection:bg-[#20C997] selection:text-white overflow-x-clip">
       {/* Top Header */}
       <Header
         onNavigate={scrollToSection}
@@ -51,7 +55,7 @@ export default function App() {
 
         {/* Section 02: The Current Struggle */}
         <StruggleSection
-          onNext={() => scrollToSection('section-3')}
+          onNext={() => scrollToSection('section-4')}
         />
 
         {/* Section 03: Meet Kata */}
@@ -79,6 +83,7 @@ export default function App() {
         <ConnectedJourneySection />
 
         {/* Section 09: Expert Team */}
+        <AcademySection />
         <ExpertTeamSection />
 
         {/* Section 10: Global Creator Lifestyle */}
@@ -87,7 +92,7 @@ export default function App() {
         />
 
         {/* Section 11: Professional Productions */}
-        <ProductionsSection />
+        
 
         {/* Section 12: Growth Potential & Transparent Disclaimer */}
         <GrowthSection />
@@ -105,11 +110,12 @@ export default function App() {
         />
       </main>
 
+      <SectionProgress />
       {/* Accessible Global Modals (Privacy, Terms, Legal, Contact, Asset Slots) */}
       <Modal
         type={activeModal}
         onClose={() => setActiveModal(null)}
       />
-    </div>
+    </div></MotionConfig>
   );
 }

@@ -1,6 +1,8 @@
-import { SlideButton } from '../SlideButton';
-import React, { useState } from 'react';
-import { Globe, ArrowUpRight, MapPin, Camera, Users, Sparkles, Building2 } from 'lucide-react';
+import { AnimatedButton } from '../AnimatedButton';
+import { t, useLanguage } from '../../i18n';
+import React, { useState, useEffect, useRef } from 'react';
+import { MexicoExperience } from '../BriefAdditions';
+import { Globe, ArrowUpRight, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 
 interface GlobalLifestyleSectionProps {
   onExploreOpportunities: () => void;
@@ -8,162 +10,160 @@ interface GlobalLifestyleSectionProps {
 
 const DESTINATIONS = [
   {
-    num: '01',
-    icon: Camera,
-    title: 'International Shoots',
-    tagline: 'Mediterranean Coastal Villas',
-    location: 'French Riviera & Balearics',
-    desc: 'Curated multi-day photography sets with international lighting crews and natural golden-hour backdrops.',
-    coords: '43.7° N, 7.2° E',
-    accent: '#63DCA8',
+    title: "Internationale Produktionen",
+    tagline: "Professionelle Fotos und Videos",
+    location: "Ausgewählte Locations",
+    image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=900&auto=format&fit=crop",
+    desc: "Erstelle hochwertigen Content mit professionellen Fotografen und Videoteams."
   },
   {
-    num: '02',
-    icon: Building2,
-    title: 'Premium Locations',
-    tagline: 'Modern Architectural Sanctuaries',
-    location: 'Zurich & Milan Penthouses',
-    desc: 'High-contrast minimalist spaces crafted specifically for luxury lifestyle branding and editorial lookbooks.',
-    coords: '45.4° N, 9.1° E',
-    accent: '#63DCA8',
+    title: "Filmreife Shootings",
+    tagline: "Premium-Content an besonderen Orten",
+    location: "Internationale Möglichkeiten",
+    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=900&auto=format&fit=crop",
+    desc: "Produziere Premium-Fotos und Videos an ausgewählten Locations."
   },
   {
-    num: '03',
-    icon: Sparkles,
-    title: 'Creator Events',
-    tagline: 'Private Masterclass Summits',
-    location: 'Dubai & London Salons',
-    desc: 'Intimate roundtables, live AI workflow intensives, and private strategy sessions led directly by Kata.',
-    coords: '25.2° N, 55.2° E',
-    accent: '#63DCA8',
+    title: "Creator-Events in Europa",
+    tagline: "Lernen und vernetzen",
+    location: "Europa",
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=900&auto=format&fit=crop",
+    desc: "Lerne andere Creatorinnen, Partner und Branchenexperten kennen."
   },
   {
-    num: '04',
-    icon: Users,
-    title: 'Global Networking',
-    tagline: 'Empowered Creator Collective',
-    location: 'Worldwide Community',
-    desc: 'Collaborate with trusted, ambitious female peers building high-value independent media businesses.',
-    coords: 'Worldwide',
-    accent: '#63DCA8',
-  },
+    title: "Creator Networking",
+    tagline: "Katharina Creator Circle",
+    location: "Internationale Community",
+    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=900&auto=format&fit=crop",
+    desc: "Baue wertvolle Kontakte und internationale Partnerschaften auf."
+  }
 ];
 
 export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
-  onExploreOpportunities,
+  onExploreOpportunities
 }) => {
-  const [active, setActive] = useState<number | null>(null);
+  useLanguage();
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [paused, setPaused] = useState(false);
+  const touchStart = useRef(0);
+  useEffect(() => { if (paused || matchMedia('(prefers-reduced-motion: reduce)').matches) return; const timer = setInterval(() => setCurrentIndex(c => (c + 1) % DESTINATIONS.length), 7000); return () => clearInterval(timer); }, [paused]);
+  const prev = () => setCurrentIndex((c) => (c === 0 ? DESTINATIONS.length - 1 : c - 1));
+  const next = () => setCurrentIndex((c) => (c === DESTINATIONS.length - 1 ? 0 : c + 1));
 
   return (
     <section
-      id="section-10"
-      className="landing-section bg-[#050907] px-4 sm:px-6 lg:px-8"
-      aria-label="Global Creator Lifestyle"
+      id="section-11"
+      className="landing-section bg-[#0A0A0C] px-4 sm:px-6 lg:px-8"
+      aria-label={t("Global Creator Lifestyle")}
     >
-      <div className="max-w-6xl mx-auto w-full flex flex-col items-center space-y-14">
-
-        {/* Header */}
-        <div className="text-center max-w-2xl space-y-4">
-          <div className="flex items-center justify-center gap-3 text-[11px] uppercase tracking-widest text-white/40 font-semibold">
-            <span className="h-px w-8 bg-white/20" />
-            <Globe className="w-3 h-3 text-[#63DCA8]" />
-            <span className="text-[#63DCA8]">More Possibilities</span>
-            <span className="h-px w-8 bg-white/20" />
+      <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-center space-y-8">
+        {/* Header Block */}
+        <div className="max-w-3xl space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#20C997]/10 border border-[#20C997]/30 text-[#20C997] text-xs font-bold tracking-widest uppercase">
+            <Globe className="w-3.5 h-3.5" />
+            <span>{t("KATHARINA CREATOR CIRCLE")}</span>
           </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display text-white leading-[1.1]">
-            The World Is{' '}
-            <span className="text-[#63DCA8]">Your Studio</span>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1 overflow-visible">{t(" Lerne online. Wachse gemeinsam. ")}<span className="text-[#20C997] inline-block">{t("Erschaffe Content weltweit.")}</span>
           </h2>
-          <p className="text-sm sm:text-base text-white/60">
-            Selected members access international productions, creator trips, events and professional collaborations.
-          </p>
+
+          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">{t(" Ausgewählte Academy-Mitglieder können Zugang zu besonderen Community- und Produktionsmöglichkeiten erhalten. ")}</p>
         </div>
 
-        {/* Destination Grid */}
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">
-          {DESTINATIONS.map((item, idx) => {
-            const Icon = item.icon;
-            const isActive = active === idx;
-            return (
-              <div
-                key={idx}
-                onMouseEnter={() => setActive(idx)}
-                onMouseLeave={() => setActive(null)}
-                className={`group relative flex flex-col gap-5 p-8 cursor-default transition-colors duration-300 ${
-                  isActive ? 'bg-[#0D1A12]' : 'bg-[#080F0A]'
-                }`}
-              >
-                {/* Number + Icon row */}
-                <div className="flex items-start justify-between">
-                  <span className="text-[11px] font-bold tracking-widest text-white/20 tabular-nums">
-                    {item.num}
-                  </span>
-                  <div
-                    className={`w-9 h-9 rounded-xl flex items-center justify-center border transition-colors duration-300 ${
-                      isActive
-                        ? 'bg-[#63DCA8]/15 border-[#63DCA8]/40'
-                        : 'bg-white/[0.04] border-white/10'
-                    }`}
-                  >
-                    <Icon
-                      className={`w-4 h-4 transition-colors duration-300 ${
-                        isActive ? 'text-[#63DCA8]' : 'text-white/40'
-                      }`}
-                      strokeWidth={1.8}
-                    />
-                  </div>
-                </div>
+        {/* 4 Visual Opportunity Cards (Grid on desktop, carousel on mobile) */}
+        <div className="hidden lg:flex gap-4 w-full overflow-x-auto pb-3">
+          {t([...DESTINATIONS.slice(currentIndex), ...DESTINATIONS.slice(0,currentIndex)].map((item, idx) => (
+            <div
+              key={idx}
+              className="group relative shrink-0 w-[calc(25%-12px)] h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-[#20C997]/60 transition-all duration-300 shadow-xl flex flex-col justify-end p-5 text-left bg-black"
+            >
+              <img loading="lazy"
+                src={item.image}
+                alt={t(item.title)}
+                referrerPolicy="no-referrer"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-75"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-                {/* Text content */}
-                <div className="space-y-2">
-                  <p className="text-[10px] font-bold tracking-widest text-[#63DCA8]/70 uppercase flex items-center gap-1.5">
-                    <MapPin className="w-3 h-3" />
-                    {item.location}
-                  </p>
-                  <h3 className="text-xl font-bold font-display text-white leading-snug">
-                    {item.title}
-                  </h3>
-                  <p
-                    className={`text-xs font-semibold transition-colors duration-300 ${
-                      isActive ? 'text-[#63DCA8]' : 'text-white/30'
-                    }`}
-                  >
-                    {item.tagline}
-                  </p>
-                  <p className="text-sm text-white/50 leading-relaxed pt-1">
-                    {item.desc}
-                  </p>
+              <div className="relative z-10 space-y-1.5">
+                <div className="flex items-center gap-1.5 text-[11px] text-[#D7BE8A] font-semibold">
+                  <MapPin className="w-3.5 h-3.5" />
+                  <span>{t(item.location)}</span>
                 </div>
-
-                {/* Coordinates footer */}
-                <div className="mt-auto pt-4 border-t border-white/[0.06] flex items-center justify-between">
-                  <span className="text-[10px] text-white/20 font-mono tracking-wider">
-                    {item.coords}
-                  </span>
-                  <ArrowUpRight
-                    className={`w-4 h-4 transition-all duration-300 ${
-                      isActive ? 'text-[#63DCA8] translate-x-0.5 -translate-y-0.5' : 'text-white/10'
-                    }`}
-                  />
-                </div>
+                <h4 className="text-lg font-bold font-display text-white">{t(item.title)}</h4>
+                <div className="text-xs text-[#20C997] font-medium">{t(item.tagline)}</div>
+                <p className="text-[11px] text-white/70 line-clamp-2 pt-1">{t(item.desc)}</p>
               </div>
-            );
-          })}
+            </div>
+          )))}
         </div>
 
-        {/* CTA */}
-        <div className="flex flex-col items-center gap-3">
-          <SlideButton
-            id="explore-opportunities-btn"
-            onClick={onExploreOpportunities}
-            className="px-7 py-3.5 rounded-full bg-[#63DCA8] hover:bg-[#20B777] text-[#050907] font-bold text-sm flex items-center gap-2 shadow-xl shadow-[#63DCA8]/20 transition-all active:scale-95"
+        {/* Mobile / Tablet Carousel View */}
+        <div onTouchStart={e => { setPaused(true); touchStart.current = e.touches[0].clientX; }} onTouchEnd={e => { const dx = e.changedTouches[0].clientX - touchStart.current; if (Math.abs(dx) > 40) dx > 0 ? prev() : next(); }} className="lg:hidden w-full max-w-md relative">
+          <div className="relative h-[360px] rounded-3xl overflow-hidden border border-white/15 shadow-2xl bg-black flex flex-col justify-end p-6 text-left">
+            <img
+              src={DESTINATIONS[currentIndex].image}
+              alt={t(DESTINATIONS[currentIndex].title)}
+              referrerPolicy="no-referrer"
+              className="absolute inset-0 w-full h-full object-cover opacity-60"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+
+            <div className="relative z-10 space-y-1.5">
+              <div className="flex items-center gap-1.5 text-xs text-[#D7BE8A] font-semibold">
+                <MapPin className="w-3.5 h-3.5" />
+                <span>{t(DESTINATIONS[currentIndex].location)}</span>
+              </div>
+              <h4 className="text-xl font-bold font-display text-white">{t(DESTINATIONS[currentIndex].title)}</h4>
+              <div className="text-xs text-[#20C997] font-medium">{t(DESTINATIONS[currentIndex].tagline)}</div>
+              <p className="text-xs text-white/70 pt-1">{t(DESTINATIONS[currentIndex].desc)}</p>
+            </div>
+          </div>
+
+          {/* Carousel controls */}
+          <div className="flex items-center justify-between mt-3 px-2">
+            <AnimatedButton animationVariant="icon"
+              onClick={() => {setPaused(true);prev();}}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
+              aria-label={t("Vorherige Experience")}
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </AnimatedButton>
+            <div className="flex gap-1.5">
+              {t(DESTINATIONS.map((_, i) => (
+                <span
+                  key={i}
+                  className={`w-2 h-2 rounded-full ${i === currentIndex ? 'w-5 bg-[#20C997]' : 'bg-white/20'}`}
+                />
+              )))}
+            </div>
+            <AnimatedButton animationVariant="icon"
+              onClick={() => {setPaused(true);next();}}
+              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
+              aria-label={t("Nächste Experience")}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </AnimatedButton>
+          </div>
+        </div>
+
+        <AnimatedButton onClick={() => setPaused(!paused)} className="text-xs text-white/70 border border-white/15 rounded-full px-4 py-2">{t(paused ? 'Experience-Slider starten' : 'Experience-Slider pausieren')}</AnimatedButton>
+        <p className="text-xs text-white/50">{t("Stimmungsbilder · keine dokumentierten Academy-Events.")}</p>
+        <MexicoExperience />
+        {/* CTA Button & Mandatory Qualification Line */}
+        <div className="space-y-3 max-w-xl">
+          <AnimatedButton
+            animateArrow id="explore-opportunities-btn"
+            onClick={() => document.getElementById('mexico-experience')?.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'})}
+            className="px-7 py-3.5 rounded-full bg-[#20C997] hover:bg-[#169B74] text-white font-bold text-sm flex items-center gap-2 mx-auto shadow-xl shadow-[#20C997]/20 transition-all active:scale-95"
           >
-            <span>Explore Opportunities</span>
-            <ArrowUpRight className="w-4 h-4" />
-          </SlideButton>
-          <p className="text-[11px] text-white/30">
-            * Opportunities depend on selection, availability and individual agreements.
-          </p>
+            <span>{t("Creator Circle entdecken")}</span>
+            
+          </AnimatedButton>
+
+          <p className="text-sm text-white/70 leading-relaxed">{t(" Internationale Experiences sind für ausgewählte, verifizierte Mitglieder verfügbar. Teilnahme, Leistungen, Termine und Kosten hängen vom jeweiligen Programm, der Verfügbarkeit und individuellen Vereinbarungen ab. ")}</p>
         </div>
       </div>
     </section>

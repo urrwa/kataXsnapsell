@@ -1,0 +1,113 @@
+/* Adapted from Uiverse.io by ryota1231, with the SnapSell palette. */
+.animated-button {
+  --ab-size: 19px;
+  --ab-edge: 12px;
+  --ab-shift: 7px;
+  --ab-fill: #20c997;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-inline: calc(var(--ab-size) + var(--ab-edge) + 8px) !important;
+  border-radius: 100px;
+  box-shadow: 0 0 0 1px #20c99745;
+  cursor: pointer;
+  transition: border-radius .6s cubic-bezier(.23,1,.32,1), box-shadow .6s cubic-bezier(.23,1,.32,1), color .6s, scale .3s;
+}
+.animated-button > .ab-text {
+  position: relative;
+  z-index: 2;
+  display: block;
+  min-width: 0;
+  transform: translateX(calc(-1 * var(--ab-shift)));
+  transition: transform .8s cubic-bezier(.23,1,.32,1), color .4s;
+}
+.animated-button > .ab-text > svg { display: inline-block; vertical-align: middle; }
+.animated-button > .ab-arrow {
+  position: absolute;
+  top: 50%;
+  width: var(--ab-size);
+  height: var(--ab-size);
+  fill: currentColor;
+  stroke: none;
+  z-index: 3;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: left .8s cubic-bezier(.23,1,.32,1), right .8s cubic-bezier(.23,1,.32,1), color .4s;
+}
+.animated-button > .arr-1 { right: var(--ab-edge); }
+.animated-button > .arr-2 { left: calc(-1 * var(--ab-size) - 10px); }
+.animated-button > .ab-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(150%, 320px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ab-fill);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  z-index: 1;
+  pointer-events: none;
+  transition: transform .8s cubic-bezier(.23,1,.32,1), opacity .8s cubic-bezier(.23,1,.32,1);
+}
+.animated-button:not(:disabled):is(:hover, :focus-visible) {
+  color: #05251a !important;
+  border-radius: 12px;
+  box-shadow: 0 0 0 12px transparent;
+}
+.animated-button:not(:disabled):is(:hover, :focus-visible) > .arr-1 { right: calc(-1 * var(--ab-size) - 10px); }
+.animated-button:not(:disabled):is(:hover, :focus-visible) > .arr-2 { left: var(--ab-edge); }
+.animated-button:is(:hover, :focus-visible) > .ab-arrow { transform: translateY(-50%); }
+.animated-button:not(:disabled):is(:hover, :focus-visible) > .ab-text { transform: translateX(var(--ab-shift)); }
+.animated-button:not(:disabled):is(:hover, :focus-visible) > .ab-text,
+.animated-button:not(:disabled):is(:hover, :focus-visible) > .ab-text * { color: #05251a !important; }
+.animated-button:not(:disabled):is(:hover, :focus-visible) > .ab-circle { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.animated-button:not(:disabled):active { scale: .95; box-shadow: 0 0 0 4px #20c99755; }
+.animated-button:disabled { cursor: not-allowed; }
+.animated-button.ab-compact { --ab-size: 11px; --ab-edge: 5px; --ab-shift: 3px; padding-inline: 18px !important; }
+.animated-button.ab-card { --ab-shift: 4px; border-radius: 24px; padding-left: 22px !important; padding-right: 38px !important; }
+.animated-button.ab-card > .ab-arrow { top: 24px; }
+.animated-button.ab-card > .ab-text { height: 100%; text-align: inherit; }
+.animated-button.ab-icon { --ab-size: 16px; --ab-edge: calc(50% - 8px); padding-inline: 9px !important; min-width: 34px; min-height: 34px; }
+.animated-button.ab-icon > .ab-text { display: grid; place-items: center; transform: none; transition: opacity .4s, transform .8s cubic-bezier(.23,1,.32,1); }
+.animated-button.ab-icon > .arr-1 { opacity: 0; }
+.animated-button.ab-icon:not(:disabled):is(:hover, :focus-visible) > .ab-text { opacity: 0; transform: translateX(30px); }
+.animated-button.ab-brand { --ab-size: 13px; --ab-edge: 5px; --ab-shift: 2px; padding-inline: 5px 22px !important; border-radius: 10px; box-shadow: none; }
+.animated-button.ab-brand > .arr-1 { opacity: .5; }
+.reference-primary.animated-button, .animated-button[class*="bg-[#20C997]"] { --ab-fill: #64e3bb; }
+.reference-nav-links .animated-button { font-size: 12px; padding-block: 9px; box-shadow: none; }
+.reference-nav-links .animated-button::after { display: none; }
+.reference-nav-links { gap: clamp(6px, 1.2vw, 22px); }
+.reference-logo.animated-button > .ab-text { text-align: left; font-size: inherit; font-weight: inherit; letter-spacing: inherit; line-height: inherit; margin-top: 0; display: block; color: inherit; }
+.reference-logo.animated-button > .ab-text > span { display: flex; gap: 9px; align-items: center; margin-top: 8px; color: #a6a6a6; font-size: 9px; letter-spacing: 4.5px; }
+.reference-logo.animated-button > .ab-circle { margin: 0; }
+.reference-mobile-menu nav .ab-text { display: flex; align-items: center; gap: 14px; }
+.reference-mobile-menu nav .ab-text > svg { margin-left: auto; }
+.reference-header .language-switch .animated-button { --ab-size: 8px; --ab-edge: 3px; padding-inline: 12px !important; }
+.dashboard-period .animated-button { padding-inline: 14px !important; --ab-size: 8px; --ab-edge: 3px; }
+.hero-actions > .animated-button { max-width: 100%; }
+.hero-motion-control.animated-button { --ab-size: 11px; --ab-edge: 6px; padding-inline: 21px !important; }
+.hero-scroll .ab-text { display: flex; align-items: center; gap: 8px; }
+@media (max-width: 639px) {
+  .reference-nav { padding-inline: 11px; gap: 7px; }
+  .reference-logo.animated-button { font-size: 17px; padding-right: 17px !important; }
+  .reference-logo.animated-button > .ab-text > span { font-size: 7px; letter-spacing: 3px; margin-top: 6px; }
+  .reference-nav-actions { gap: 5px; }
+  .hero-actions .animated-button { --ab-size: 16px; --ab-edge: 9px; padding-inline: 33px !important; }
+  .hero-bottom-bar .animated-button { --ab-size: 12px; padding-inline: 28px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .animated-button, .animated-button > * { transition: none !important; }
+  .animated-button:not(:disabled):active { scale: 1; }
+  .animated-button > .ab-text, .animated-button:not(:disabled):is(:hover, :focus-visible) > .ab-text { transform: none; }
+}
+
+/* Keep the header free of arrows, including hover and mobile navigation. */
+.reference-header .animated-button > .ab-arrow { display: none; }
+.reference-header .animated-button > .ab-text { transform: none !important; opacity: 1 !important; }
+.reference-header .animated-button { padding-inline: 12px !important; }
+.reference-header .reference-logo.animated-button { padding-inline: 0 !important; }
+.reference-header .language-switch .animated-button { padding-inline: 7px !important; }
+.reference-header .header-apply.animated-button { padding-inline: 17px !important; white-space: nowrap; }
+.reference-header .ab-icon { padding-inline: 9px !important; }
+.reference-nav-links .animated-button { white-space: nowrap; }

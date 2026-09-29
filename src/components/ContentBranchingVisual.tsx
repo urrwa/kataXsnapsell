@@ -1,203 +1,139 @@
-import React, { useState, useEffect } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { Camera, Video, Clapperboard, AlignLeft, Check, Sparkles, AudioLines, Globe2, ArrowRight } from 'lucide-react';
+import { AnimatedButton } from './AnimatedButton';
+import { t, useLanguage } from '../i18n';
+import React, { useState } from 'react';
+import { Camera, Video, Sparkles, Compass, Dumbbell, ShoppingCart } from 'lucide-react';
 
-const CONTENT_FORMATS = [
+const BRANCH_FORMATS = [
+  { id: 'story', title: 'Story', icon: Camera, image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789595380/Woman_posing_in_professional_fas__2K_20260917024852_rnd6jo.jpg', tag: 'Dein vertikales Format', badge: 'Deine Freigabe' },
   {
-    id: 'photo',
+    id: 'fashion',
+    title: "AI-Foto",
     icon: Camera,
-    title: 'Realistic AI photos',
-    subtitle: 'Your aesthetic, in new settings',
-    heading: 'A new setting. The same you.',
-    description: 'Create photorealistic lifestyle and editorial imagery around your approved appearance and visual direction.',
-    tags: ['Lifestyle', 'Fashion', 'Travel'],
-    label: 'PHOTO DIRECTION',
-    note: 'Appearance · Styling · Setting',
-    profileTags: ['Coastal palette', 'Golden tones', 'Minimal styling'],
-    outputLines: ['Lifestyle moment', 'Editorial look', 'Destination story'],
-    outputAccent: '#63DCA8',
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789595380/Woman_posing_in_professional_fas__2K_20260917024852_rnd6jo.jpg',
+    tag: "Studio und Fashion",
+    badge: "Dein Stil"
   },
   {
-    id: 'talking',
+    id: 'fitness',
+    title: "Reel",
+    icon: Dumbbell,
+    image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop',
+    tag: "Bewegung und Lifestyle",
+    badge: "Deine Idee"
+  },
+  {
+    id: 'travel',
+    title: "Travel-Content",
+    icon: Compass,
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789998821/Luxury-Destinations-That-Are-Actually-Worth-the-Price-According-to-Solo-Female-Travelers_pgwvzx.jpg',
+    tag: "Neue Perspektiven",
+    badge: "Deine Freigabe"
+  },
+  {
+    id: 'video',
+    title: "Talking Video",
     icon: Video,
-    title: 'Talking videos',
-    subtitle: 'Your message, in your voice',
-    heading: 'Show up without another shoot.',
-    description: 'Turn approved scripts into talking clips, with your persona and voice guiding the content.',
-    tags: ['Talking clips', 'Voice', 'Scripts'],
-    label: 'TALKING CLIP',
-    note: 'Script · Voice · Delivery',
-    profileTags: ['Confident tone', 'Warm delivery', 'Clear pace'],
-    outputLines: ['Intro hook', 'Core message', 'Soft CTA'],
-    outputAccent: '#63DCA8',
+    image: 'https://res.cloudinary.com/n5nqkpmk/image/upload/v1789999345/pexels-ericka-sanchez-1098642631-28469397_keuqct.jpg',
+    tag: "Deine Stimme",
+    badge: "Deine Kontrolle"
   },
   {
-    id: 'reels',
-    icon: Clapperboard,
-    title: 'Reels & stories',
-    subtitle: 'Made for your everyday channels',
-    heading: 'One identity. More ways to show up.',
-    description: 'Build short-form content around your ideas, with hooks, visual direction and captions adapted for reels and stories.',
-    tags: ['Reels', 'Stories', 'Short videos'],
-    label: 'SHORT-FORM CONTENT',
-    note: 'Hook · Story · Call to action',
-    profileTags: ['Fast pacing', 'Visual rhythm', 'On-brand hooks'],
-    outputLines: ['The hook', 'Your story', 'The next step'],
-    outputAccent: '#63DCA8',
-  },
-  {
-    id: 'writing',
-    icon: AlignLeft,
-    title: 'Scripts & captions',
-    subtitle: 'Your tone, across languages',
-    heading: 'Words that sound like you.',
-    description: 'Create scripts and captions in your tone, then adapt them for different languages and audiences.',
-    tags: ['Scripts', 'Captions', 'Multilingual'],
-    label: 'YOUR VOICE IN WORDS',
-    note: 'Tone · Message · Language',
-    profileTags: ['Eloquent', 'Direct', 'Multilingual-ready'],
-    outputLines: ['Opening line', 'Body message', 'Adapted caption'],
-    outputAccent: '#63DCA8',
-  },
-] as const;
-
-type FormatId = typeof CONTENT_FORMATS[number]['id'];
+    id: 'promo',
+    title: "Produktvisual",
+    icon: ShoppingCart,
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop',
+    tag: "Dein digitales Angebot",
+    badge: "Dein Angebot"
+  }
+];
 
 export const ContentBranchingVisual: React.FC = () => {
-  const [selected, setSelected] = useState<FormatId>('photo');
-  const [pulse, setPulse] = useState(false);
-  const reduceMotion = useReducedMotion();
-  const format = CONTENT_FORMATS.find(item => item.id === selected)!;
-  const Icon = format.icon;
+  useLanguage();
 
-  useEffect(() => {
-    setPulse(true);
-    const t = setTimeout(() => setPulse(false), 600);
-    return () => clearTimeout(t);
-  }, [selected]);
+  const [selectedFormat, setSelectedFormat] = useState(BRANCH_FORMATS[0]);
 
   return (
-    <div className="ai-content-flow">
-      {/* Left: Format selector */}
-      <div className="ai-content-formats">
-        <div className="ai-content-formats__eyebrow">ONE CREATOR. MULTIPLE CONTENT FORMATS.</div>
-        <div className="ai-content-formats__choices">
-          {CONTENT_FORMATS.map(({ id, icon: FormatIcon, title, subtitle }, index) => (
-            <button
-              type="button"
-              key={id}
-              aria-pressed={id === selected}
-              aria-controls="ai-content-preview"
-              onClick={() => setSelected(id)}
-              className={id === selected ? 'is-selected' : ''}
-            >
-              <span className="ai-content-formats__icon">
-                <FormatIcon size={20} strokeWidth={1.7} />
-              </span>
-              <span>
-                <strong>{title}</strong>
-                <small>{subtitle}</small>
-              </span>
-              <span className="ai-content-formats__number">
-                {id === selected ? <Check size={16} /> : `0${index + 1}`}
-              </span>
-            </button>
-          ))}
+    <div className="w-full max-w-4xl mx-auto flex flex-col items-center">
+      {/* Central Identity Anchor */}
+      <div className="flex flex-col sm:flex-row items-center gap-6 mb-8 p-4 rounded-2xl bg-[#141414]/90 border border-white/10 shadow-2xl backdrop-blur-md">
+        <div className="relative">
+          <img loading="lazy"
+            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=300&auto=format&fit=crop"
+            alt={t("Single approved creator identity")}
+            referrerPolicy="no-referrer"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-2 ring-[#20C997] shadow-lg"
+          />
+          <div className="absolute -bottom-2 -right-2 bg-[#20C997] text-white p-1 rounded-full shadow">
+            <Sparkles className="w-3.5 h-3.5" />
+          </div>
         </div>
-        <div className="ai-content-explanation" aria-live="polite">
-          <h3>{format.heading}</h3>
-          <p>{format.description}</p>
+        <div className="text-center sm:text-left">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#20C997]/15 text-[#20C997] text-xs font-semibold uppercase tracking-wider mb-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#20C997] animate-ping" />
+            <span>{t("DEIN FREIGEGEBENER STIL")}</span>
+          </div>
+          <h4 className="text-base font-bold text-white font-display">{t("Ein Konzept. Viele Content-Formate.")}</h4>
+          <p className="text-xs text-white/60 max-w-xs mt-0.5">{t(" Du bestimmst dein Aussehen, deine Stimme und jede finale Freigabe. Diese Bilder zeigen lediglich Formate als Vorschau. ")}</p>
         </div>
       </div>
 
-      {/* Right: Clean pipeline visual — no images */}
-      <div className="ai-content-visual" id="ai-content-preview" role="region" aria-label="AI content workflow preview">
-        <div className="ai-content-visual__top">
-          <span><Sparkles size={16} /> AI CONTENT PIPELINE</span>
-          <span>CONTENT WORKFLOW</span>
-        </div>
-
-        {/* Pipeline grid */}
-        <div className="acv-pipeline">
-          {/* Step 1: Voice profile */}
-          <div className={`acv-step acv-step--profile ${pulse && !reduceMotion ? 'acv-step--pulse' : ''}`}>
-            <span className="acv-step__label">01 · YOUR IDENTITY</span>
-            <div className="acv-step__card">
-              <div className="acv-profile-name">Kata</div>
-              <div className="acv-profile-role">Creator · Brand · Voice</div>
-              <div className="acv-profile-tags">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selected}
-                    className="acv-tags-inner"
-                    initial={{ opacity: 0, y: reduceMotion ? 0 : 4 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {format.profileTags.map(tag => (
-                      <span key={tag} className="acv-tag">{tag}</span>
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
+      {/* 5 Branching Formats Selector Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 w-full mb-6">
+        {t(BRANCH_FORMATS.map((item) => {
+          const isSelected = selectedFormat.id === item.id;
+          const IconComponent = item.icon;
+          return (
+            <AnimatedButton
+              key={item.id}
+              aria-pressed={isSelected}
+              onClick={() => setSelectedFormat(item)}
+              className={`p-3 rounded-xl text-left transition-all duration-300 relative overflow-hidden border ${
+                isSelected
+                  ? 'bg-[#1C1B1E] border-[#20C997] shadow-lg shadow-[#20C997]/20 scale-102'
+                  : 'bg-[#121113]/80 border-white/5 hover:border-white/20 hover:bg-[#18161A]'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className={`p-1.5 rounded-lg ${isSelected ? 'bg-[#20C997] text-white' : 'bg-white/5 text-white/60'}`}>
+                  <IconComponent className="w-4 h-4" />
+                </div>
+                <span className="text-[9px] font-mono text-[#20C997] font-semibold">{t(item.badge)}</span>
               </div>
-              <div className="acv-profile-bar" />
-            </div>
-          </div>
+              <div className="font-semibold text-xs text-white line-clamp-1">{t(item.title)}</div>
+              <div className="text-[10px] text-white/50 truncate mt-0.5">{t(item.tag)}</div>
+            </AnimatedButton>
+          );
+        }))}
+      </div>
 
-          {/* Arrow + AI engine */}
-          <div className="acv-arrow" aria-hidden="true">
-            <div className={`acv-engine ${pulse && !reduceMotion ? 'acv-engine--active' : ''}`}>
-              <Sparkles size={18} />
-            </div>
-            <ArrowRight size={14} className="acv-arrow-icon" />
-          </div>
-
-          {/* Step 2: Output */}
-          <div className="acv-step acv-step--output">
-            <span className="acv-step__label">02 · OUTPUT FORMAT</span>
-            <div className="acv-step__card acv-step__card--output">
-              <div className="acv-output-icon">
-                <Icon size={20} strokeWidth={1.5} />
-              </div>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selected}
-                  className="acv-output-body"
-                  initial={{ opacity: 0, y: reduceMotion ? 0 : 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: reduceMotion ? 0 : -4 }}
-                  transition={{ duration: 0.22 }}
-                >
-                  <span className="acv-output-label">{format.label}</span>
-                  <div className="acv-output-lines">
-                    {format.outputLines.map((line, i) => (
-                      <div key={line} className="acv-output-line">
-                        <span className="acv-output-num">0{i + 1}</span>
-                        <span>{line}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="acv-output-note">{format.note}</div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+      {/* Active Output Showcase Card */}
+      <div className="w-full bg-[#121113] border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row items-center">
+        <div className="w-full md:w-1/2 relative h-56 md:h-72 overflow-hidden bg-black/40">
+          <img
+            src={selectedFormat.image}
+            alt={t(selectedFormat.title)}
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+          <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+            <span className="bg-black/70 backdrop-blur-sm text-white/90 text-xs font-medium px-2.5 py-1 rounded-full border border-white/10">{t(" Formatbeispiel · kein Identitätsnachweis ")}</span>
+            <span className="bg-[#20C997] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">{t(" VORSCHAU ")}</span>
           </div>
         </div>
 
-        <div className="ai-content-visual__tags">
-          <span><Check size={12} /> Consistent identity</span>
-          {format.tags.map(tag => <span key={tag}>{tag}</span>)}
+        <div className="w-full md:w-1/2 p-5 sm:p-6 text-left space-y-3">
+          <div className="flex items-center gap-2 text-xs text-[#20C997] font-semibold">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>{t("Dein Content-Format")}</span>
+          </div>
+          <h4 className="text-xl font-bold font-display text-white">{t(selectedFormat.title)}</h4>
+          <p className="text-xs text-white/70 leading-relaxed">{t(" Aus deinem freigegebenen Stil können verschiedene Inhalte entstehen. Du prüfst jedes Ergebnis, bevor es veröffentlicht wird. Die vorhandenen Bilder sind illustrative Formatbeispiele. ")}</p>
+          <div className="pt-2 flex items-center gap-2 text-[11px] text-[#D7BE8A]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D7BE8A]" />
+            <span>{t("Dein Aussehen. Deine Themen. Deine Freigabe.")}</span>
+          </div>
         </div>
-
-        <div className="ai-content-visual__bottom">
-          <span><b>01</b> Your identity</span>
-          <i />
-          <span><b>02</b> AI creation</span>
-          <i />
-          <span><b>03</b> You approve</span>
-        </div>
-        <p className="ai-content-visual__disclaimer">Illustrative workflow · Your identity stays yours</p>
       </div>
     </div>
   );

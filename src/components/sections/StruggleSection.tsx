@@ -1,68 +1,70 @@
 import React, { useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
-import { ArrowUpRight, Check, Layers, MessageSquare, CalendarDays, ShoppingBag, Plus, Sparkles } from 'lucide-react';
-import { EDITORIAL_IMAGES } from '../../data/images';
-import { SlideButton } from '../SlideButton';
-import './StruggleSection.css';
+import { CheckCircle2, Pause, Play } from 'lucide-react';
+import { useReducedMotion } from 'motion/react';
+import { FeatureCardVideo } from '../FeatureCardVideo';
+import { AnimatedButton } from '../AnimatedButton';
+import { t, useLanguage } from '../../i18n';
+import '../../struggle-section.css';
 
-const TASKS = [
-  { title: 'Creating every post', short: 'Content', icon: Layers, manual: 'Draft. Edit. Repeat.', organized: 'Create with a plan.', solution: 'AI-assisted content', detail: 'The idea is yours. Get support turning it into content for the channels you use.', friction: 'One post turns into a full afternoon of editing, formatting and starting again.', tag: 'Always making', accent: 'paper' },
-  { title: 'Answering every message', short: 'Conversations', icon: MessageSquare, manual: 'An inbox that never ends.', organized: 'Keep conversations going.', solution: 'AI chat support', detail: 'Let AI handle everyday questions and point interested buyers toward your offers.', friction: 'Every notification interrupts the thing you were finally finding time to create.', tag: 'Always replying', accent: 'mint' },
-  { title: 'Managing every channel', short: 'Your channels', icon: CalendarDays, manual: 'Another tab. Another task.', organized: 'Bring the pieces together.', solution: 'A connected workflow', detail: 'Connect your content, conversations and offers through a more considered workflow.', friction: 'Ideas, files and schedules live in different places. You become the connection between them.', tag: 'Always switching', accent: 'dark' },
-  { title: 'Missing opportunities', short: 'Digital sales', icon: ShoppingBag, manual: 'Every sale, another step.', organized: 'One link to your offer.', solution: 'SnapSell checkout', detail: 'Give your audience a simple path from discovering your content to buying your digital products.', friction: 'Interested followers lose momentum while you arrange links, payments and delivery.', tag: 'Always catching up', accent: 'sand' },
-];
+interface StruggleSectionProps { onNext: () => void; }
 
-interface StruggleSectionProps { onNext: () => void }
+const tasks = [
+  { category: 'Content', title: 'Jeden Tag neuen Content erstellen', description: 'Von der ersten Idee bis zum fertigen Post: Dein Content braucht jeden Tag deine Aufmerksamkeit.', solution: 'AI Content Creation', kind: 'content' },
+  { category: 'Nachrichten', title: 'Jede Nachricht selbst beantworten', description: 'Fragen, Gespräche und neue Anfragen. Dein Posteingang macht keine Pause.', solution: 'AI Chat Support', kind: 'messages' },
+  { category: 'Organisation', title: 'Mehrere Kanäle verwalten', description: 'Content hier, Nachrichten dort. Zwischen all deinen Kanälen fehlt der Überblick.', solution: 'Ein verbundenes System', kind: 'channels' },
+  { category: 'Kontakte', title: 'Käufer und Follow-ups verlieren', description: 'Wer hat Interesse? Wem wolltest du antworten? Ohne klare Übersicht gehen wichtige Kontakte unter.', solution: 'SnapSell CRM', kind: 'contacts' },
+  { category: 'Freiraum', title: 'Zu wenig Zeit für dein eigenes Leben haben', description: 'Dein Business sollte Raum für dein Leben schaffen. Nicht jede freie Minute beanspruchen.', solution: 'Klare Abläufe', kind: 'time' },
+] as const;
 
 export const StruggleSection: React.FC<StruggleSectionProps> = ({ onNext }) => {
-  const [organized, setOrganized] = useState(false);
-  const [selected, setSelected] = useState(0);
+  useLanguage();
+  const [isSystemActive, setIsSystemActive] = useState(false);
+  const [videosPaused, setVideosPaused] = useState(false);
   const reducedMotion = useReducedMotion();
-  const task = TASKS[selected];
+
   return (
-    <section id="section-2" className="landing-section creator-workspace" aria-labelledby="bottleneck-title">
-      <div className="creator-workspace__inner">
-        <div className="creator-workspace__eyebrow"><span className="creator-workspace__index">02 /</span><span>The creator bottleneck</span><span className="creator-workspace__rule" /></div>
-        <div className="creator-workspace__layout">
-          <motion.div className="creator-workspace__copy" initial={reducedMotion ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
-            <h2 id="bottleneck-title" style={{fontSize:'clamp(2.6rem,6vw,5rem)',lineHeight:1.08}}>One creator.<br /><span>Too many hats.</span></h2>
-            <p className="creator-workspace__intro">Still doing everything alone? Your best work deserves more of you. Your busywork deserves a better system.</p>
-            <div className="creator-workspace__tasks" aria-label="Explore the four creator bottlenecks">
-              {TASKS.map((item, index) => {
-                const Icon = item.icon;
-                return <button type="button" key={item.short} className={`creator-workspace__task ${selected === index ? 'is-selected' : ''}`} aria-pressed={selected === index} aria-controls="bottleneck-detail" onClick={() => setSelected(index)}>
-                  <span className="creator-workspace__number">0{index + 1}</span><Icon size={17} aria-hidden="true" /><span>{organized ? item.solution : item.title}</span><span className="creator-workspace__task-marker" aria-hidden="true">{organized ? <Check size={15} /> : <Plus size={15} />}</span>
-                </button>;
-              })}
-            </div>
-            <div id="bottleneck-detail" className="creator-workspace__detail" aria-live="polite" aria-atomic="true"><span>{organized ? 'A little more breathing room' : 'Sound familiar?'}</span><p>{organized ? task.detail : task.friction}</p></div>
-            <SlideButton onClick={onNext} className="creator-workspace__cta"><span>Meet your support system</span><ArrowUpRight size={16} /></SlideButton>
-          </motion.div>
-          <motion.div className="creator-workspace__visual" initial={reducedMotion ? false : { opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.15 }} transition={{ duration: 0.7, delay: 0.1 }}>
-            <div className="creator-workspace__switch" role="group" aria-label="Compare working alone with a connected system">
-              <button type="button" aria-pressed={!organized} onClick={() => setOrganized(false)} className={!organized ? 'is-active' : ''}>Doing it all</button>
-              <button type="button" aria-pressed={organized} onClick={() => setOrganized(true)} className={organized ? 'is-active' : ''}><Sparkles size={14} aria-hidden="true" />With a system</button>
-            </div>
-            <div className={`creator-desk ${organized ? 'is-organized' : ''}`}>
-              <div className="creator-desk__toolbar"><span><span className="creator-desk__status" />YOUR CREATIVE WORKSPACE</span><span>{organized ? 'Connected' : 'All on you'}</span></div>
-              <div className="creator-desk__canvas">
-                <div className="creator-desk__cross creator-desk__cross--one" aria-hidden="true">+</div><div className="creator-desk__cross creator-desk__cross--two" aria-hidden="true">+</div>
-                <svg className="creator-desk__connections" viewBox="0 0 600 432" preserveAspectRatio="none" aria-hidden="true"><path d="M150 85 V216 H450 V85 M150 335 V216 M450 335 V216" /></svg>
-                <motion.div className="creator-desk__center" animate={{ opacity: organized ? 1 : 0.3, scale: organized ? 1 : 0.92 }} transition={{ duration: reducedMotion ? 0 : 0.5 }} aria-hidden="true"><span className="creator-desk__center-mark">k.</span><span>Your ideas.<br /><strong>Your time back.</strong></span></motion.div>
-                {TASKS.map((item, index) => {
-                  const Icon = item.icon;
-                  const manual = [{ left: '5%', top: 27, rotate: -8 }, { left: '51%', top: 103, rotate: 7 }, { left: '3%', top: 219, rotate: -5 }, { left: '49%', top: 291, rotate: 6 }][index];
-                  const tidy = { left: index % 2 === 0 ? '4%' : '53%', top: index < 2 ? 24 : 270, rotate: 0 };
-                  return <motion.button type="button" key={item.short} className={`creator-desk__card creator-desk__card--${item.accent} ${selected === index ? 'is-selected' : ''}`} animate={organized ? tidy : manual} transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 95, damping: 17, delay: index * 0.055 }} onClick={() => setSelected(index)} aria-pressed={selected === index} aria-label={`${item.short}: ${organized ? item.solution : item.manual}`} aria-controls="bottleneck-detail">
-                    <span className="creator-desk__card-top"><Icon size={18} aria-hidden="true" /><span>0{index + 1}</span></span><strong>{item.short}</strong><span className="creator-desk__card-description">{organized ? item.organized : item.manual}</span>
-                    <span className="creator-desk__card-foot">{organized ? <><Check size={12} aria-hidden="true" />{item.solution}</> : <><span className="creator-desk__tiny-dot" />{item.tag}</>}</span>
-                  </motion.button>;
-                })}
+    <section id="section-2" className="landing-section struggle-features" aria-labelledby="struggle-heading">
+      <div className="sf-container">
+        <header className="sf-heading">
+          <p className="sf-eyebrow"><span />{t('KOMMT DIR DAS BEKANNT VOR?')}</p>
+          <h2 id="struggle-heading">{t('Du machst noch')} <span>{t('alles selbst?')}</span></h2>
+          <p className="sf-intro">{t('Du musst nicht härter arbeiten. Du brauchst ein besseres System.')}</p>
+        </header>
+
+        <div className="sf-grid">
+          {tasks.map((task, index) => (
+            <article className={`sf-card sf-card-${task.kind}`} key={task.kind}>
+              <div className="sf-visual" aria-hidden="true">
+                <span className="sf-card-index">0{index + 1}<span>/ {t(task.category)}</span></span>
+                <FeatureCardVideo kind={task.kind} paused={videosPaused || !!reducedMotion} />
               </div>
-              <div className="creator-desk__footer"><span className="creator-desk__footer-dot" /><span>{organized ? 'More room for the work only you can do.' : 'Your attention is the only thing connecting it all.'}</span><span className="creator-desk__counter">{organized ? '01 system' : '04 demands'}</span></div>
-            </div>
-            <div className="creator-workspace__note"><p>You don’t need to work harder.<br /><span>You need a better system.</span></p><span className="creator-workspace__note-symbol" aria-hidden="true">↳</span></div>
-          </motion.div>
+              <div className="sf-card-copy">
+                <h3>{t(task.title)}</h3>
+                <p>{t(task.description)}</p>
+                <span className={`sf-state ${isSystemActive ? 'sf-state-active' : ''}`}>
+                  {isSystemActive ? <CheckCircle2 size={13} /> : <span className="sf-state-dot" />}
+                  {isSystemActive ? t(task.solution) : t('Noch manuell')}
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="sf-footer">
+          {!reducedMotion && <AnimatedButton
+            className="sf-video-control"
+            aria-pressed={videosPaused}
+            aria-label={t(videosPaused ? 'Animationen abspielen' : 'Animationen pausieren')}
+            onClick={() => setVideosPaused(value => !value)}
+          >
+            {videosPaused ? <Play size={13} /> : <Pause size={13} />}
+            {t(videosPaused ? 'Animationen abspielen' : 'Animationen pausieren')}
+          </AnimatedButton>}
+          <p>{t('Content, Gespräche und Verkäufe gehören zusammen. Du bleibst das Gesicht deiner Marke und entscheidest, wobei dich das System unterstützt.')}</p>
+          <div className="sf-actions">
+            <AnimatedButton onClick={onNext} className="rounded-full px-5 py-3 bg-[#20C997] text-[#080808] text-sm font-bold">{t('Mein System entdecken')}</AnimatedButton>
+            <AnimatedButton onClick={() => setIsSystemActive(value => !value)} aria-pressed={isSystemActive} className="rounded-full px-5 py-3 border border-white/15 bg-white/5 text-white text-sm">{t(isSystemActive ? 'Manuelle Aufgaben ansehen' : 'System in der Demo ausprobieren')}</AnimatedButton>
+          </div>
         </div>
       </div>
     </section>
