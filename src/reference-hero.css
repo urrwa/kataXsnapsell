@@ -1,11 +1,11 @@
 /* Reference-led hero: black canvas, quiet navigation and a dimensional product preview. */
 .reference-header { position: fixed; z-index: 50; inset: 0 0 auto; color: #f7f7f7; }
 /* Blur the page behind the header, leaving navigation and text sharp. */
-.reference-header::before { content: ''; position: absolute; z-index: 0; inset: 0 0 -24px; pointer-events: none; background: rgb(8 14 12 / 62%); -webkit-backdrop-filter: blur(24px) saturate(125%); backdrop-filter: blur(24px) saturate(125%); -webkit-mask-image: linear-gradient(#000 0%, #000 72%, transparent 100%); mask-image: linear-gradient(#000 0%, #000 72%, transparent 100%); transition: background .3s; }
-.reference-header.is-scrolled::before { background: rgb(8 14 12 / 38%); }
+.reference-header::before { content: ''; position: absolute; z-index: 0; inset: 0 0 -24px; pointer-events: none; background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; -webkit-mask-image: linear-gradient(#000 0%, #000 72%, transparent 100%); mask-image: linear-gradient(#000 0%, #000 72%, transparent 100%); transition: background .4s, backdrop-filter .4s, -webkit-backdrop-filter .4s; }
+.reference-header.is-scrolled::before { background: rgb(8 14 12 / 72%); -webkit-backdrop-filter: blur(24px) saturate(125%); backdrop-filter: blur(24px) saturate(125%); }
 .reference-nav { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1624px; margin: auto; padding: 22px 28px; min-height: 96px; border: 0; border-radius: 0; background: transparent; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .reference-header::before, .reference-header.is-scrolled::before { background: rgb(8 14 12 / 96%); }
+  .reference-header.is-scrolled::before { background: rgb(8 14 12 / 96%); }
 }
 .reference-logo { font-family: Arial, sans-serif; font-size: 24px; font-weight: 400; letter-spacing: -.8px; text-align: left; line-height: 1; flex-shrink: 0; }
 .reference-logo > span { display: flex; gap: 9px; align-items: center; margin-top: 8px; color: #a6a6a6; font-size: 9px; letter-spacing: 4.5px; }
