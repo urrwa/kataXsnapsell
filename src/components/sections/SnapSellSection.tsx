@@ -1,7 +1,6 @@
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
 import React from 'react';
-import { CRMDetails } from '../BriefAdditions';
 import { SnapSellFlowMockup } from '../SnapSellFlowMockup';
 import { ShoppingBag, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
@@ -35,7 +34,6 @@ export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnap
         {/* Dominant 5-Step Connected Interface Mockup */}
         <p className="text-xs text-[#20C997]">{t("Powered by SnapSell Technology")}</p>
         <SnapSellFlowMockup />
-        <CRMDetails />
 
         {/* Main Benefit & Button Row */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-2xl w-full p-4 rounded-2xl bg-[#141416] border border-white/10 text-left">
