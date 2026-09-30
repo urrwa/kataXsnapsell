@@ -1,0 +1,391 @@
+/* ============================================================
+   Final Application Section — botanical photo + centered form
+   ============================================================ */
+
+/* ── Section wrapper ── */
+#section-13 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 !important;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Full-bleed botanical photo ── */
+.app-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.app-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.app-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(8, 8, 8, 0.55) 0%,
+    rgba(8, 8, 8, 0.50) 50%,
+    rgba(8, 8, 8, 0.72) 100%
+  );
+}
+
+/* ── Content layer ── */
+.app-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(64px, 9vw, 120px) clamp(16px, 5vw, 40px);
+  gap: 0;
+}
+
+/* ── FAQ below ── */
+.app-faq {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* ============================================================
+   Form panel (af- = ApplicationForm)
+   ============================================================ */
+
+.af-panel {
+  width: 100%;
+  max-width: 600px;
+  background: rgba(16, 16, 18, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 22px;
+  padding: clamp(24px, 4vw, 36px) clamp(24px, 4vw, 36px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+/* Header */
+.af-header {
+  margin-bottom: 20px;
+}
+
+.af-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin: 0 0 4px;
+}
+
+.af-subheading {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Demo notice */
+.af-demo-notice {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.60);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 18px;
+  line-height: 1.6;
+}
+
+/* Form */
+.af-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Two-column row */
+.af-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* Individual field */
+.af-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.af-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Underline input */
+.af-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  min-height: 44px;
+  transition: border-color 0.18s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.af-input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.af-input:focus {
+  border-bottom-color: #20C997;
+}
+
+.af-input[aria-invalid="true"] {
+  border-bottom-color: rgba(252, 129, 129, 0.7);
+}
+
+/* Select */
+.af-select {
+  cursor: pointer;
+  /* Custom arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  padding-right: 20px;
+}
+
+.af-select option {
+  background: #1a1a1c;
+  color: #ffffff;
+}
+
+/* Error */
+.af-error {
+  font-size: 11px;
+  color: rgb(252, 129, 129);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.af-error--general {
+  margin-bottom: 4px;
+}
+
+/* Consent block */
+.af-consents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.af-consent-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.af-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.af-checkbox {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: #20C997;
+  cursor: pointer;
+}
+
+.af-consent-text {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+}
+
+.af-privacy-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease;
+}
+
+.af-privacy-link:hover,
+.af-privacy-link:focus-visible {
+  color: #20C997;
+  outline: none;
+}
+
+/* Submit button */
+.af-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 100px;
+  border: none;
+  background: #20C997;
+  color: #080808;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, opacity 0.18s ease;
+  margin-top: 4px;
+}
+
+.af-submit-btn:hover {
+  background: #1ab386;
+}
+
+.af-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.af-submit-btn:focus-visible {
+  outline: 2px solid #20C997;
+  outline-offset: 3px;
+}
+
+.af-spinner {
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Footnote */
+.af-footnote {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.38);
+  text-align: center;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ── Success state ── */
+.af-success {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.af-success-icon {
+  width: 52px;
+  height: 52px;
+  color: #20C997;
+}
+
+.af-success-heading {
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.af-success-body {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.70);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.af-steps {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-align: left;
+}
+
+.af-steps-heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 10px;
+}
+
+.af-steps-list {
+  list-style: decimal;
+  padding-left: 18px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ============================================================
+   Entrance animation
+   ============================================================ */
+.af-panel {
+  animation: af-fadein 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes af-fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .af-panel { animation: none; }
+  .af-input  { transition: none; }
+  .af-submit-btn { transition: none; }
+  .af-privacy-link { transition: none; }
+}
+
+/* ============================================================
+   Mobile — ≤ 639px
+   ============================================================ */
+@media (max-width: 639px) {
+  .af-row-2 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .af-panel {
+    border-radius: 18px;
+    padding: 20px;
+  }
+}
