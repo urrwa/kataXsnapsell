@@ -110,7 +110,6 @@ export default function App() {
         />
       </main>
 
-      <SectionProgress />
       {/* Accessible Global Modals (Privacy, Terms, Legal, Contact, Asset Slots) */}
       <Modal
         type={activeModal}
