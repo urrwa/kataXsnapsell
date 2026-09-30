@@ -23,7 +23,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
   useLanguage();
   const reducedMotion = useReducedMotion();
   const [videoPaused, setVideoPaused] = useState(false);
-  const [underlineDrawn, setUnderlineDrawn] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const slideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -55,13 +54,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
     animate: { opacity: 1, y: 0 },
     transition: { duration: reducedMotion ? 0 : 0.75, delay: reducedMotion ? 0 : delay, ease: [0.22, 1, 0.36, 1] as const },
   });
-
-  // Draw underline after headline appears
-  useEffect(() => {
-    if (reducedMotion) { setUnderlineDrawn(true); return; }
-    const timer = setTimeout(() => setUnderlineDrawn(true), 1400);
-    return () => clearTimeout(timer);
-  }, [reducedMotion]);
 
   // Sync video play/pause
   useEffect(() => {
@@ -137,21 +129,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
             <span />{t('DEINE MARKE. DEINE REGELN.')}
           </motion.p>
           <motion.h1 {...entrance(0.15)}>
-            <span>{t('Schaffe mehr.')}</span>
-            <span>{t('Arbeite weniger.')}</span>
-            <span className={`hero-last-line${underlineDrawn ? ' hero-underline-drawn' : ''}`}>
-              {t('Lebe größer.')}
-            </span>
+            <span>{t('Baue deine Marke auf.')}</span>
+            <span>{t('Lass dein Business wachsen.')}</span>
+            <span>{t('Schaffe Raum für dein Leben.')}</span>
           </motion.h1>
           <motion.p {...entrance(0.26)} className="hero-description">
-            {t('Baue dein Creator-Business mit KI, direkten Verkäufen und einem professionellen Team auf.')}
+            {t('Verwandle deine Kreativität in ein Business – mit KI-Tools, praktischer Begleitung und Katharina an deiner Seite.')}
           </motion.p>
           <motion.div {...entrance(0.36)} className="hero-actions">
             <AnimatedButton animateArrow id="hero-primary-join-btn" className="reference-primary" onClick={onJoin}>
-              {t('Jetzt für die Academy bewerben')}
+              {t('Für die Academy bewerben')}
             </AnimatedButton>
             <AnimatedButton animateArrow id="hero-secondary-works-btn" className="reference-secondary cinematic-secondary" onClick={onExplore}>
-              {t('Das System entdecken')}
+              {t('Die Academy entdecken')}
             </AnimatedButton>
           </motion.div>
           <motion.p {...entrance(0.46)} className="hero-qualification">
