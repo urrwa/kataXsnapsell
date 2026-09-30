@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { t, useLanguage } from '../i18n';
 import { TrendingUp, Users, ShoppingBag, ArrowUpRight } from 'lucide-react';
 
@@ -16,8 +16,22 @@ const PIPELINE = [
 
 export const SnapSellDashboardMockup: React.FC = () => {
   useLanguage();
+  const [animated, setAnimated] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setAnimated(true); obs.disconnect(); } },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <div className="ssd-browser">
+    <div className="ssd-browser" ref={ref}>
       {/* Browser chrome */}
       <div className="ssd-chrome">
         <span className="ssd-dot" style={{ background: '#FF5F57' }} />
@@ -71,7 +85,13 @@ export const SnapSellDashboardMockup: React.FC = () => {
                 <div className="ssd-avatar">{c.name[0]}</div>
                 <div className="ssd-name">{c.name}</div>
                 <div className="ssd-bar-wrap">
-                  <div className="ssd-bar" style={{ width: `${c.pct}%` }} />
+                  <div
+                    className="ssd-bar"
+                    style={{
+                      width: animated ? `${c.pct}%` : '0%',
+                      transition: animated ? `width 0.9s cubic-bezier(.22,1,.36,1) ${0.2 + CREATORS.indexOf(c) * 0.12}s` : 'none',
+                    }}
+                  />
                 </div>
                 <div className="ssd-revenue">{c.revenue}</div>
                 <div className={`ssd-status ssd-status--${c.status}`}>{t(c.status)}</div>

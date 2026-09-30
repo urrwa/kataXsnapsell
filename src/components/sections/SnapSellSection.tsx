@@ -1,6 +1,6 @@
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { SnapSellDashboardMockup } from '../SnapSellDashboardMockup';
 import '../../snapsell-section.css';
@@ -37,9 +37,23 @@ const RIGHT_FEATURES = [
 
 export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnapSell }) => {
   useLanguage();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+    const targets = section.querySelectorAll('.ss-reveal, .ss-mockup-reveal');
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('ss-visible'); }),
+      { threshold: 0.12 }
+    );
+    targets.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="section-7"
       className="ss-section"
       aria-label={t("Pillar 03: SnapSell Direct Sales")}
@@ -49,13 +63,13 @@ export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnap
 
       <div className="ss-inner">
         {/* Badge */}
-        <div className="ss-badge">
+        <div className="ss-badge ss-reveal" data-delay="1">
           <ShoppingBag className="ss-badge-icon" />
           <span>{t("SÄULE 03 · SNAPSELL")}</span>
         </div>
 
         {/* Headline */}
-        <h2 className="ss-headline">
+        <h2 className="ss-headline ss-reveal" data-delay="2">
           {t("Mehr als ein")}{' '}
           <span className="ss-headline-accent">{t("Payment-Link.")}</span>
           <br />
@@ -66,8 +80,8 @@ export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnap
         <div className="ss-layout">
           {/* Left features */}
           <div className="ss-features ss-features--left">
-            {LEFT_FEATURES.map(f => (
-              <div className="ss-feature" key={f.num}>
+            {LEFT_FEATURES.map((f, i) => (
+              <div className="ss-feature ss-reveal" data-delay={String(i + 2)} key={f.num}>
                 <span className="ss-feature-num">{f.num}</span>
                 <h3 className="ss-feature-title">{t(f.title)}</h3>
                 <p className="ss-feature-desc">{t(f.desc)}</p>
@@ -76,14 +90,14 @@ export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnap
           </div>
 
           {/* Central mockup */}
-          <div className="ss-mockup-wrap">
+          <div className="ss-mockup-wrap ss-mockup-reveal">
             <SnapSellDashboardMockup />
           </div>
 
           {/* Right features */}
           <div className="ss-features ss-features--right">
-            {RIGHT_FEATURES.map(f => (
-              <div className="ss-feature" key={f.num}>
+            {RIGHT_FEATURES.map((f, i) => (
+              <div className="ss-feature ss-reveal" data-delay={String(i + 3)} key={f.num}>
                 <span className="ss-feature-num">{f.num}</span>
                 <h3 className="ss-feature-title">{t(f.title)}</h3>
                 <p className="ss-feature-desc">{t(f.desc)}</p>
@@ -93,14 +107,16 @@ export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnap
         </div>
 
         {/* CTA */}
-        <AnimatedButton
-          animateArrow
-          id="discover-snapsell-btn"
-          onClick={onDiscoverSnapSell}
-          className="ss-cta"
-        >
-          <span>{t("SnapSell Technologie entdecken")}</span>
-        </AnimatedButton>
+        <div className="ss-reveal" data-delay="5">
+          <AnimatedButton
+            animateArrow
+            id="discover-snapsell-btn"
+            onClick={onDiscoverSnapSell}
+            className="ss-cta"
+          >
+            <span>{t("SnapSell Technologie entdecken")}</span>
+          </AnimatedButton>
+        </div>
       </div>
     </section>
   );
