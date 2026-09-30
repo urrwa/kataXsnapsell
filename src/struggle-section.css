@@ -119,10 +119,16 @@
 /* ── Media side ── */
 .er-media {
   position: relative;
-  border-radius: 14px;
   overflow: hidden;
   aspect-ratio: 16 / 10;
   background: #0d1210;
+  /* Right side straight, left side fully rounded */
+  border-radius: 50% 14px 14px 50% / 50% 14px 14px 50%;
+}
+
+/* Row 02 reversed: left side straight, right side rounded */
+.er-row--reverse .er-media {
+  border-radius: 14px 50% 50% 14px / 14px 50% 50% 14px;
 }
 
 .er-media img {
