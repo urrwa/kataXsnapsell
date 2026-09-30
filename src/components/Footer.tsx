@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { t, useLanguage } from '../i18n';
 import { ModalType } from './Modal';
@@ -14,29 +14,53 @@ export const Footer: React.FC<Props> = ({ onOpenModal, onNavigate }) => {
   const reducedMotion = useReducedMotion();
   const year = new Date().getFullYear();
 
-  // Application dialog state — shares the same dialog as the CTA banner by
-  // scrolling to section-13 (the existing application anchor).
   const handleApply = useCallback(() => {
     onNavigate('section-13');
   }, [onNavigate]);
 
-  const revealProps = reducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 28 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: '-60px' },
-        transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
-      };
+  // Shared viewport settings
+  const vp = { once: true, margin: '-80px' };
+  const ease = [0.16, 1, 0.3, 1] as const;
 
-  const wordmarkRevealProps = reducedMotion
-    ? {}
-    : {
-        initial: { opacity: 0, y: 36 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: '-40px' },
-        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 },
-      };
+  // Brand col reveal
+  const brandReveal = reducedMotion ? {} : {
+    initial: { opacity: 0, y: 40 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: vp,
+    transition: { duration: 0.75, ease },
+  };
+
+  // Link columns — staggered
+  const colReveal = (i: number) => reducedMotion ? {} : ({
+    initial: { opacity: 0, y: 32 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: vp,
+    transition: { duration: 0.65, ease, delay: 0.1 + i * 0.08 },
+  });
+
+  // Bottom bar
+  const bottomReveal = reducedMotion ? {} : {
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    viewport: vp,
+    transition: { duration: 0.6, delay: 0.35 },
+  };
+
+  // Wordmark: slides up + very slight scale
+  const wordmarkReveal = reducedMotion ? {} : {
+    initial: { opacity: 0, y: 60, scale: 0.97 },
+    whileInView: { opacity: 1, y: 0, scale: 1 },
+    viewport: { once: true, margin: '-40px' },
+    transition: { duration: 0.9, ease },
+  };
+
+  // Sub-label under wordmark
+  const subReveal = reducedMotion ? {} : {
+    initial: { opacity: 0, y: 16 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-40px' },
+    transition: { duration: 0.7, ease, delay: 0.18 },
+  };
 
   return (
     <footer id="main-footer" aria-label={t('Footer-Navigation')}>
@@ -44,10 +68,10 @@ export const Footer: React.FC<Props> = ({ onOpenModal, onNavigate }) => {
       {/* ── Main footer surface ── */}
       <div className="ft-surface">
         <div className="ft-inner">
-          <motion.div className="ft-top" {...revealProps}>
+          <div className="ft-top">
 
             {/* Left: brand statement + apply CTA */}
-            <div className="ft-brand-col">
+            <motion.div className="ft-brand-col" {...brandReveal}>
               <p className="ft-brand-statement" aria-label={t('Deine Marke. Deine Freiheit.')}>
                 <span>{t('Deine Marke.')}</span>
                 <span className="ft-brand-line2">{t('Deine Freiheit.')}</span>
@@ -59,48 +83,52 @@ export const Footer: React.FC<Props> = ({ onOpenModal, onNavigate }) => {
               >
                 {t('Für die Academy bewerben')}
               </button>
-            </div>
+            </motion.div>
 
-            {/* Right: 3 link columns */}
+            {/* Right: 3 link columns — each staggered */}
             <div className="ft-links">
               {/* Academy */}
-              <nav className="ft-link-col" aria-label={t('Academy')}>
+              <motion.nav className="ft-link-col" aria-label={t('Academy')} {...colReveal(0)}>
                 <h3 className="ft-col-label">{t('Academy')}</h3>
                 <button type="button" className="ft-link" onClick={() => onNavigate('section-3')}>{t('Über Katharina')}</button>
                 <button type="button" className="ft-link" onClick={() => onNavigate('section-9')}>{t('The Academy')}</button>
                 <button type="button" className="ft-link" onClick={() => onNavigate('section-11')}>{t('Creator Circle')}</button>
-              </nav>
+              </motion.nav>
 
               {/* Connect */}
-              <nav className="ft-link-col" aria-label={t('Connect')}>
+              <motion.nav className="ft-link-col" aria-label={t('Connect')} {...colReveal(1)}>
                 <h3 className="ft-col-label">{t('Connect')}</h3>
                 <a className="ft-link" href="https://www.instagram.com/katharinaschwarz_official" target="_blank" rel="noopener noreferrer">Instagram</a>
                 <button type="button" className="ft-link" onClick={() => onOpenModal('contact')}>{t('Kontakt')}</button>
-              </nav>
+              </motion.nav>
 
               {/* Legal */}
-              <nav className="ft-link-col" aria-label={t('Legal')}>
+              <motion.nav className="ft-link-col" aria-label={t('Legal')} {...colReveal(2)}>
                 <h3 className="ft-col-label">{t('Legal')}</h3>
                 <button type="button" className="ft-link" onClick={() => onOpenModal('privacy')}>{t('Datenschutz')}</button>
                 <button type="button" className="ft-link" onClick={() => onOpenModal('legal')}>{t('Impressum')}</button>
                 <button type="button" className="ft-link" onClick={() => onOpenModal('terms')}>{t('Programmhinweise')}</button>
-              </nav>
+              </motion.nav>
             </div>
-          </motion.div>
+          </div>
 
           {/* Bottom bar */}
-          <div className="ft-bottom">
+          <motion.div className="ft-bottom" {...bottomReveal}>
             <p className="ft-copyright">© {year} {t('Katharina Academy. Alle Rechte vorbehalten.')}</p>
             <p className="ft-disclaimer">{t('Alle genannten Umsatzbeispiele oder Ziele dienen nur zur Orientierung und sind keine Garantie für zukünftige Ergebnisse. Individuelle Ergebnisse können stark variieren.')}</p>
-          </div>
+          </motion.div>
         </div>
       </div>
 
       {/* ── Oversized wordmark strip ── */}
-      <motion.div className="ft-wordmark-strip" aria-hidden="true" {...wordmarkRevealProps}>
-        <span className="ft-wordmark-main">KATHARINA</span>
-        <span className="ft-wordmark-sub">ACADEMY</span>
-      </motion.div>
+      <div className="ft-wordmark-strip" aria-hidden="true">
+        <motion.span className="ft-wordmark-main" {...wordmarkReveal}>
+          KATHARINA
+        </motion.span>
+        <motion.span className="ft-wordmark-sub" {...subReveal}>
+          ACADEMY
+        </motion.span>
+      </div>
 
     </footer>
   );

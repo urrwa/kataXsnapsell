@@ -155,12 +155,14 @@ footer#main-footer {
 /* ── Oversized wordmark strip ── */
 .ft-wordmark-strip {
   background: #060d0b;
-  padding: clamp(28px, 4vw, 48px) clamp(20px, 4vw, 48px) clamp(24px, 3.5vw, 44px);
+  padding: clamp(32px, 5vw, 64px) clamp(20px, 4vw, 48px) clamp(20px, 3vw, 36px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   overflow: hidden;
+  /* clip so wordmark slides in cleanly from below */
+  clip-path: inset(0);
 }
 
 .ft-wordmark-main {
