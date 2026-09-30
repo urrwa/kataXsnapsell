@@ -9,11 +9,7 @@ import { HeroSection } from './components/sections/HeroSection';
 import { StruggleSection } from './components/sections/StruggleSection';
 import { MeetKataSection } from './components/sections/MeetKataSection';
 import { ThreePillarsSection } from './components/sections/ThreePillarsSection';
-import { AiChatSection } from './components/sections/AiChatSection';
-import { AiContentSection } from './components/sections/AiContentSection';
 import { SnapSellSection } from './components/sections/SnapSellSection';
-import { ConnectedJourneySection } from './components/sections/ConnectedJourneySection';
-import { ExpertTeamSection } from './components/sections/ExpertTeamSection';
 import { GlobalLifestyleSection } from './components/sections/GlobalLifestyleSection';
 import { ProductionsSection } from './components/sections/ProductionsSection';
 import { GrowthSection } from './components/sections/GrowthSection';
@@ -68,23 +64,13 @@ export default function App() {
           onSelectPillar={(targetId) => scrollToSection(targetId)}
         />
 
-        {/* Section 05: Pillar 01 - AI Chat Support */}
-        <AiChatSection />
-
-        {/* Section 06: Pillar 02 - AI Content Creation */}
-        <AiContentSection />
-
-        {/* Section 07: Pillar 03 - SnapSell Direct Sales */}
+        {/* Section 05: Pillar 03 - SnapSell Direct Sales */}
         <SnapSellSection
-          onDiscoverSnapSell={() => scrollToSection('section-8')}
+          onDiscoverSnapSell={() => scrollToSection('section-9')}
         />
 
-        {/* Section 08: Connected Journey */}
-        <ConnectedJourneySection />
-
-        {/* Section 09: Expert Team */}
+        {/* Section 06: The Katharina Method — Academy Modules */}
         <AcademySection />
-        <ExpertTeamSection />
 
         {/* Section 10: Global Creator Lifestyle */}
         <GlobalLifestyleSection
