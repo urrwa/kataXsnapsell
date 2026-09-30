@@ -1,6 +1,7 @@
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
 import React, { useState } from 'react';
+
 import { MexicoExperience } from '../BriefAdditions';
 import { Globe, MapPin } from 'lucide-react';
 
@@ -46,7 +47,6 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
 }) => {
   useLanguage();
 
-  const [paused, setPaused] = useState(false);
   const [touching, setTouching] = useState(false);
 
   return (
@@ -57,16 +57,18 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
     >
       <div className="max-w-7xl mx-auto w-full flex flex-col items-center text-center space-y-8">
         {/* Header Block */}
-        <div className="max-w-3xl space-y-3">
+        <div className="max-w-2xl space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#20C997]/10 border border-[#20C997]/30 text-[#20C997] text-xs font-bold tracking-widest uppercase">
             <Globe className="w-3.5 h-3.5" />
             <span>{t("KATHARINA CREATOR CIRCLE")}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1 overflow-visible">{t(" Lerne online. Wachse gemeinsam. ")}<span className="text-[#20C997] inline-block">{t("Erschaffe Content weltweit.")}</span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold font-display text-white leading-[1.15]">
+            {t("Lerne. Wachse.")}{' '}
+            <span className="text-[#20C997]">{t("Erstelle Content weltweit.")}</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">{t(" Ausgewählte Academy-Mitglieder können Zugang zu besonderen Community- und Produktionsmöglichkeiten erhalten. ")}</p>
+          <p className="text-sm text-white/60 max-w-md mx-auto">{t("Für ausgewählte Mitglieder – exklusive Shootings, Events und Community.")}</p>
         </div>
 
         <div className="creator-carousel" role="region" aria-label={t('Creator Experiences')}>
@@ -74,7 +76,7 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
             onPointerDown={event => { if (event.pointerType !== 'mouse') { event.currentTarget.setPointerCapture(event.pointerId); setTouching(true); } }}
             onPointerUp={() => setTouching(false)} onPointerCancel={() => setTouching(false)}
             onLostPointerCapture={() => setTouching(false)}>
-            <div className="creator-carousel-track" style={{ animationPlayState: paused || touching ? 'paused' : undefined }}>
+            <div className="creator-carousel-track" style={{ animationPlayState: touching ? 'paused' : undefined }}>
               {[0, 1].map(copy => <div className="creator-carousel-group" key={copy} aria-hidden={copy === 1 ? true : undefined} inert={copy === 1 ? true : undefined}>
                 {DESTINATIONS.map(item => <article key={item.title} className="creator-experience-card">
                   <img src={item.image} alt={copy === 0 ? t(item.title) : ''} loading="lazy" referrerPolicy="no-referrer" />
@@ -89,13 +91,7 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
               </div>)}
             </div>
           </div>
-          <div className="creator-carousel-controls">
-            <span>{t('Zum Anhalten mit der Maus darüberfahren.')}</span>
-            <AnimatedButton onClick={() => setPaused(value => !value)} aria-pressed={paused} className="text-xs text-white/70 border border-white/15 rounded-full px-4 py-2">{t(paused ? 'Experience-Slider starten' : 'Experience-Slider pausieren')}</AnimatedButton>
-          </div>
         </div>
-
-        <p className="text-xs text-white/50">{t("Stimmungsbilder · keine dokumentierten Academy-Events.")}</p>
         <MexicoExperience />
         {/* CTA Button & Mandatory Qualification Line */}
         <div className="space-y-3 max-w-xl">
