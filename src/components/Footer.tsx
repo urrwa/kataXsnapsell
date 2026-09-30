@@ -119,15 +119,6 @@ export const Footer: React.FC<Props> = ({ onOpenModal, onNavigate }) => {
         </div>
       </div>
 
-      {/* ── Oversized wordmark strip ── */}
-      <div className="ft-wordmark-strip" aria-hidden="true">
-        <motion.span className="ft-wordmark-main" {...wordmarkReveal}>
-          KATHARINA
-        </motion.span>
-        <motion.span className="ft-wordmark-sub" {...subReveal}>
-          ACADEMY
-        </motion.span>
-      </div>
 
     </footer>
   );
