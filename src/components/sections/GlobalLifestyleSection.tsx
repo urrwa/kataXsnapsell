@@ -46,7 +46,6 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
 }) => {
   useLanguage();
 
-  const [paused, setPaused] = useState(false);
   const [touching, setTouching] = useState(false);
 
   return (
@@ -74,7 +73,7 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
             onPointerDown={event => { if (event.pointerType !== 'mouse') { event.currentTarget.setPointerCapture(event.pointerId); setTouching(true); } }}
             onPointerUp={() => setTouching(false)} onPointerCancel={() => setTouching(false)}
             onLostPointerCapture={() => setTouching(false)}>
-            <div className="creator-carousel-track" style={{ animationPlayState: paused || touching ? 'paused' : undefined }}>
+            <div className="creator-carousel-track" style={{ animationPlayState: touching ? 'paused' : undefined }}>
               {[0, 1].map(copy => <div className="creator-carousel-group" key={copy} aria-hidden={copy === 1 ? true : undefined} inert={copy === 1 ? true : undefined}>
                 {DESTINATIONS.map(item => <article key={item.title} className="creator-experience-card">
                   <img src={item.image} alt={copy === 0 ? t(item.title) : ''} loading="lazy" referrerPolicy="no-referrer" />
@@ -89,13 +88,7 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
               </div>)}
             </div>
           </div>
-          <div className="creator-carousel-controls">
-            <span>{t('Zum Anhalten mit der Maus darüberfahren.')}</span>
-            <AnimatedButton onClick={() => setPaused(value => !value)} aria-pressed={paused} className="text-xs text-white/70 border border-white/15 rounded-full px-4 py-2">{t(paused ? 'Experience-Slider starten' : 'Experience-Slider pausieren')}</AnimatedButton>
-          </div>
         </div>
-
-        <p className="text-xs text-white/50">{t("Stimmungsbilder · keine dokumentierten Academy-Events.")}</p>
         <MexicoExperience />
         {/* CTA Button & Mandatory Qualification Line */}
         <div className="space-y-3 max-w-xl">
