@@ -125,11 +125,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
       {/* Copy */}
       <div className="cinematic-inner">
         <div className="cinematic-copy">
-          <motion.div {...entrance(0.05)} className="hero-eyebrow">
-            <span className="hero-eyebrow-badge">{t('Katharina Academy')}</span>
-            <span className="hero-eyebrow-text">{t('Dein Business. Deine Regeln.')}</span>
-          </motion.div>
-          <motion.h1 {...entrance(0.15)}>
+          <motion.h1 {...entrance(0.05)}>
             <span>{t('Baue deine Marke auf.')}</span>
             <span>{t('Lass dein Business wachsen.')}</span>
             <span>{t('Schaffe Raum für dein Leben.')}</span>
