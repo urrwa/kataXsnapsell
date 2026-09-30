@@ -35,7 +35,7 @@ export function MexicoExperience(){
       {/* Photo banner */}
       <div className="relative w-full h-52 sm:h-64 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=85&w=1200&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=85&w=1200&auto=format&fit=crop"
           alt="Mexico Creator Villa"
           className="w-full h-full object-cover object-center"
           style={{ animation: 'mexicoZoom 14s ease-in-out infinite alternate' }}
