@@ -111,9 +111,9 @@ const EditorialRow: React.FC<RowProps> = ({ row, reducedMotion, lang }) => {
   );
 
   return (
-    <article className="er-row">
-      {mediaBlock}
+    <article className={`er-row${row.num === '02' ? ' er-row--reverse' : ''}`}>
       {textBlock}
+      {mediaBlock}
     </article>
   );
 };
