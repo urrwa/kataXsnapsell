@@ -1,8 +1,10 @@
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { MexicoExperience } from '../BriefAdditions';
-import { Globe, ArrowUpRight, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { Globe, MapPin } from 'lucide-react';
+
+import '../../creator-circle.css';
 
 interface GlobalLifestyleSectionProps {
   onExploreOpportunities: () => void;
@@ -13,28 +15,28 @@ const DESTINATIONS = [
     title: "Internationale Produktionen",
     tagline: "Professionelle Fotos und Videos",
     location: "Ausgewählte Locations",
-    image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=900&auto=format&fit=crop",
+    image: "https://images.pexels.com/photos/2041396/pexels-photo-2041396.jpeg?auto=compress&cs=tinysrgb&w=1000",
     desc: "Erstelle hochwertigen Content mit professionellen Fotografen und Videoteams."
   },
   {
     title: "Filmreife Shootings",
     tagline: "Premium-Content an besonderen Orten",
     location: "Internationale Möglichkeiten",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=900&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1543175741-80199a6408b4?q=85&w=1000&auto=format&fit=crop",
     desc: "Produziere Premium-Fotos und Videos an ausgewählten Locations."
   },
   {
     title: "Creator-Events in Europa",
     tagline: "Lernen und vernetzen",
     location: "Europa",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?q=80&w=900&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1573167507387-6b4b98cb7c13?q=85&w=1000&auto=format&fit=crop",
     desc: "Lerne andere Creatorinnen, Partner und Branchenexperten kennen."
   },
   {
     title: "Creator Networking",
     tagline: "Katharina Creator Circle",
     location: "Internationale Community",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=900&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1554200876-980213841c94?q=85&w=1000&auto=format&fit=crop",
     desc: "Baue wertvolle Kontakte und internationale Partnerschaften auf."
   }
 ];
@@ -44,13 +46,8 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
 }) => {
   useLanguage();
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const [paused, setPaused] = useState(false);
-  const touchStart = useRef(0);
-  useEffect(() => { if (paused || matchMedia('(prefers-reduced-motion: reduce)').matches) return; const timer = setInterval(() => setCurrentIndex(c => (c + 1) % DESTINATIONS.length), 7000); return () => clearInterval(timer); }, [paused]);
-  const prev = () => setCurrentIndex((c) => (c === 0 ? DESTINATIONS.length - 1 : c - 1));
-  const next = () => setCurrentIndex((c) => (c === DESTINATIONS.length - 1 ? 0 : c + 1));
+  const [touching, setTouching] = useState(false);
 
   return (
     <section
@@ -72,84 +69,32 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
           <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">{t(" Ausgewählte Academy-Mitglieder können Zugang zu besonderen Community- und Produktionsmöglichkeiten erhalten. ")}</p>
         </div>
 
-        {/* 4 Visual Opportunity Cards (Grid on desktop, carousel on mobile) */}
-        <div className="hidden lg:flex gap-4 w-full overflow-x-auto pb-3">
-          {t([...DESTINATIONS.slice(currentIndex), ...DESTINATIONS.slice(0,currentIndex)].map((item, idx) => (
-            <div
-              key={idx}
-              className="group relative shrink-0 w-[calc(25%-12px)] h-[380px] rounded-3xl overflow-hidden border border-white/10 hover:border-[#20C997]/60 transition-all duration-300 shadow-xl flex flex-col justify-end p-5 text-left bg-black"
-            >
-              <img loading="lazy"
-                src={item.image}
-                alt={t(item.title)}
-                referrerPolicy="no-referrer"
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-60 group-hover:opacity-75"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-
-              <div className="relative z-10 space-y-1.5">
-                <div className="flex items-center gap-1.5 text-[11px] text-[#D7BE8A] font-semibold">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>{t(item.location)}</span>
-                </div>
-                <h4 className="text-lg font-bold font-display text-white">{t(item.title)}</h4>
-                <div className="text-xs text-[#20C997] font-medium">{t(item.tagline)}</div>
-                <p className="text-[11px] text-white/70 line-clamp-2 pt-1">{t(item.desc)}</p>
-              </div>
-            </div>
-          )))}
-        </div>
-
-        {/* Mobile / Tablet Carousel View */}
-        <div onTouchStart={e => { setPaused(true); touchStart.current = e.touches[0].clientX; }} onTouchEnd={e => { const dx = e.changedTouches[0].clientX - touchStart.current; if (Math.abs(dx) > 40) dx > 0 ? prev() : next(); }} className="lg:hidden w-full max-w-md relative">
-          <div className="relative h-[360px] rounded-3xl overflow-hidden border border-white/15 shadow-2xl bg-black flex flex-col justify-end p-6 text-left">
-            <img
-              src={DESTINATIONS[currentIndex].image}
-              alt={t(DESTINATIONS[currentIndex].title)}
-              referrerPolicy="no-referrer"
-              className="absolute inset-0 w-full h-full object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-
-            <div className="relative z-10 space-y-1.5">
-              <div className="flex items-center gap-1.5 text-xs text-[#D7BE8A] font-semibold">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>{t(DESTINATIONS[currentIndex].location)}</span>
-              </div>
-              <h4 className="text-xl font-bold font-display text-white">{t(DESTINATIONS[currentIndex].title)}</h4>
-              <div className="text-xs text-[#20C997] font-medium">{t(DESTINATIONS[currentIndex].tagline)}</div>
-              <p className="text-xs text-white/70 pt-1">{t(DESTINATIONS[currentIndex].desc)}</p>
+        <div className="creator-carousel" role="region" aria-label={t('Creator Experiences')}>
+          <div className="creator-carousel-window" tabIndex={0}
+            onPointerDown={event => { if (event.pointerType !== 'mouse') { event.currentTarget.setPointerCapture(event.pointerId); setTouching(true); } }}
+            onPointerUp={() => setTouching(false)} onPointerCancel={() => setTouching(false)}
+            onLostPointerCapture={() => setTouching(false)}>
+            <div className="creator-carousel-track" style={{ animationPlayState: paused || touching ? 'paused' : undefined }}>
+              {[0, 1].map(copy => <div className="creator-carousel-group" key={copy} aria-hidden={copy === 1 ? true : undefined} inert={copy === 1 ? true : undefined}>
+                {DESTINATIONS.map(item => <article key={item.title} className="creator-experience-card">
+                  <img src={item.image} alt={copy === 0 ? t(item.title) : ''} loading="lazy" referrerPolicy="no-referrer" />
+                  <div className="creator-experience-shade" />
+                  <div className="creator-experience-copy">
+                    <div className="creator-experience-location"><MapPin size={14}/><span>{t(item.location)}</span></div>
+                    <h4>{t(item.title)}</h4>
+                    <div className="creator-experience-tagline">{t(item.tagline)}</div>
+                    <p>{t(item.desc)}</p>
+                  </div>
+                </article>)}
+              </div>)}
             </div>
           </div>
-
-          {/* Carousel controls */}
-          <div className="flex items-center justify-between mt-3 px-2">
-            <AnimatedButton animationVariant="icon"
-              onClick={() => {setPaused(true);prev();}}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
-              aria-label={t("Vorherige Experience")}
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </AnimatedButton>
-            <div className="flex gap-1.5">
-              {t(DESTINATIONS.map((_, i) => (
-                <span
-                  key={i}
-                  className={`w-2 h-2 rounded-full ${i === currentIndex ? 'w-5 bg-[#20C997]' : 'bg-white/20'}`}
-                />
-              )))}
-            </div>
-            <AnimatedButton animationVariant="icon"
-              onClick={() => {setPaused(true);next();}}
-              className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white"
-              aria-label={t("Nächste Experience")}
-            >
-              <ChevronRight className="w-4 h-4" />
-            </AnimatedButton>
+          <div className="creator-carousel-controls">
+            <span>{t('Zum Anhalten mit der Maus darüberfahren.')}</span>
+            <AnimatedButton onClick={() => setPaused(value => !value)} aria-pressed={paused} className="text-xs text-white/70 border border-white/15 rounded-full px-4 py-2">{t(paused ? 'Experience-Slider starten' : 'Experience-Slider pausieren')}</AnimatedButton>
           </div>
         </div>
 
-        <AnimatedButton onClick={() => setPaused(!paused)} className="text-xs text-white/70 border border-white/15 rounded-full px-4 py-2">{t(paused ? 'Experience-Slider starten' : 'Experience-Slider pausieren')}</AnimatedButton>
         <p className="text-xs text-white/50">{t("Stimmungsbilder · keine dokumentierten Academy-Events.")}</p>
         <MexicoExperience />
         {/* CTA Button & Mandatory Qualification Line */}

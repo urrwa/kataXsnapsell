@@ -4,13 +4,16 @@
 .meet-kata-visuals::before { content: ''; position: absolute; z-index: -1; inset: -40px -20px; background: radial-gradient(ellipse at 42% 45%, rgb(32 201 151 / .09), transparent 66%); pointer-events: none; }
 .meet-kata-portrait, .meet-kata-video { position: relative; overflow: hidden; border: 1px solid rgb(123 222 190 / .24); border-radius: 24px; background: #111815; }
 .meet-kata-portrait { aspect-ratio: .84; }
-.meet-kata-portrait > img { position: absolute; top: 0; left: 0; width: 100%; height: 155%; max-width: none; object-fit: cover; object-position: 53% top; }
+.meet-kata-portrait > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 52% top; }
 .meet-kata-portrait::after { content: ''; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgb(0 0 0 / .48)); pointer-events: none; }
 .meet-kata-experience { position: absolute; z-index: 1; left: 17px; bottom: 18px; display: flex; align-items: center; gap: 9px; padding: 11px 12px; border: 1px solid rgb(123 222 190 / .18); border-radius: 13px; background: rgb(8 20 15 / .82); backdrop-filter: blur(12px); color: #82dfc2; }
 .meet-kata-experience strong { display: block; color: #f0f6f3; font-size: 11px; font-weight: 600; }
 .meet-kata-experience span { display: block; margin-top: 3px; font-size: 10px; color: #b4c4be; }
 .meet-kata-video { position: absolute; right: 0; bottom: 0; width: 47%; aspect-ratio: 1.26; box-shadow: 0 16px 40px rgb(0 0 0 / .4); }
-.meet-kata-video video { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.08); }
+.meet-kata-video video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 43%; filter: brightness(1.08); }
+.meet-kata-video-caption { position: absolute; inset: auto 0 0; padding: 28px 13px 12px; background: linear-gradient(transparent, rgb(0 0 0 / .8)); pointer-events: none; }
+.meet-kata-video-caption strong { display: block; color: #fff; font-size: 12px; font-weight: 600; }
+.meet-kata-video-caption span { display: block; margin-top: 3px; color: #c6d2cc; font-size: 9px; }
 .meet-kata-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; gap: 9px; padding: 16px 10px; background: linear-gradient(transparent 30%, rgb(0 0 0 / .65)); color: #fff; font-size: 12px; font-weight: 600; }
 .meet-kata-play-icon { display: flex; align-items: center; justify-content: center; width: 43px; height: 43px; border-radius: 50%; background: #20c997; color: #062219; transition: scale .2s ease; }
 .meet-kata-play:hover .meet-kata-play-icon { scale: 1.08; }

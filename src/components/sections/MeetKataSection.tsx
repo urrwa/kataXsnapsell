@@ -1,53 +1,75 @@
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { ASSET_SLOTS } from '../../data/content';
-import { Award, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { Award, Play, Pause } from 'lucide-react';
 import '../../meet-kata.css';
 
 interface MeetKataSectionProps { onStartWithKata: () => void; }
 
 export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKata }) => {
   useLanguage();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [documentVisible, setDocumentVisible] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  const togglePlay = () => {
+  useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    if (video.paused) video.play().catch(() => setIsPlaying(false));
-    else video.pause();
-  };
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: .15 });
+    observer.observe(video);
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotion = () => setReducedMotion(preference.matches);
+    const updateVisibility = () => setDocumentVisible(!document.hidden);
+    updateMotion();
+    updateVisibility();
+    preference.addEventListener('change', updateMotion);
+    document.addEventListener('visibilitychange', updateVisibility);
+    return () => {
+      observer.disconnect();
+      preference.removeEventListener('change', updateMotion);
+      document.removeEventListener('visibilitychange', updateVisibility);
+    };
+  }, []);
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (inView && documentVisible && !paused && !hovered && !focused && !reducedMotion) {
+      video.play().catch(() => setPaused(true));
+    } else video.pause();
+  }, [inView, documentVisible, paused, hovered, focused, reducedMotion]);
 
   return (
     <section id="section-3" className="landing-section meet-kata" aria-labelledby="meet-kata-heading">
       <div className="meet-kata-layout">
         <div className="meet-kata-visuals">
           <div className="meet-kata-portrait">
-            <img loading="lazy" src={ASSET_SLOTS.kataPortrait.src}
+            <img loading="lazy" src={ASSET_SLOTS.heroKata.src}
               alt={t('Katharina, Creator-Coach und Mentorin')} referrerPolicy="no-referrer" />
             <div className="meet-kata-experience">
               <Award size={19} strokeWidth={1.5} aria-hidden="true" />
               <div><strong>{t('20+ Jahre Erfahrung')}</strong><span>{t('Coaching und Training')}</span></div>
             </div>
           </div>
-          <div className="meet-kata-video">
+          <div className="meet-kata-video"
+            onPointerEnter={event => { if (event.pointerType === 'mouse') setHovered(true); }}
+            onPointerLeave={() => setHovered(false)}
+            onFocusCapture={event => { if (event.target.matches(':focus-visible')) setFocused(true); }}
+            onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
             <video ref={videoRef}
-              src="https://res.cloudinary.com/n5nqkpmk/video/upload/v1790000241/01_a04ekp.mp4"
-              poster={ASSET_SLOTS.kataCoachingVideoPoster.src}
-              playsInline preload="none" muted={isMuted} loop
-              onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)}
-              onError={() => setIsPlaying(false)} />
-            <AnimatedButton type="button" onClick={togglePlay} className="meet-kata-play"
-              aria-label={t(isPlaying ? 'Coaching-Video pausieren' : 'Coaching-Video abspielen')}>
-              <span className="meet-kata-play-icon">{isPlaying ? <Pause size={21} /> : <Play size={21} />}</span>
-              <span>{t(isPlaying ? 'Video pausieren' : 'Katharina kennenlernen')}</span>
-            </AnimatedButton>
-            <AnimatedButton type="button" onClick={() => setIsMuted(value => !value)}
-              aria-label={t(isMuted ? 'Ton einschalten' : 'Ton ausschalten')}
-              aria-pressed={!isMuted} className="meet-kata-sound">
-              {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+              src="/media/mentor/coaching.mp4"
+              poster="/media/mentor/coaching-poster.jpg"
+              aria-label={t('Coaching-Einblick · illustrative Stockaufnahme')}
+              playsInline preload="metadata" muted loop
+              onError={() => setPaused(true)} />
+            <div className="meet-kata-video-caption"><strong>{t('Coaching-Einblick')}</strong><span>{t('Illustrative Stockaufnahme')}</span></div>
+            <AnimatedButton type="button" onClick={() => { if (reducedMotion) { setReducedMotion(false); setPaused(false); } else setPaused(value => !value); }}
+              aria-label={t(paused || reducedMotion ? 'Coaching-Video abspielen' : 'Coaching-Video pausieren')}
+              aria-pressed={paused} className="meet-kata-sound">
+              {paused || reducedMotion ? <Play size={15} /> : <Pause size={15} />}
             </AnimatedButton>
           </div>
         </div>
