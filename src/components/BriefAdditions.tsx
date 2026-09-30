@@ -1,7 +1,7 @@
 import { AnimatedLink, AnimatedButton } from './AnimatedButton';
 import { t, useLanguage } from '../i18n';
 import React, { useEffect, useRef, useState, useId } from 'react';
-import { ArrowUpRight, BookOpen, Check, ChevronDown, Users, MessageSquare, ShoppingBag } from 'lucide-react';
+import { ArrowUpRight, Check, ChevronDown, Users, MessageSquare, ShoppingBag } from 'lucide-react';
 import '../faq.css';
 export const incomeNotice = '$20.000 pro Monat sind ein ambitioniertes Ziel und kein garantiertes Einkommen. Ergebnisse hängen unter anderem von Reichweite, Zielgruppe, Angebot, Preisen, Conversion, Konsistenz, Marktbedingungen und persönlicher Umsetzung ab.';
 export function ApplyButton({children='Jetzt für die Academy bewerben'}:{children?:React.ReactNode}) {
@@ -13,7 +13,77 @@ const [active,setActive]=useState(1);useEffect(()=>{const observer=new Intersect
 export const academyModules=[['Deine Marke','Finde deine Positionierung und entwickle deinen persönlichen Stil.','Notiere, für wen du Content machst und was deine Marke besonders macht.'],['Dein Content-System','Plane und erstelle Content, der zu dir und deiner Zielgruppe passt.','Lege deine Themen, Formate und einen realistischen Wochenplan fest.'],['Deine AI-Unterstützung','Nutze KI für Content, Gespräche und wiederkehrende Aufgaben.','Bestimme deine Sprache, deine Grenzen und deine Freigaben.'],['Deine Produkte','Verwandle deine Inhalte in attraktive digitale Angebote.','Beschreibe den Nutzen und den Umfang deines ersten digitalen Angebots.'],['Dein CRM-System','Organisiere Käufer, Angebote, Gespräche und Follow-ups.','Ordne Kontakte, dokumentiere Interessen und plane den nächsten Schritt.'],['Dein Wachstum','Verbessere Social Media, Verkäufe und Käuferbindung.','Prüfe regelmäßig, welche Inhalte und Angebote zu deiner Zielgruppe passen.']];
 export function AcademySection(){
   useLanguage();
-const [active,setActive]=useState(0);return <section id="section-9" className="landing-section bg-[#0A0A0C] px-4 sm:px-6 lg:px-8" aria-label={t("The Katharina Method")}><div className="max-w-7xl mx-auto text-center space-y-8"><div className="space-y-3"><p className="text-xs uppercase tracking-widest font-bold text-[#20C997]">{t("THE KATHARINA METHOD")}</p><h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white">{t("Deine Marke. Dein Business.")}<br/><span className="text-[#20C997]">{t("Deine Zukunft.")}</span></h2><p className="text-sm sm:text-base text-white/80">{t("In der Katharina Academy lernst du das komplette System Schritt für Schritt.")}</p></div><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{t(academyModules.map(([title,text],i)=><AnimatedButton animationVariant="card" key={title} onClick={()=>setActive(i)} aria-pressed={i===active} aria-controls="academy-module-preview" className={`rounded-3xl border p-6 text-left transition-all hover:-translate-y-1 ${i===active?'border-[#20C997] bg-[#171518]':'border-white/10 bg-[#121113]'}`}><div className="flex items-center justify-between text-[#20C997] mb-4"><BookOpen className="w-6 h-6"/><span className="text-xs font-mono">{t("MODUL 0")}{t(i+1)}</span></div><h3 className="text-xl font-display font-bold text-white">{t(title)}</h3><p className="text-sm text-white/70 mt-3">{t(text)}</p></AnimatedButton>))}</div><ApplyButton>{t("Der Katharina Academy beitreten")}</ApplyButton></div></section>;}
+  return (
+    <section id="section-9" className="landing-section bg-[#0A0A0C] px-4 sm:px-6 lg:px-8" aria-label={t("The Katharina Method")}>
+      <div className="max-w-7xl mx-auto w-full space-y-10">
+        {/* Header */}
+        <div className="text-center space-y-3">
+          <p className="text-xs uppercase tracking-widest font-bold text-[#20C997]">{t("THE KATHARINA METHOD")}</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white">
+            {t("Deine Marke. Dein Business.")}<br/>
+            <span className="text-[#20C997]">{t("Deine Zukunft.")}</span>
+          </h2>
+          <p className="text-sm sm:text-base text-white/70">{t("In der Katharina Academy lernst du das komplette System Schritt für Schritt.")}</p>
+        </div>
+
+        {/* Two-column: cards + glow panel */}
+        <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+          {/* Cards grid */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {academyModules.map(([title, text], i) => (
+              <div
+                key={title}
+                className="rounded-2xl border border-white/8 bg-[#111013] p-6 text-left hover:border-[#20C997]/30 hover:bg-[#141116] transition-colors"
+              >
+                <p className="text-[10px] font-mono font-bold tracking-widest text-[#20C997]/70 mb-4">{t("MODUL 0")}{i + 1}</p>
+                <h3 className="text-base font-bold text-white leading-snug">{t(title)}</h3>
+                <p className="text-xs text-white/55 mt-2 leading-relaxed">{t(text)}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Right glow panel */}
+          <div className="lg:w-72 xl:w-80 rounded-2xl overflow-hidden relative flex-shrink-0 min-h-[280px] lg:min-h-0" style={{ background: '#0d0d10' }}>
+            {/* Animated glow columns */}
+            <div className="absolute inset-0" aria-hidden="true" style={{
+              background: 'linear-gradient(180deg, #0d0d10 0%, #0d1a18 40%, #0d0d10 100%)',
+            }}>
+              {/* vertical light streaks */}
+              <div style={{
+                position: 'absolute', inset: 0,
+                backgroundImage: `repeating-linear-gradient(90deg, transparent 0px, transparent 18px, rgba(32,201,151,0.03) 18px, rgba(32,201,151,0.03) 19px)`,
+              }}/>
+              {/* central glow */}
+              <div style={{
+                position: 'absolute',
+                top: '20%', left: '50%',
+                transform: 'translateX(-50%)',
+                width: '180px', height: '340px',
+                background: 'radial-gradient(ellipse 80px 200px at 50% 40%, rgba(32,201,151,0.55) 0%, rgba(32,201,151,0.12) 50%, transparent 80%)',
+                animation: 'glowPulse 4s ease-in-out infinite',
+              }}/>
+              {/* second softer glow below */}
+              <div style={{
+                position: 'absolute',
+                top: '55%', left: '50%',
+                transform: 'translateX(-50%)',
+                width: '140px', height: '200px',
+                background: 'radial-gradient(ellipse 60px 120px at 50% 50%, rgba(32,201,151,0.3) 0%, transparent 70%)',
+                animation: 'glowPulse 4s ease-in-out 1.5s infinite',
+              }}/>
+            </div>
+            {/* Bottom text */}
+            <div className="absolute bottom-0 left-0 right-0 p-8">
+              <p className="text-white text-xl font-bold leading-snug">{t("Dein ganzes System.")}<br/>{t("Eine Plattform.")}</p>
+              <ApplyButton>{t("Jetzt starten")}</ApplyButton>
+            </div>
+            <style>{`@keyframes glowPulse{0%,100%{opacity:.8;transform:translateX(-50%) scaleY(1)}50%{opacity:1;transform:translateX(-50%) scaleY(1.06)}}`}</style>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 export function CRMDetails(){
   useLanguage();
 const [active,setActive]=useState(0);const tabs=['Käuferprofil','Gespräch','Sales-Pipeline','Angebot'];const features=['Käuferprofile','Kontakte und Notizen','Gesprächsverläufe','Tags und Zielgruppen','einfache Sales-Pipeline','Aufgaben und Follow-ups','Medienbibliothek','Produkte und Angebote','Verkäufe und Analysen','Teamzugänge'];return <div className="w-full max-w-4xl space-y-5 text-left"><div className="grid sm:grid-cols-2 gap-5"><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><h3 className="text-white font-bold mb-3">{t("Direkt verkaufen")}</h3><p className="text-sm text-white/70 leading-relaxed">{t("Content hochladen → Produkt erstellen → Preis festlegen → Payment-Link teilen → Zahlung erhalten → Inhalt ausliefern")}</p></div><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><h3 className="text-white font-bold mb-3">{t("Business verwalten")}</h3><div className="grid grid-cols-1 sm:grid-cols-2 gap-2">{t(features.map(item=><span key={item} className="text-xs text-white/70 flex gap-2"><Check className="w-3 h-3 text-[#20C997] shrink-0"/>{t(item)}</span>))}</div></div></div><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><div className="flex flex-wrap gap-2 mb-5" aria-label={t("CRM-Vorschau")}>{t(tabs.map((name,i)=><AnimatedButton key={name} aria-pressed={active===i} onClick={()=>setActive(i)} className={`rounded-full px-3 py-2 text-xs border ${active===i?'border-[#20C997] text-[#20C997]':'border-white/10 text-white/70'}`}>{t(name)}</AnimatedButton>))}</div><div aria-live="polite" className="grid sm:grid-cols-3 gap-4 min-h-28">{t((active===0?['Demo-Kontakt A','Interesse: Content-Planung','Notiz: Rückfrage zum Workbook']:active===1?['Neue Nachricht: Ich suche Content-Ideen.','Antwort: Welches Format interessiert dich?','Nächster Schritt: persönlich nachfassen']:active===2?['Interesse erkannt','Angebot geteilt','Follow-up geplant']:['Digitales Workbook · Beispiel','Payment-Link → Zahlung','Inhalt ausliefern']).map((line,i)=><div key={line} className="p-4 rounded-xl bg-black/40 border border-white/10"><span className="text-xs text-[#20C997]">{t("0")}{t(i+1)}</span><p className="text-sm text-white/80 mt-2">{t(line)}</p></div>))}</div><p className="text-xs text-white/50 mt-4">{t("Illustrative CRM-Vorschau · keine echten Kundendaten oder Zahlungen.")}</p></div></div>;}
