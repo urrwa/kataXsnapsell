@@ -13,6 +13,7 @@ import { SnapSellSection } from './components/sections/SnapSellSection';
 import { GlobalLifestyleSection } from './components/sections/GlobalLifestyleSection';
 import { ProductionsSection } from './components/sections/ProductionsSection';
 import { GrowthSection } from './components/sections/GrowthSection';
+import { FloatingCardsSection } from './components/sections/FloatingCardsSection';
 import { FinalApplicationSection } from './components/sections/FinalApplicationSection';
 
 import { SectionProgress, AcademySection } from './components/BriefAdditions';
@@ -82,6 +83,9 @@ export default function App() {
 
         {/* Section 12: Growth Potential & Transparent Disclaimer */}
         <GrowthSection />
+
+        {/* Floating Cards: Lassie-style animated dashboard cards */}
+        <FloatingCardsSection />
 
         {/* Section 13: Final CTA & Application Form */}
         <FinalApplicationSection
