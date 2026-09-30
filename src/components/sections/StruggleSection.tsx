@@ -112,8 +112,8 @@ const EditorialRow: React.FC<RowProps> = ({ row, reducedMotion, lang }) => {
 
   return (
     <article className="er-row">
-      {textBlock}
       {mediaBlock}
+      {textBlock}
     </article>
   );
 };
