@@ -8,12 +8,31 @@ footer#main-footer {
 
 /* ── Main surface ── */
 .ft-surface {
+  position: relative;
   background: #0e1412;
   border-radius: 40px 40px 0 0;
   padding: clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px) clamp(36px, 4vw, 56px);
+  overflow: hidden;
 }
 
+/* Botanical background photo */
+.ft-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/contact-bg.png');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  opacity: 0.10;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Ensure content sits above the bg */
 .ft-inner {
+  position: relative;
+  z-index: 1;
   max-width: 1260px;
   margin: 0 auto;
 }
