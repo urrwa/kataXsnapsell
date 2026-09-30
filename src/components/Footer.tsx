@@ -99,7 +99,6 @@ export const Footer: React.FC<Props> = ({ onOpenModal, onNavigate }) => {
               <motion.nav className="ft-link-col" aria-label={t('Connect')} {...colReveal(1)}>
                 <h3 className="ft-col-label">{t('Connect')}</h3>
                 <a className="ft-link" href="https://www.instagram.com/katharinaschwarz_official" target="_blank" rel="noopener noreferrer">Instagram</a>
-                <button type="button" className="ft-link" onClick={() => onOpenModal('contact')}>{t('Kontakt')}</button>
               </motion.nav>
 
               {/* Legal */}

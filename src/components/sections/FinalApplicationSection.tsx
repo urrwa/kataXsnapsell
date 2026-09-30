@@ -9,8 +9,7 @@ interface FinalApplicationSectionProps {
   onSuccessReturn: () => void;
 }
 
-// Unsplash botanical image — free to use, no attribution required for web use
-const BOTANICAL_IMG = 'https://images.unsplash.com/photo-1490750967868-88df5691cc64?w=1800&q=80&auto=format&fit=crop';
+const BOTANICAL_IMG = '/botanical-bg.png';
 
 export const FinalApplicationSection: React.FC<FinalApplicationSectionProps> = ({
   onOpenModal,
