@@ -17,9 +17,64 @@ const [active,setActive]=useState(0);return <section id="section-9" className="l
 export function CRMDetails(){
   useLanguage();
 const [active,setActive]=useState(0);const tabs=['Käuferprofil','Gespräch','Sales-Pipeline','Angebot'];const features=['Käuferprofile','Kontakte und Notizen','Gesprächsverläufe','Tags und Zielgruppen','einfache Sales-Pipeline','Aufgaben und Follow-ups','Medienbibliothek','Produkte und Angebote','Verkäufe und Analysen','Teamzugänge'];return <div className="w-full max-w-4xl space-y-5 text-left"><div className="grid sm:grid-cols-2 gap-5"><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><h3 className="text-white font-bold mb-3">{t("Direkt verkaufen")}</h3><p className="text-sm text-white/70 leading-relaxed">{t("Content hochladen → Produkt erstellen → Preis festlegen → Payment-Link teilen → Zahlung erhalten → Inhalt ausliefern")}</p></div><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><h3 className="text-white font-bold mb-3">{t("Business verwalten")}</h3><div className="grid grid-cols-1 sm:grid-cols-2 gap-2">{t(features.map(item=><span key={item} className="text-xs text-white/70 flex gap-2"><Check className="w-3 h-3 text-[#20C997] shrink-0"/>{t(item)}</span>))}</div></div></div><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><div className="flex flex-wrap gap-2 mb-5" aria-label={t("CRM-Vorschau")}>{t(tabs.map((name,i)=><AnimatedButton key={name} aria-pressed={active===i} onClick={()=>setActive(i)} className={`rounded-full px-3 py-2 text-xs border ${active===i?'border-[#20C997] text-[#20C997]':'border-white/10 text-white/70'}`}>{t(name)}</AnimatedButton>))}</div><div aria-live="polite" className="grid sm:grid-cols-3 gap-4 min-h-28">{t((active===0?['Demo-Kontakt A','Interesse: Content-Planung','Notiz: Rückfrage zum Workbook']:active===1?['Neue Nachricht: Ich suche Content-Ideen.','Antwort: Welches Format interessiert dich?','Nächster Schritt: persönlich nachfassen']:active===2?['Interesse erkannt','Angebot geteilt','Follow-up geplant']:['Digitales Workbook · Beispiel','Payment-Link → Zahlung','Inhalt ausliefern']).map((line,i)=><div key={line} className="p-4 rounded-xl bg-black/40 border border-white/10"><span className="text-xs text-[#20C997]">{t("0")}{t(i+1)}</span><p className="text-sm text-white/80 mt-2">{t(line)}</p></div>))}</div><p className="text-xs text-white/50 mt-4">{t("Illustrative CRM-Vorschau · keine echten Kundendaten oder Zahlungen.")}</p></div></div>;}
+const MEXICO_ITEMS = [
+  { emoji: '📸', label: 'Fotoshootings' },
+  { emoji: '🎬', label: 'Videoproduktion' },
+  { emoji: '🤝', label: 'Networking' },
+  { emoji: '🧠', label: 'Coaching' },
+  { emoji: '🤖', label: 'AI Training' },
+  { emoji: '📱', label: 'SnapSell Setup' },
+  { emoji: '📣', label: 'Social Media' },
+  { emoji: '💡', label: 'Preisstrategie' },
+];
+
 export function MexicoExperience(){
   useLanguage();
-return <div id="mexico-experience" className="w-full rounded-3xl border border-white/10 bg-[#141416] p-6 sm:p-8 grid lg:grid-cols-2 gap-8 text-left"><div className="space-y-4"><p className="text-xs text-[#20C997] uppercase tracking-widest font-bold">{t("KATHARINA CREATOR EXPERIENCE")}</p><h3 className="text-2xl sm:text-3xl font-display font-bold text-white">{t("Masterclass mit Katharina in Mexiko.")}</h3><p className="text-sm text-white/75">{t("Ausgewählte Creatorinnen können an einer intensiven Masterclass in einer hochwertigen Villa in Mexiko teilnehmen.")}</p><p className="text-xs text-[#D7BE8A]">{t("Katharina Creator Villa – Mexico")}</p><ApplyButton>{t("Für die Experience bewerben")}</ApplyButton></div><div className="grid sm:grid-cols-2 gap-3">{t(['persönliches Coaching mit Katharina','Social-Media-Workshops','AI Content Training','SnapSell CRM Einrichtung','Produkt- und Preisstrategie','professionelle Fotoshootings','filmreife Videoproduktionen','Networking mit Creatorinnen'].map(item=><div className="flex gap-2 items-start text-xs text-white/80 rounded-xl bg-black/30 p-3" key={item}><Check className="w-4 h-4 text-[#20C997] shrink-0"/>{t(item)}</div>))}</div></div>;}
+  return (
+    <div id="mexico-experience" className="w-full rounded-3xl border border-white/10 bg-[#141416] overflow-hidden text-left">
+      {/* Photo banner */}
+      <div className="relative w-full h-52 sm:h-64 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=85&w=1200&auto=format&fit=crop"
+          alt="Mexico Creator Villa"
+          className="w-full h-full object-cover object-center"
+          style={{ animation: 'mexicoZoom 14s ease-in-out infinite alternate' }}
+          loading="lazy"
+          referrerPolicy="no-referrer"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.5) 55%,rgba(20,20,22,0.98) 100%)' }} />
+        <div className="absolute bottom-0 left-0 p-6 sm:p-8 space-y-1">
+          <p className="text-[10px] text-[#20C997] uppercase tracking-widest font-bold">{t("KATHARINA CREATOR EXPERIENCE")}</p>
+          <h3 className="text-2xl sm:text-3xl font-display font-bold text-white leading-tight">{t("Masterclass in Mexiko.")}</h3>
+          <p className="text-xs text-[#D7BE8A] flex items-center gap-1">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            {t("Katharina Creator Villa – Mexico")}
+          </p>
+        </div>
+      </div>
+
+      {/* Pills grid */}
+      <div className="p-6 sm:p-8 space-y-6">
+        <div className="flex flex-wrap gap-2">
+          {MEXICO_ITEMS.map((item, i) => (
+            <div
+              key={item.label}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/8 bg-white/3 text-white/80 text-xs font-semibold hover:border-[#20C997]/40 hover:bg-[#20C997]/6 transition-all"
+              style={{ animationDelay: `${i * 0.08}s` }}
+            >
+              <span className="text-base leading-none">{item.emoji}</span>
+              {t(item.label)}
+            </div>
+          ))}
+        </div>
+
+        <ApplyButton>{t("Jetzt bewerben")}</ApplyButton>
+      </div>
+
+      <style>{`@keyframes mexicoZoom{from{transform:scale(1.03)}to{transform:scale(1.09) translateX(-1%)}}`}</style>
+    </div>
+  );
+}
 const FAQ_ITEMS: [string, string][] = [
   ['Muss ich bereits eine große Reichweite haben?', 'Nein. Die Academy ist für neue, aktive und etablierte Creatorinnen geeignet.'],
   ['Muss ich technisch erfahren sein?', 'Nein. Das System wird einfach und Schritt für Schritt erklärt.'],

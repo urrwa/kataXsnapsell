@@ -93,18 +93,20 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
           </div>
         </div>
         <MexicoExperience />
-        {/* CTA Button & Mandatory Qualification Line */}
-        <div className="space-y-3 max-w-xl">
+        {/* CTA */}
+        <div className="flex flex-col items-center gap-3">
+          <p className="text-[10px] uppercase tracking-widest text-white/30 font-semibold flex items-center gap-2">
+            <span className="block w-6 h-px bg-white/15" />
+            {t("Nur für ausgewählte Mitglieder")}
+            <span className="block w-6 h-px bg-white/15" />
+          </p>
           <AnimatedButton
             animateArrow id="explore-opportunities-btn"
             onClick={() => document.getElementById('mexico-experience')?.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'})}
             className="px-7 py-3.5 rounded-full bg-[#20C997] hover:bg-[#169B74] text-white font-bold text-sm flex items-center gap-2 mx-auto shadow-xl shadow-[#20C997]/20 transition-all active:scale-95"
           >
             <span>{t("Creator Circle entdecken")}</span>
-            
           </AnimatedButton>
-
-          <p className="text-sm text-white/70 leading-relaxed">{t(" Internationale Experiences sind für ausgewählte, verifizierte Mitglieder verfügbar. Teilnahme, Leistungen, Termine und Kosten hängen vom jeweiligen Programm, der Verfügbarkeit und individuellen Vereinbarungen ab. ")}</p>
         </div>
       </div>
     </section>
