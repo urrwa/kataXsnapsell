@@ -1,6 +1,6 @@
 import { AnimatedButton } from '../AnimatedButton';
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { ArrowDown, Pause, Play } from 'lucide-react';
 import { t, useLanguage } from '../../i18n';
 import '../../reference-hero.css';
@@ -27,6 +27,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
   const [activeSlide, setActiveSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const slideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Scroll-driven frame transition (Lassie-style)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Detect mobile (≤ 767px) — stable for the session, re-evaluated on resize
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  // Map scroll progress to inset and border-radius
+  const maxInset = isMobile ? 14 : 36;
+  const maxRadius = isMobile ? 28 : 64;
+  const frameInset = useTransform(scrollYProgress, [0, 0.45], [0, maxInset]);
+  const frameRadius = useTransform(scrollYProgress, [0, 0.45], [0, maxRadius]);
 
   const entrance = (delay: number) => ({
     initial: { opacity: 0, y: reducedMotion ? 0 : 20 },
@@ -65,12 +87,21 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
 
   return (
     <section
+      ref={heroRef}
       id="section-1"
       className="reference-hero cinematic-hero"
       aria-label={t('Katharina Academy – Start')}
     >
-      {/* Background media */}
-      <div className="cinematic-media" aria-hidden="true">
+      {/* Background media — scroll-driven inset frame */}
+      <motion.div
+        className="cinematic-media"
+        aria-hidden="true"
+        style={reducedMotion ? { borderRadius: 16, overflow: 'hidden' } : {
+          marginInline: frameInset,
+          borderRadius: frameRadius,
+          overflow: 'hidden',
+        }}
+      >
         {/* Photo slideshow — each slide fades in/out */}
         {SLIDES.map((src, i) => (
           <img
@@ -97,7 +128,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
         )}
         {/* Gradient overlays */}
         <div className="cinematic-gradient" aria-hidden="true" />
-      </div>
+      </motion.div>
 
       {/* Copy */}
       <div className="cinematic-inner">

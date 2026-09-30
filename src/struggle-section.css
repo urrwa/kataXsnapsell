@@ -1,15 +1,21 @@
 .struggle-features {
   background: #080b0a;
   padding-inline: clamp(20px, 6.6vw, 126px);
+  padding-block-start: 0;
   color: #f4f8f6;
 }
 .struggle-features.section-arriving > div { animation: none; }
 .sf-container { width: 100%; max-width: 1624px; margin: 0 auto; }
 .sf-heading { text-align: center; max-width: 1050px; margin: 0 auto 52px; }
-.sf-eyebrow { display: flex; align-items: center; justify-content: center; gap: 12px; color: #a6d3c4; font-size: 11px; font-weight: 600; letter-spacing: .12em; }
-.sf-eyebrow > span { width: 24px; height: 1px; background: #20c997; }
-.sf-heading h2 { margin: 22px 0 18px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(32px, 3.8vw, 54px); font-weight: 500; line-height: 1.2; letter-spacing: -.045em; }
-.sf-heading h2 > span { color: #20c997; }
+.sf-heading-minimal {
+  padding-block: clamp(64px, 10vw, 130px);
+  margin-bottom: 0;
+  max-width: 760px;
+}
+.sf-heading-minimal h2,
+.sf-heading h2 { margin: 0 0 clamp(16px, 2vw, 24px); font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(36px, 5.2vw, 68px); font-weight: 500; line-height: 1.08; letter-spacing: -.055em; }
+.sf-heading h2 > span,
+.sf-heading-mint { color: #20c997; }
 .sf-intro { max-width: 660px; margin: auto; color: #9dada6; font-size: clamp(15px, 1.3vw, 18px); line-height: 1.8; }
 .sf-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 30px; }
 .sf-card { position: relative; isolation: isolate; display: flex; flex-direction: column; grid-column: span 2; min-width: 0; padding: 10px; overflow: hidden; border-radius: 24px; border: 1px solid #ffffff20; background: #111314; box-shadow: inset 0 1px 0 #ffffff08, 0 12px 30px #0003; }

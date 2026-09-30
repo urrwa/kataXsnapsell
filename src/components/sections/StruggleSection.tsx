@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircle2, Pause, Play } from 'lucide-react';
-import { useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import { FeatureCardVideo } from '../FeatureCardVideo';
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
@@ -25,10 +25,26 @@ export const StruggleSection: React.FC<StruggleSectionProps> = ({ onNext }) => {
   return (
     <section id="section-2" className="landing-section struggle-features" aria-labelledby="struggle-heading">
       <div className="sf-container">
-        <header className="sf-heading">
-          <p className="sf-eyebrow"><span />{t('KOMMT DIR DAS BEKANNT VOR?')}</p>
-          <h2 id="struggle-heading">{t('Du machst noch')} <span>{t('alles selbst?')}</span></h2>
-          <p className="sf-intro">{t('Du musst nicht härter arbeiten. Du brauchst ein besseres System.')}</p>
+        <header className="sf-heading sf-heading-minimal">
+          <motion.h2
+            id="struggle-heading"
+            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {t('Machst du noch')}<br />
+            <span className="sf-heading-mint">{t('alles selbst?')}</span>
+          </motion.h2>
+          <motion.p
+            className="sf-intro"
+            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {t('Du musst nicht härter arbeiten. Du brauchst ein besseres System.')}
+          </motion.p>
         </header>
 
         <div className="sf-grid">
