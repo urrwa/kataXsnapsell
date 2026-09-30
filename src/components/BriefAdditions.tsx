@@ -18,14 +18,14 @@ export function CRMDetails(){
   useLanguage();
 const [active,setActive]=useState(0);const tabs=['Käuferprofil','Gespräch','Sales-Pipeline','Angebot'];const features=['Käuferprofile','Kontakte und Notizen','Gesprächsverläufe','Tags und Zielgruppen','einfache Sales-Pipeline','Aufgaben und Follow-ups','Medienbibliothek','Produkte und Angebote','Verkäufe und Analysen','Teamzugänge'];return <div className="w-full max-w-4xl space-y-5 text-left"><div className="grid sm:grid-cols-2 gap-5"><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><h3 className="text-white font-bold mb-3">{t("Direkt verkaufen")}</h3><p className="text-sm text-white/70 leading-relaxed">{t("Content hochladen → Produkt erstellen → Preis festlegen → Payment-Link teilen → Zahlung erhalten → Inhalt ausliefern")}</p></div><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><h3 className="text-white font-bold mb-3">{t("Business verwalten")}</h3><div className="grid grid-cols-1 sm:grid-cols-2 gap-2">{t(features.map(item=><span key={item} className="text-xs text-white/70 flex gap-2"><Check className="w-3 h-3 text-[#20C997] shrink-0"/>{t(item)}</span>))}</div></div></div><div className="rounded-2xl bg-[#141416] border border-white/10 p-5"><div className="flex flex-wrap gap-2 mb-5" aria-label={t("CRM-Vorschau")}>{t(tabs.map((name,i)=><AnimatedButton key={name} aria-pressed={active===i} onClick={()=>setActive(i)} className={`rounded-full px-3 py-2 text-xs border ${active===i?'border-[#20C997] text-[#20C997]':'border-white/10 text-white/70'}`}>{t(name)}</AnimatedButton>))}</div><div aria-live="polite" className="grid sm:grid-cols-3 gap-4 min-h-28">{t((active===0?['Demo-Kontakt A','Interesse: Content-Planung','Notiz: Rückfrage zum Workbook']:active===1?['Neue Nachricht: Ich suche Content-Ideen.','Antwort: Welches Format interessiert dich?','Nächster Schritt: persönlich nachfassen']:active===2?['Interesse erkannt','Angebot geteilt','Follow-up geplant']:['Digitales Workbook · Beispiel','Payment-Link → Zahlung','Inhalt ausliefern']).map((line,i)=><div key={line} className="p-4 rounded-xl bg-black/40 border border-white/10"><span className="text-xs text-[#20C997]">{t("0")}{t(i+1)}</span><p className="text-sm text-white/80 mt-2">{t(line)}</p></div>))}</div><p className="text-xs text-white/50 mt-4">{t("Illustrative CRM-Vorschau · keine echten Kundendaten oder Zahlungen.")}</p></div></div>;}
 const MEXICO_ITEMS = [
-  { emoji: '📸', label: 'Fotoshootings' },
-  { emoji: '🎬', label: 'Videoproduktion' },
-  { emoji: '🤝', label: 'Networking' },
-  { emoji: '🧠', label: 'Coaching' },
-  { emoji: '🤖', label: 'AI Training' },
-  { emoji: '📱', label: 'SnapSell Setup' },
-  { emoji: '📣', label: 'Social Media' },
-  { emoji: '💡', label: 'Preisstrategie' },
+  'Fotoshootings',
+  'Videoproduktion',
+  'Networking',
+  'Coaching',
+  'AI Training',
+  'SnapSell Setup',
+  'Social Media',
+  'Preisstrategie',
 ];
 
 export function MexicoExperience(){
@@ -35,7 +35,7 @@ export function MexicoExperience(){
       {/* Photo banner */}
       <div className="relative w-full h-52 sm:h-64 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=85&w=1200&auto=format&fit=crop"
+          src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=85&w=1200&auto=format&fit=crop"
           alt="Mexico Creator Villa"
           className="w-full h-full object-cover object-center"
           style={{ animation: 'mexicoZoom 14s ease-in-out infinite alternate' }}
@@ -56,14 +56,13 @@ export function MexicoExperience(){
       {/* Pills grid */}
       <div className="p-6 sm:p-8 space-y-6">
         <div className="flex flex-wrap gap-2">
-          {MEXICO_ITEMS.map((item, i) => (
+          {MEXICO_ITEMS.map((label, i) => (
             <div
-              key={item.label}
-              className="flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/8 bg-white/3 text-white/80 text-xs font-semibold hover:border-[#20C997]/40 hover:bg-[#20C997]/6 transition-all"
+              key={label}
+              className="px-3.5 py-2 rounded-full border border-white/10 bg-white/3 text-white/80 text-xs font-semibold hover:border-[#20C997]/40 hover:bg-[#20C997]/8 transition-all"
               style={{ animationDelay: `${i * 0.08}s` }}
             >
-              <span className="text-base leading-none">{item.emoji}</span>
-              {t(item.label)}
+              {t(label)}
             </div>
           ))}
         </div>
