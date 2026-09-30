@@ -2,48 +2,34 @@
 .reference-header {
   position: fixed; z-index: 50; inset: 0 0 auto;
   color: #f7f7f7;
-  /* no full-width background — pill handles it */
   background: transparent;
-  padding: 16px 20px;
-  transition: padding .4s cubic-bezier(.22,1,.36,1);
+  transition: background .4s, backdrop-filter .4s, -webkit-backdrop-filter .4s;
 }
 .reference-header::before { display: none; }
 
-/* Floating pill nav */
 .reference-nav {
   position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  max-width: 1300px; margin: auto;
-  padding: 14px 20px; min-height: 0;
-  background: rgba(10, 12, 11, 0.72);
-  -webkit-backdrop-filter: blur(20px) saturate(140%);
-  backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 18px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  transition: border-radius .4s cubic-bezier(.22,1,.36,1),
-              background .4s,
-              box-shadow .4s,
-              padding .4s cubic-bezier(.22,1,.36,1);
+  max-width: 1624px; margin: auto;
+  padding: 22px 28px; min-height: 96px;
+  background: transparent;
+  border: 0; border-radius: 0;
 }
 
-/* After scroll: pill collapses to full-width bar */
+/* After scroll: dark blurred full-width bar */
 .reference-header.is-scrolled {
-  padding: 0;
+  background: rgba(8, 12, 10, 0.85);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .reference-header.is-scrolled .reference-nav {
-  max-width: 100%;
-  border-radius: 0;
-  border-left: 0; border-right: 0; border-top: 0;
-  border-bottom-color: rgba(255,255,255,0.06);
-  padding: 12px 28px;
-  background: rgba(8, 12, 10, 0.88);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  padding: 14px 28px;
+  min-height: 0;
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .reference-nav { background: rgba(10,12,11,0.96); }
-  .reference-header.is-scrolled .reference-nav { background: rgba(8,12,10,0.98); }
+  .reference-header.is-scrolled { background: rgba(8,12,10,0.97); }
 }
 .reference-logo { font-family: Arial, sans-serif; font-size: 24px; font-weight: 400; letter-spacing: -.8px; text-align: left; line-height: 1; flex-shrink: 0; }
 .reference-logo > span { display: flex; gap: 9px; align-items: center; margin-top: 8px; color: #a6a6a6; font-size: 9px; letter-spacing: 4.5px; }
