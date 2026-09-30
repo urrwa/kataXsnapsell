@@ -1,61 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { t, useLanguage } from '../i18n';
-import { LayoutDashboard, Users, MessageCircle, GitBranch, Image, UserCheck } from 'lucide-react';
-
-const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: 'Dashboard', active: true },
-  { icon: Users, label: 'Creatorinnen' },
-  { icon: MessageCircle, label: 'Nachrichten' },
-  { icon: GitBranch, label: 'Pipeline' },
-  { icon: Image, label: 'Inhalte' },
-  { icon: UserCheck, label: 'Team' },
-];
+import { TrendingUp, Users, ShoppingBag, ArrowUpRight } from 'lucide-react';
 
 const CREATORS = [
-  { name: 'Sophie M.', pct: 84, revenue: '€ 4.200' },
-  { name: 'Lena K.', pct: 62, revenue: '€ 2.890' },
-  { name: 'Mia R.', pct: 38, revenue: '€ 1.540' },
-];
-
-const MESSAGES = [
-  { name: 'Anna B.', msg: 'Wann kommt das nächste Paket?', time: '09:14' },
-  { name: 'Julia W.', msg: 'Super, danke für die Info!', time: '08:52' },
-  { name: 'Sarah K.', msg: 'Ich hätte Interesse 😊', time: '08:30' },
+  { name: 'Sophie M.', revenue: '€ 4.200', status: 'aktiv', pct: 84 },
+  { name: 'Lena K.', revenue: '€ 2.890', status: 'aktiv', pct: 62 },
+  { name: 'Mia R.', revenue: '€ 1.540', status: 'pause', pct: 38 },
 ];
 
 const PIPELINE = [
-  { label: 'Neu', count: 12, color: '#3a3a4a' },
-  { label: 'Kontaktiert', count: 7, color: '#20C997' },
-  { label: 'Aktiv', count: 4, color: '#169B74' },
-  { label: 'Kunde', count: 2, color: '#0e7a5a' },
+  { label: 'Interesse', count: 12, color: '#3a3a4a' },
+  { label: 'Angebot', count: 7, color: '#20C997' },
+  { label: 'Kauf', count: 4, color: '#169B74' },
 ];
-
-const CHART_POINTS = [18, 32, 24, 48, 38, 62, 55, 74, 66, 82, 70, 88];
-
-function MiniChart({ animated }: { animated: boolean }) {
-  const W = 200, H = 54;
-  const max = Math.max(...CHART_POINTS);
-  const pts = CHART_POINTS.map((v, i) => [
-    (i / (CHART_POINTS.length - 1)) * W,
-    H - (v / max) * (H - 6) - 3,
-  ]);
-  const d = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
-  const fill = `${d} L${W},${H} L0,${H} Z`;
-
-  return (
-    <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: H, display: 'block' }}>
-      <defs>
-        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#20C997" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#20C997" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      <path d={fill} fill="url(#cg)" />
-      <path d={d} fill="none" stroke="#20C997" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-        style={animated ? { strokeDasharray: 600, strokeDashoffset: 0, transition: 'stroke-dashoffset 1.2s ease' } : { strokeDasharray: 600, strokeDashoffset: 600 }} />
-    </svg>
-  );
-}
 
 export const SnapSellDashboardMockup: React.FC = () => {
   useLanguage();
@@ -67,7 +24,7 @@ export const SnapSellDashboardMockup: React.FC = () => {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setAnimated(true); obs.disconnect(); } },
-      { threshold: 0.2 }
+      { threshold: 0.3 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -80,98 +37,78 @@ export const SnapSellDashboardMockup: React.FC = () => {
         <span className="ssd-dot" style={{ background: '#FF5F57' }} />
         <span className="ssd-dot" style={{ background: '#FFBD2E' }} />
         <span className="ssd-dot" style={{ background: '#28C840' }} />
-        <div className="ssd-url">app.snapsell.io / agentur</div>
+        <div className="ssd-url">snapsell.io / dashboard</div>
       </div>
 
+      {/* Dashboard body */}
       <div className="ssd-body">
         {/* Sidebar */}
         <div className="ssd-sidebar">
           <div className="ssd-logo">SnapSell</div>
-          {NAV_ITEMS.map(({ icon: Icon, label, active }) => (
-            <button key={label} className={`ssd-nav-item${active ? ' ssd-nav-item--active' : ''}`}>
+          {[
+            { icon: TrendingUp, label: 'Analytics' },
+            { icon: Users, label: 'Kontakte' },
+            { icon: ShoppingBag, label: 'Produkte' },
+          ].map(({ icon: Icon, label }) => (
+            <button key={label} className="ssd-nav-item">
               <Icon className="ssd-nav-icon" />
               <span>{t(label)}</span>
             </button>
           ))}
         </div>
 
-        {/* Main grid */}
+        {/* Main */}
         <div className="ssd-main">
-          {/* Row 1: Performance + Creators */}
-          <div className="ssd-row-grid">
-            {/* Performance */}
-            <div className="ssd-panel ssd-panel--perf">
-              <div className="ssd-panel-head">
-                <span className="ssd-panel-title">{t('Umsatz')}</span>
-                <span className="ssd-panel-badge">+18%</span>
+          {/* Stat tiles */}
+          <div className="ssd-stats">
+            {[
+              { label: 'Umsatz', value: '€ 8.630', up: '+18%' },
+              { label: 'Käufer', value: '124', up: '+9%' },
+              { label: 'Produkte', value: '6', up: 'aktiv' },
+            ].map(s => (
+              <div className="ssd-stat" key={s.label}>
+                <div className="ssd-stat-label">{t(s.label)}</div>
+                <div className="ssd-stat-value">{s.value}</div>
+                <div className="ssd-stat-up">
+                  <ArrowUpRight className="ssd-stat-arrow" />
+                  {s.up}
+                </div>
               </div>
-              <div className="ssd-big-num">€ 8.630</div>
-              <MiniChart animated={animated} />
-            </div>
-
-            {/* Creators */}
-            <div className="ssd-panel">
-              <div className="ssd-panel-head">
-                <span className="ssd-panel-title">{t('Creatorinnen')}</span>
-                <span className="ssd-panel-count">3 aktiv</span>
-              </div>
-              <div className="ssd-creator-list">
-                {CREATORS.map((c, i) => (
-                  <div className="ssd-creator-row" key={c.name}>
-                    <div className="ssd-avatar">{c.name[0]}</div>
-                    <div className="ssd-creator-info">
-                      <div className="ssd-creator-name">{c.name}</div>
-                      <div className="ssd-bar-wrap">
-                        <div className="ssd-bar" style={{
-                          width: animated ? `${c.pct}%` : '0%',
-                          transition: animated ? `width 0.9s cubic-bezier(.22,1,.36,1) ${0.2 + i * 0.12}s` : 'none',
-                        }} />
-                      </div>
-                    </div>
-                    <div className="ssd-creator-rev">{c.revenue}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Row 2: Messages + Pipeline */}
-          <div className="ssd-row-grid ssd-row-grid--43">
-            {/* Telegram inbox */}
-            <div className="ssd-panel">
-              <div className="ssd-panel-head">
-                <span className="ssd-panel-title">{t('Nachrichten')}</span>
-                <span className="ssd-panel-badge ssd-panel-badge--new">3 neu</span>
+          {/* Creators table */}
+          <div className="ssd-table-label">{t('Creator-Übersicht')}</div>
+          <div className="ssd-table">
+            {CREATORS.map(c => (
+              <div className="ssd-row" key={c.name}>
+                <div className="ssd-avatar">{c.name[0]}</div>
+                <div className="ssd-name">{c.name}</div>
+                <div className="ssd-bar-wrap">
+                  <div
+                    className="ssd-bar"
+                    style={{
+                      width: animated ? `${c.pct}%` : '0%',
+                      transition: animated ? `width 0.9s cubic-bezier(.22,1,.36,1) ${0.2 + CREATORS.indexOf(c) * 0.12}s` : 'none',
+                    }}
+                  />
+                </div>
+                <div className="ssd-revenue">{c.revenue}</div>
+                <div className={`ssd-status ssd-status--${c.status}`}>{t(c.status)}</div>
               </div>
-              <div className="ssd-msg-list">
-                {MESSAGES.map(m => (
-                  <div className="ssd-msg-row" key={m.name}>
-                    <div className="ssd-avatar ssd-avatar--sm">{m.name[0]}</div>
-                    <div className="ssd-msg-body">
-                      <div className="ssd-msg-name">{m.name}</div>
-                      <div className="ssd-msg-text">{m.msg}</div>
-                    </div>
-                    <div className="ssd-msg-time">{m.time}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Pipeline */}
-            <div className="ssd-panel">
-              <div className="ssd-panel-head">
-                <span className="ssd-panel-title">{t('Pipeline')}</span>
+          {/* Pipeline */}
+          <div className="ssd-table-label">{t('Sales-Pipeline')}</div>
+          <div className="ssd-pipeline">
+            {PIPELINE.map(p => (
+              <div className="ssd-pipe-col" key={p.label}>
+                <div className="ssd-pipe-header" style={{ borderColor: p.color }}>{t(p.label)}</div>
+                <div className="ssd-pipe-count" style={{ color: p.color }}>{p.count}</div>
+                <div className="ssd-pipe-sub">{t('Kontakte')}</div>
               </div>
-              <div className="ssd-pipeline">
-                {PIPELINE.map(p => (
-                  <div className="ssd-pipe-col" key={p.label}>
-                    <div className="ssd-pipe-dot" style={{ background: p.color }} />
-                    <div className="ssd-pipe-count" style={{ color: p.color }}>{p.count}</div>
-                    <div className="ssd-pipe-label">{t(p.label)}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
