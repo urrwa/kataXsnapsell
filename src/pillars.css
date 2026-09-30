@@ -1,69 +1,361 @@
-html.pillars-scroll-active { scroll-snap-type: none; }
-#section-4.pillars-section { padding: 100px clamp(22px, 6vw, 110px) 64px; background: #080b0c; scroll-snap-align: none; }
+/* ============================================================
+   Three Pillars — Cinematic Scroll Reveal
+   ============================================================ */
+
+/* ── Section wrapper ── */
+#section-4.pillars-section {
+  background: #080b0c;
+  padding: 100px clamp(22px, 6vw, 110px) 80px;
+  scroll-snap-align: none;
+}
+
 .pillars-section.section-arriving > div { animation: none; }
-.pillars-heading { max-width: 820px; margin: 0 auto 68px; text-align: center; }
-.pillars-eyebrow { color: #20c997; font-size: 11px; letter-spacing: .12em; font-weight: 500; }
-.pillars-heading h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(34px, 3.7vw, 52px); font-weight: 400; line-height: 1.2; letter-spacing: -.045em; margin: 22px 0 20px; }
-.pillars-heading h2 span { color: #20c997; }
-.pillars-intro { max-width: 650px; margin: auto; color: #96a39d; font-size: 15px; line-height: 1.8; font-weight: 400; }
-.pillar-scene { --pillar-progress: 1; max-width: 1260px; margin: auto; }
-.pillar-scene.is-pinned { height: 270svh; }
-.pillar-pin { position: relative; }
-.is-pinned .pillar-pin { position: sticky; top: 108px; height: calc(100svh - 128px); display: flex; flex-direction: column; justify-content: flex-start; padding-top: 18px; }
-.pillar-timeline { display: grid; grid-template-columns: repeat(3, 1fr); position: relative; align-items: center; margin-bottom: 30px; flex-shrink: 0; }
-.pillar-line { position: absolute; left: 0; right: 0; top: 50%; border-top: 1px dashed #ffffff23; }
-.pillar-line::after { content: ''; position: absolute; top: -1px; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, #20c997, #20c99795); transform: scaleX(var(--pillar-progress)); transform-origin: left; }
-.pillar-step { z-index: 1; width: 42px; height: 42px; margin: auto; display: grid; place-items: center; color: #667b72; border: 1px solid #20c99724; border-radius: 50%; background: #0c1c17; font-size: 12px; font-variant-numeric: tabular-nums; font-weight: 500; }
-.pillar-step.is-active { color: #c0f5e4; border-color: #20c99778; box-shadow: 0 0 20px #20c9970d; }
-.pillar-panels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(25px, 4vw, 64px); }
-.pillar-window { overflow: hidden; padding: 0 4px 6px; }
-.pillar-reveal { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; will-change: transform, opacity; }
-.pillar-reveal h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(21px, 1.9vw, 27px); font-weight: 400; letter-spacing: -.035em; line-height: 1.35; min-height: 2.7em; margin: 0 0 20px; color: #f0f5f2; }
-.pillar-tagline { color: #d2ddd7; font-size: 14px; line-height: 1.65; font-weight: 400; margin: 22px 0 10px; min-height: 3.3em; }
-.pillar-description { color: #7f9187; font-size: 12px; line-height: 1.8; min-height: 5.4em; margin: 0 0 18px; }
-.pillar-explore.animated-button { font-size: 11px; color: #b1c8bc; min-height: 34px; background: transparent; border: 1px solid #ffffff12; box-shadow: none; --ab-size: 14px; --ab-edge: 11px; --ab-shift: 5px; }
-.pillar-mobile-number { display: none; }
-.pillar-visual { width: 100%; height: clamp(155px, 13vw, 200px); position: relative; overflow: hidden; border-radius: 12px; border: 1px solid #ffffff0b; background: radial-gradient(ellipse at 15% 0%, #20c9970c, transparent 80%), #0c1110; }
-.pillar-visual-top { display: flex; align-items: center; gap: 7px; position: absolute; top: 13px; left: 15px; right: 15px; font-size: 8px; color: #7f9b8c; }
-.pillar-live-dot { width: 4px; height: 4px; border-radius: 50%; background: #20c997; }
-.pillar-visual-dots { margin-left: auto; color: #5c7366; font-size: 12px; }
-.pillar-chat-art { width: 75%; max-width: 225px; margin: 46px auto 0; position: relative; padding-left: 30px; }
-.pillar-art-icon { position: absolute; left: -5px; top: 4px; color: #4ccba3; }
-.pillar-chat-line { border-radius: 6px 6px 6px 0; padding: 9px; width: 80%; background: #1a2821; margin-bottom: 9px; }
-.pillar-chat-line i { display: block; height: 3px; border-radius: 3px; background: #526b5d; margin: 3px 0; width: 80%; }
-.pillar-chat-line i:last-child { width: 50%; }
-.pillar-chat-answer { display: flex; gap: 8px; align-items: center; width: 95%; background: #163a2d; margin-left: auto; color: #52d7ae; }
-.pillar-chat-answer > div { flex: 1; }
-.pillar-chat-answer i { background: #56a487; }
-.pillar-chat-short { width: 55%; }
-.pillar-content-art { position: relative; width: 210px; height: 145px; margin: 42px auto 0; }
-.pillar-format { position: absolute; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 85px; height: 108px; padding: 18px 12px; border: 1px solid #436b544a; border-radius: 9px; background: #14241b; color: #739e88; }
-.pillar-format-back { left: 26px; top: 2px; transform: rotate(-10deg); }
-.pillar-format-front { left: 86px; top: 10px; transform: rotate(7deg); background: linear-gradient(135deg, #234c39, #162a1e); color: #80d8b3; }
-.pillar-format i { display: block; width: 100%; height: 3px; border-radius: 4px; background: #557d644d; }.pillar-format i:last-child { width: 65%; }
-.pillar-content-spark { position: absolute; right: 15px; top: 0; color: #20c997; }
-.pillar-crm-art { width: 74%; max-width: 240px; margin: 52px auto 0; }
-.pillar-crm-path { display: flex; align-items: center; margin-bottom: 18px; }
-.pillar-crm-path > span { display: grid; place-items: center; width: 35px; height: 35px; border: 1px solid #3c6f524d; background: #182d20; color: #85bc9b; border-radius: 9px; }
-.pillar-crm-path > i { height: 1px; flex: 1; background: #20c99740; }
-.pillar-crm-row { display: flex; align-items: center; gap: 9px; margin-bottom: 11px; color: #3e9974; }.pillar-crm-row > span { width: 10px; height: 10px; border-radius: 50%; background: #2c503a; }.pillar-crm-row > i { height: 3px; flex: 1; background: #283e30; border-radius: 3px; }.pillar-crm-row:last-child { width: 84%; opacity: .55; }
-@media (min-width: 900px) and (max-height: 820px) {
-  .is-pinned .pillar-pin { top: 100px; height: calc(100svh - 112px); padding-top: 8px; }
-  .pillar-timeline { margin-bottom: 18px; }.pillar-step { width: 34px; height: 34px; }
-  .pillar-reveal h3 { font-size: 22px; margin-bottom: 12px; }
-  .pillar-visual { height: 150px; }.pillar-chat-art { margin-top: 36px; transform: scale(.86); transform-origin: top center; }.pillar-content-art { margin-top: 31px; transform: scale(.8); transform-origin: top center; }.pillar-crm-art { margin-top: 40px; transform: scale(.88); transform-origin: top center; }
-  .pillar-tagline { margin-top: 15px; font-size: 13px; }.pillar-description { font-size: 11px; margin-bottom: 12px; }
+
+/* ── Heading ── */
+.pillars-heading {
+  max-width: 820px;
+  margin: 0 auto clamp(56px, 7vw, 96px);
+  text-align: center;
 }
+
+.pillars-heading h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(36px, 4.2vw, 62px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+  color: #f0f5f2;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.pillars-heading-mint { color: #20c997; }
+
+/* ============================================================
+   Desktop sticky scroll stage
+   ============================================================ */
+
+.pillars-stage {
+  position: relative;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+/* Sticky: 3 panels × 100vh each */
+.pillars-stage.is-sticky {
+  height: 300svh;
+}
+
+.pillars-pin {
+  position: relative;
+}
+
+.pillars-stage.is-sticky .pillars-pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Individual scene
+   ============================================================ */
+
+.ps-scene {
+  /* Desktop: all three scenes are stacked on top of each other
+     via absolute positioning inside the sticky pin. */
+}
+
+/* ── Desktop layout ── */
+@media (min-width: 900px) {
+  .pillars-stage.is-sticky .ps-scene {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    /* 3-column: caption-left | media | caption-right */
+    grid-template-columns: 1fr minmax(0, 640px) 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 0 clamp(24px, 3vw, 56px);
+    padding-inline: clamp(16px, 3vw, 48px);
+
+    /* Stacking: later panels sit behind earlier ones */
+    /* z-index set per panel so panel 0 is topmost initially */
+  }
+
+  /* Panels stack, first on top */
+  .pillars-stage.is-sticky .ps-scene-0 { z-index: 3; }
+  .pillars-stage.is-sticky .ps-scene-1 { z-index: 2; }
+  .pillars-stage.is-sticky .ps-scene-2 { z-index: 1; }
+
+  /* Caption left side */
+  .pillars-stage.is-sticky .ps-scene[data-side="left"] .ps-caption {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  /* Caption right side */
+  .pillars-stage.is-sticky .ps-scene[data-side="right"] .ps-caption {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .pillars-stage.is-sticky .ps-media-wrap {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+/* ─── Caption ─── */
+.ps-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 clamp(8px, 2vw, 32px);
+
+  /* Opacity driven by --ps-caption-opacity */
+  opacity: var(--ps-caption-opacity, 1);
+  transition: opacity 0.1s linear;
+}
+
+.ps-label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #20c997;
+  font-variant-numeric: tabular-nums;
+}
+
+.ps-caption h3 {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(20px, 1.9vw, 30px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.035em;
+  color: #f0f5f2;
+}
+
+.ps-caption p {
+  margin: 0;
+  font-size: clamp(13px, 1vw, 16px);
+  line-height: 1.7;
+  color: #8fa49b;
+  max-width: 26ch;
+}
+
+/* ─── Media wrap + panel ─── */
+.ps-media-wrap {
+  width: 100%;
+}
+
+.ps-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: clamp(20px, 3vw, 48px);
+  overflow: hidden;
+  background: #0d1210;
+
+  /* Scale driven by --ps-scale */
+  transform: scale(var(--ps-scale, 1));
+  transform-origin: center bottom;
+  transition: transform 0.05s linear;
+  will-change: transform;
+}
+
+.ps-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Poster shown as background; hidden once video loads data */
+.ps-poster-fallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+  /* sits behind video */
+  z-index: 0;
+}
+
+.ps-video { z-index: 1; }
+
+/* Hide fallback once video has data */
+.ps-video[data-loaded] ~ .ps-poster-fallback { display: none; }
+
+/* ─── Play/pause button ─── */
+.ps-play-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(8, 11, 10, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding: 0;
+}
+
+.ps-media:hover .ps-play-btn,
+.ps-media:focus-within .ps-play-btn {
+  opacity: 1;
+}
+
+.ps-play-btn:focus-visible {
+  outline: 2px solid #20c997;
+  outline-offset: 2px;
+  opacity: 1;
+}
+
+/* Play icon — triangle by default, pause bars when video playing */
+.ps-play-icon {
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 5px 0 5px 9px;
+  border-color: transparent transparent transparent #c8e8dd;
+  margin-left: 2px;
+}
+
+/* When video is playing, show pause bars */
+.ps-media:has(.ps-video:not([paused])) .ps-play-icon {
+  width: 10px;
+  height: 11px;
+  border: 0;
+  background:
+    linear-gradient(to right, #c8e8dd 0, #c8e8dd 3px, transparent 3px, transparent 7px, #c8e8dd 7px, #c8e8dd 10px);
+  margin-left: 0;
+}
+
+/* ============================================================
+   Desktop: panel stacking / reveal via translateY
+   The active panel lifts off, revealing the one beneath.
+   Driven by scroll; JS writes transform directly to .ps-media-wrap
+   on desktop. We set initial positions here.
+   ============================================================ */
+
+@media (min-width: 900px) {
+  /* Panel 1 starts visible; panel 2 peeks out a bit below; panel 3 even further */
+  .pillars-stage.is-sticky .ps-scene-1 .ps-media {
+    transform: scale(0.96) translateY(24px);
+  }
+  .pillars-stage.is-sticky .ps-scene-2 .ps-media {
+    transform: scale(0.92) translateY(48px);
+  }
+}
+
+/* ============================================================
+   Non-sticky (mobile / reduced-motion): simple vertical list
+   ============================================================ */
+
 @media (max-width: 899px) {
-  #section-4.pillars-section { padding-top: 76px; padding-bottom: 76px; }
-  .pillars-heading { margin-bottom: 45px; }.pillars-heading h2 span { display: block; margin-top: 5px; }.pillars-intro { font-size: 14px; }
-  .pillar-timeline { display: none; }.pillar-panels { grid-template-columns: 1fr; gap: 35px; max-width: 460px; margin: auto; }
-  .pillar-window { padding-bottom: 20px; border-bottom: 1px solid #ffffff0d; }
-  .pillar-mobile-number { display: block; color: #20c997; font-size: 11px; margin-bottom: 18px; letter-spacing: .08em; }
-  .pillar-reveal h3 { min-height: 0; font-size: 27px; margin-bottom: 20px; }.pillar-visual { height: 195px; }
-  .pillar-tagline, .pillar-description { min-height: 0; }.pillar-description { font-size: 13px; }.pillar-explore.animated-button { min-height: 42px; }
+  #section-4.pillars-section {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  .pillars-pin {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(48px, 8vw, 80px);
+  }
+
+  .ps-scene {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Caption always above on mobile */
+  .ps-caption {
+    order: -1;
+    text-align: left;
+    align-items: flex-start;
+    opacity: 1 !important;
+  }
+
+  .ps-caption p {
+    max-width: 48ch;
+  }
+
+  .ps-media {
+    border-radius: clamp(20px, 4vw, 28px);
+    transform: none !important;
+  }
 }
+
+/* ============================================================
+   Tablet
+   ============================================================ */
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .pillars-stage.is-sticky .ps-scene {
+    grid-template-columns: 0.75fr minmax(0, 540px) 0.75fr;
+  }
+}
+
+/* ============================================================
+   Reduced motion — all panels in normal flow, no animation
+   ============================================================ */
+
 @media (prefers-reduced-motion: reduce) {
-  .pillar-reveal { transform: none !important; opacity: 1 !important; will-change: auto; }
-  .pillar-scene.is-pinned { height: auto; }.is-pinned .pillar-pin { position: relative; height: auto; top: auto; }
+  .pillars-stage.is-sticky {
+    height: auto !important;
+  }
+
+  .pillars-stage.is-sticky .pillars-pin {
+    position: relative !important;
+    height: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 7vw, 72px);
+    overflow: visible;
+  }
+
+  .pillars-stage.is-sticky .ps-scene {
+    position: relative !important;
+    inset: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: auto !important;
+  }
+
+  .pillars-stage.is-sticky .ps-scene[data-side="left"] .ps-caption,
+  .pillars-stage.is-sticky .ps-scene[data-side="right"] .ps-caption {
+    grid-column: unset;
+    text-align: left;
+    align-items: flex-start;
+    order: -1;
+  }
+
+  .ps-caption { opacity: 1 !important; }
+  .ps-media { transform: none !important; }
+  .ps-media-wrap { grid-column: unset !important; }
 }
