@@ -111,11 +111,11 @@ function AccordionItem({ item, isOpen, onOpen }: {
       <style>{`
         .growth-title {
           font-family: 'Syne', 'Inter', sans-serif;
-          font-size: clamp(28px, 4vw, 52px);
-          font-weight: 800;
-          letter-spacing: -0.03em;
+          font-size: clamp(24px, 3.5vw, 46px);
+          font-weight: 400;
+          letter-spacing: -0.02em;
         }
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500&display=swap');
       `}</style>
     </div>
   );
@@ -132,13 +132,13 @@ export const GrowthSection: React.FC = () => {
       aria-label={t("Growth Potential")}
     >
       {/* Load Syne font */}
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500&display=swap" />
 
       <div className="max-w-5xl mx-auto w-full flex flex-col items-center space-y-10">
         {/* Header */}
         <div className="w-full space-y-2">
           <p className="text-xs uppercase tracking-widest font-bold text-[#20C997]">{t("DEIN NÄCHSTES LEVEL")}</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light font-display text-white leading-[1.15]">
             {t("Baue deinen Weg ")}<span className="text-[#20C997]">{t("zu $20K-Monaten.")}</span>
           </h2>
           <p className="text-[10px] text-white/25 leading-relaxed max-w-lg">{t("$20.000/Monat ist ein ambitioniertes Ziel, kein garantiertes Einkommen. Ergebnisse hängen von Reichweite, Angebot und Umsetzung ab.")}</p>
