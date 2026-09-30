@@ -5,20 +5,17 @@ import { ApplyButton } from '../BriefAdditions';
 const GROWTH_CARDS = [
   {
     title: 'Content & Reichweite',
-    text: 'Plane, erstelle und veröffentliche regelmäßig Premium-Content, der deine Zielgruppe wirklich erreicht.',
-    bullets: ['Wöchentlicher Content-Plan', 'KI-gestützte Erstellung', 'Plattform-Optimierung'],
+    bullets: ['Content-Plan', 'KI-Erstellung', 'Plattform-Optimierung'],
     img: '/client-assets/hero/hero-poster-2.png',
   },
   {
     title: 'Direkte Verkäufe',
-    text: 'Digitale Angebote, Payment-Links und Bundles – du verkaufst direkt ohne Umwege.',
-    bullets: ['Klare Produktstruktur', 'Sofortige Zahlungen', 'Upsells & Bundles'],
+    bullets: ['Digitale Produkte', 'Sofortige Zahlungen', 'Bundles & Upsells'],
     img: '/client-assets/hero/hero-poster-3.png',
   },
   {
-    title: 'Käuferbindung & Wachstum',
-    text: 'Baue langfristige Beziehungen auf und verwandle einmalige Käufer in treue Stammkunden.',
-    bullets: ['CRM & Follow-ups', 'Wiederkehrende Käufer', 'Community-Aufbau'],
+    title: 'Käuferbindung',
+    bullets: ['CRM & Follow-ups', 'Stammkunden', 'Community'],
     img: '/client-assets/hero/hero-poster.png',
   },
 ];
@@ -43,23 +40,19 @@ export const GrowthSection: React.FC = () => {
         </div>
 
         {/* Large cards */}
-        <div className="w-full flex flex-col gap-4">
-          {GROWTH_CARDS.map(({ title, text, bullets, img }) => (
+        <div className="w-full flex flex-col gap-3">
+          {GROWTH_CARDS.map(({ title, bullets, img }) => (
             <div
               key={title}
               className="w-full rounded-2xl border border-white/8 bg-[#111013] overflow-hidden flex flex-col sm:flex-row"
-              style={{ minHeight: '220px' }}
+              style={{ minHeight: '180px' }}
             >
               {/* Text side */}
-              <div className="flex-1 p-7 sm:p-9 flex flex-col justify-center gap-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">{t(title)}</h3>
-                  <p className="text-sm text-white/60 leading-relaxed">{t(text)}</p>
-                </div>
-                <ul className="flex flex-col gap-1.5">
+              <div className="flex-1 p-7 flex flex-col justify-center gap-3">
+                <h3 className="text-2xl font-bold text-white">{t(title)}</h3>
+                <ul className="flex flex-wrap gap-2">
                   {bullets.map(b => (
-                    <li key={b} className="text-sm text-white/80 flex items-center gap-2">
-                      <span className="w-1 h-1 rounded-full bg-[#20C997] flex-shrink-0" />
+                    <li key={b} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-white/75">
                       {t(b)}
                     </li>
                   ))}
@@ -67,15 +60,14 @@ export const GrowthSection: React.FC = () => {
               </div>
 
               {/* Photo side */}
-              <div className="sm:w-64 lg:w-80 flex-shrink-0 relative overflow-hidden" style={{ minHeight: '200px' }}>
+              <div className="sm:w-56 lg:w-72 flex-shrink-0 relative overflow-hidden" style={{ minHeight: '180px' }}>
                 <img
                   src={img}
                   alt=""
                   className="w-full h-full object-cover object-center absolute inset-0"
                   loading="lazy"
                 />
-                {/* subtle left fade into card bg */}
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, #111013 0%, transparent 35%)' }} aria-hidden="true" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg, #111013 0%, transparent 40%)' }} aria-hidden="true" />
               </div>
             </div>
           ))}
