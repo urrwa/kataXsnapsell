@@ -1,7 +1,8 @@
 import { AnimatedLink, AnimatedButton } from './AnimatedButton';
 import { t, useLanguage } from '../i18n';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useId } from 'react';
 import { ArrowUpRight, BookOpen, Check, ChevronDown, Users, MessageSquare, ShoppingBag } from 'lucide-react';
+import '../faq.css';
 export const incomeNotice = '$20.000 pro Monat sind ein ambitioniertes Ziel und kein garantiertes Einkommen. Ergebnisse hängen unter anderem von Reichweite, Zielgruppe, Angebot, Preisen, Conversion, Konsistenz, Marktbedingungen und persönlicher Umsetzung ab.';
 export function ApplyButton({children='Jetzt für die Academy bewerben'}:{children?:React.ReactNode}) {
   useLanguage();
@@ -19,9 +20,96 @@ const [active,setActive]=useState(0);const tabs=['Käuferprofil','Gespräch','Sa
 export function MexicoExperience(){
   useLanguage();
 return <div id="mexico-experience" className="w-full rounded-3xl border border-white/10 bg-[#141416] p-6 sm:p-8 grid lg:grid-cols-2 gap-8 text-left"><div className="space-y-4"><p className="text-xs text-[#20C997] uppercase tracking-widest font-bold">{t("KATHARINA CREATOR EXPERIENCE")}</p><h3 className="text-2xl sm:text-3xl font-display font-bold text-white">{t("Masterclass mit Katharina in Mexiko.")}</h3><p className="text-sm text-white/75">{t("Ausgewählte Creatorinnen können an einer intensiven Masterclass in einer hochwertigen Villa in Mexiko teilnehmen.")}</p><p className="text-xs text-[#D7BE8A]">{t("Katharina Creator Villa – Mexico")}</p><ApplyButton>{t("Für die Experience bewerben")}</ApplyButton></div><div className="grid sm:grid-cols-2 gap-3">{t(['persönliches Coaching mit Katharina','Social-Media-Workshops','AI Content Training','SnapSell CRM Einrichtung','Produkt- und Preisstrategie','professionelle Fotoshootings','filmreife Videoproduktionen','Networking mit Creatorinnen'].map(item=><div className="flex gap-2 items-start text-xs text-white/80 rounded-xl bg-black/30 p-3" key={item}><Check className="w-4 h-4 text-[#20C997] shrink-0"/>{t(item)}</div>))}</div></div>;}
-const questions=[['Muss ich bereits eine große Reichweite haben?','Nein. Die Academy ist für neue, aktive und etablierte Creatorinnen geeignet.'],['Muss ich technisch erfahren sein?','Nein. Das System wird einfach und Schritt für Schritt erklärt.'],['Ersetzt KI meine Persönlichkeit?','Nein. KI unterstützt deine Arbeit. Du bestimmst deine Identität, deinen Stil, deine Grenzen und deine Freigaben.'],['Ist eine internationale Reise garantiert?','Nein. Events, Produktionen und Reisen sind zusätzliche Möglichkeiten für ausgewählte Mitglieder.'],['Sind bestimmte Umsätze garantiert?','Nein. Die Academy stellt Systeme, Wissen und Unterstützung bereit. Ergebnisse hängen von deiner Ausgangssituation, deinem Angebot und deiner Umsetzung ab.']];
-export function FAQAccordion(){
+const FAQ_ITEMS: [string, string][] = [
+  ['Muss ich bereits eine große Reichweite haben?', 'Nein. Die Academy ist für neue, aktive und etablierte Creatorinnen geeignet.'],
+  ['Muss ich technisch erfahren sein?', 'Nein. Das System wird einfach und Schritt für Schritt erklärt.'],
+  ['Ersetzt KI meine Persönlichkeit?', 'Nein. KI unterstützt deine Arbeit. Du bestimmst deine Identität, deinen Stil, deine Grenzen und deine Freigaben.'],
+  ['Ist eine internationale Reise garantiert?', 'Nein. Events, Produktionen und Reisen sind zusätzliche Möglichkeiten für ausgewählte Mitglieder.'],
+  ['Sind bestimmte Umsätze garantiert?', 'Nein. Die Academy stellt Systeme, Wissen und Unterstützung bereit. Ergebnisse hängen von deiner Ausgangssituation, deinem Angebot und deiner Umsetzung ab.'],
+];
+
+interface FaqItemProps {
+  key?: React.Key;
+  question: string;
+  answer: string;
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+function FaqItem({ question, answer, index, isOpen, onToggle }: FaqItemProps) {
+  const uid = useId();
+  const btnId = `faq-btn-${uid}-${index}`;
+  const panelId = `faq-panel-${uid}-${index}`;
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Animate height
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    if (isOpen) {
+      el.style.maxHeight = el.scrollHeight + 'px';
+      el.style.opacity = '1';
+    } else {
+      el.style.maxHeight = '0px';
+      el.style.opacity = '0';
+    }
+  }, [isOpen]);
+
+  return (
+    <div className={`faq-row${isOpen ? ' faq-row--open' : ''}`}>
+      <h3 className="faq-row-heading">
+        <button
+          id={btnId}
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          className="faq-row-btn"
+          onClick={onToggle}
+        >
+          <span className="faq-row-q">{t(question)}</span>
+          <ChevronDown className={`faq-chevron${isOpen ? ' faq-chevron--open' : ''}`} size={18} aria-hidden="true" />
+        </button>
+      </h3>
+      <div
+        ref={contentRef}
+        id={panelId}
+        role="region"
+        aria-labelledby={btnId}
+        className="faq-row-body"
+        style={{ maxHeight: '0px', opacity: '0' }}
+      >
+        <p className="faq-row-answer">{t(answer)}</p>
+      </div>
+    </div>
+  );
+}
+
+export function FAQAccordion() {
   useLanguage();
-const [active,setActive]=useState<number|null>(null);return <div className="relative z-10 max-w-4xl mx-auto mt-14 text-left"><h3 className="text-2xl font-display font-bold text-white mb-6">{t("Häufige Fragen")}</h3>{t(questions.map(([q,a],i)=><div key={q} className="border-b border-white/10"><h4><AnimatedButton id={`faq-q-${i}`} aria-expanded={active===i} aria-controls={`faq-a-${i}`} onClick={()=>setActive(active===i?null:i)} className="flex justify-between items-center gap-4 w-full py-5 text-left text-sm text-white/90">{t(q)}<ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${active===i?'rotate-180':''}`}/></AnimatedButton></h4><p id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} hidden={active!==i} className="text-sm text-white/70 pb-5 leading-relaxed">{t(a)}</p></div>))}</div>;}
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (i: number) => setOpenIndex(prev => prev === i ? null : i);
+
+  return (
+    <section className="faq-section" aria-label={t('Häufige Fragen')}>
+      <div className="faq-inner">
+        <h2 className="faq-heading">{t('FAQ')}</h2>
+        <div className="faq-list" role="list">
+          {FAQ_ITEMS.map(([q, a], i) => (
+            <FaqItem
+              key={q}
+              question={q}
+              answer={a}
+              index={i}
+              isOpen={openIndex === i}
+              onToggle={() => toggle(i)}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 export function useFocusTrap(open:boolean,close:()=>void){const ref=useRef<HTMLDivElement>(null);useEffect(()=>{if(!open)return;const prior=document.activeElement as HTMLElement;const overflow=document.body.style.overflow;document.body.style.overflow='hidden';const nodes=():HTMLElement[]=>Array.from(ref.current?.querySelectorAll('button,a[href],input,select,[tabindex="0"]')||[]) as HTMLElement[];nodes()[0]?.focus();const key=(e:KeyboardEvent)=>{if(e.key==='Escape')close();if(e.key==='Tab'){const list=nodes();if(e.shiftKey&&document.activeElement===list[0]){e.preventDefault();list.at(-1)?.focus();}else if(!e.shiftKey&&document.activeElement===list.at(-1)){e.preventDefault();list[0]?.focus();}}};document.addEventListener('keydown',key);return()=>{document.removeEventListener('keydown',key);document.body.style.overflow=overflow;prior?.focus();};},[open]);return ref;}
 
