@@ -11,12 +11,22 @@ interface HeroSectionProps {
   onScrollNext: () => void;
 }
 
+const SLIDES = [
+  '/client-assets/hero/hero-poster.png',
+  '/client-assets/hero/hero-poster-2.png',
+  '/client-assets/hero/hero-poster-3.png',
+];
+
+const SLIDE_DURATION = 5000; // ms each slide shows
+
 export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onScrollNext }) => {
   useLanguage();
   const reducedMotion = useReducedMotion();
   const [videoPaused, setVideoPaused] = useState(false);
   const [underlineDrawn, setUnderlineDrawn] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const slideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const entrance = (delay: number) => ({
     initial: { opacity: 0, y: reducedMotion ? 0 : 20 },
@@ -39,6 +49,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
     else { void video.play().catch(() => {}); }
   }, [videoPaused, reducedMotion]);
 
+  // Photo slideshow — advances every SLIDE_DURATION ms
+  useEffect(() => {
+    if (reducedMotion) return;
+    const advance = () => {
+      setActiveSlide(prev => (prev + 1) % SLIDES.length);
+    };
+    slideTimerRef.current = setTimeout(advance, SLIDE_DURATION);
+    return () => { if (slideTimerRef.current) clearTimeout(slideTimerRef.current); };
+  }, [activeSlide, reducedMotion]);
+
   const toggleVideo = () => {
     setVideoPaused(prev => !prev);
   };
@@ -51,6 +71,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
     >
       {/* Background media */}
       <div className="cinematic-media" aria-hidden="true">
+        {/* Photo slideshow — each slide fades in/out */}
+        {SLIDES.map((src, i) => (
+          <img
+            key={src}
+            className={`cinematic-poster cinematic-slide${i === activeSlide ? ' cinematic-slide-active' : ''}`}
+            src={src}
+            alt=""
+            style={{ zIndex: i === activeSlide ? 2 : 1 }}
+          />
+        ))}
+        {/* Video layer on top when playing */}
         {!reducedMotion && (
           <video
             ref={videoRef}
@@ -64,11 +95,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onJoin, onExplore, onS
             preload="auto"
           />
         )}
-        <img
-          className="cinematic-poster"
-          src="/client-assets/hero/hero-poster.png"
-          alt=""
-        />
         {/* Gradient overlays */}
         <div className="cinematic-gradient" aria-hidden="true" />
       </div>

@@ -39,15 +39,25 @@
 
 /* Media layer */
 .cinematic-media { position: absolute; inset: 0; z-index: 0; }
-.cinematic-video,
-.cinematic-poster {
+.cinematic-video {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: 65% top;
 }
-.cinematic-video { z-index: 2; }
-.cinematic-poster { z-index: 1; }
+.cinematic-video { z-index: 4; }
+
+/* Slideshow slides */
+.cinematic-slide {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 65% top;
+  opacity: 0;
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
+}
+.cinematic-slide-active { opacity: 1; }
 
 /* Gradient: strong left for text, transparent right for people, bottom fade */
 .cinematic-gradient {
@@ -290,13 +300,13 @@
   .cinematic-copy { max-width: 520px; }
   .cinematic-hero h1 { font-size: clamp(48px, 7vw, 72px); }
   /* On tablet the team may appear too far right; shift photo crop slightly */
-  .cinematic-video, .cinematic-poster { object-position: 70% top; }
+  .cinematic-video, .cinematic-slide { object-position: 70% top; }
 }
 @media (max-width: 639px) {
   .cinematic-inner { padding: 120px 24px 72px; min-height: calc(100svh - 66px); }
   .cinematic-copy { max-width: 100%; }
   /* Push crop so Katharina stays visible on portrait phone */
-  .cinematic-video, .cinematic-poster { object-position: 72% top; }
+  .cinematic-video, .cinematic-slide { object-position: 72% top; }
   /* Darker left-side gradient on mobile so text is always readable */
   .cinematic-gradient {
     background:
