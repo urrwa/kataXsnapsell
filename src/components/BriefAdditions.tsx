@@ -105,20 +105,20 @@ export function MexicoExperience(){
       {/* Photo banner */}
       <div className="relative w-full h-52 sm:h-64 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?q=85&w=1200&auto=format&fit=crop"
-          alt="Mexico Creator Villa"
+          src="/media/mentor/mexico-creative-space.webp"
+          alt={t('Kreativer Arbeitsplatz auf einer tropischen Terrasse · KI-Illustration')}
           className="w-full h-full object-cover object-center"
           style={{ animation: 'mexicoZoom 14s ease-in-out infinite alternate' }}
           loading="lazy"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.5) 55%,rgba(20,20,22,0.98) 100%)' }} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(90deg,rgba(0,0,0,0.42) 0%,rgba(0,0,0,0.08) 65%),linear-gradient(0deg,rgba(20,20,22,0.78) 0%,transparent 65%)' }} />
+        <span className="absolute top-3 right-4 text-[10px] text-white/90 bg-black/35 rounded-full px-2 py-1">{t('KI-generierte Illustration')}</span>
         <div className="absolute bottom-0 left-0 p-6 sm:p-8 space-y-1">
           <p className="text-[10px] text-[#20C997] uppercase tracking-widest font-bold">{t("KATHARINA CREATOR EXPERIENCE")}</p>
-          <h3 className="text-2xl sm:text-3xl font-display font-bold text-white leading-tight">{t("Masterclass in Mexiko.")}</h3>
-          <p className="text-xs text-[#D7BE8A] flex items-center gap-1">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            {t("Katharina Creator Villa – Mexico")}
+          <h3 className="text-2xl sm:text-3xl font-display font-bold text-white leading-tight">{t("Kreiere. Vernetze dich. Wachse.")}</h3>
+          <p className="text-sm text-white/80">
+            {t("Ein Creator-Erlebnis in Mexiko.")}
           </p>
         </div>
       </div>

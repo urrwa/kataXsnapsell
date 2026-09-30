@@ -29,3 +29,9 @@ Video: Anna Shvets, Women In a Meeting, Pexels 5534968. Published Oct 5, 2020. R
 https://www.pexels.com/video/women-in-a-meeting-5534968/
 https://www.pexels.com/license/
 Downloaded HD 720x1280, silent loop. Matching poster from Pexels.
+
+### Updated coaching preview — October 1, 2026
+`coaching-ai-v2.mp4` is an AI-edited 7.71-second crop of the above licensed stock video, generated with Higgsfield Genjutsu (job 2eb5e978-edbf-4382-b133-5314c933c989). The two principal adults and their clothing were replaced using an AI-generated fictional reference. It is an illustrative coaching scene, not footage of Katharina or an Academy event. The site labels it AI-generated. Silent H.264, 900x716, matching extracted poster.
+
+### Mexico banner — October 1, 2026
+`mexico-creative-space.webp` is an original AI-generated editorial illustration created with the built-in image generation tool. It depicts a fictional outdoor creative workspace on a tropical terrace, not the confirmed Academy venue. The site labels it AI-generated.

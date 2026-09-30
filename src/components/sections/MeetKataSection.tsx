@@ -60,12 +60,12 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
             onFocusCapture={event => { if (event.target.matches(':focus-visible')) setFocused(true); }}
             onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
             <video ref={videoRef}
-              src="/media/mentor/coaching.mp4"
-              poster="/media/mentor/coaching-poster.jpg"
-              aria-label={t('Coaching-Einblick · illustrative Stockaufnahme')}
+              src="/media/mentor/coaching-ai-v2.mp4"
+              poster="/media/mentor/coaching-ai-v2-poster.jpg"
+              aria-label={t('Coaching-Einblick · KI-generierte Vorschau')}
               playsInline preload="metadata" muted loop
               onError={() => setPaused(true)} />
-            <div className="meet-kata-video-caption"><strong>{t('Coaching-Einblick')}</strong><span>{t('Illustrative Stockaufnahme')}</span></div>
+            <div className="meet-kata-video-caption"><strong>{t('Coaching-Einblick')}</strong><span>{t('KI-generierte Vorschau')}</span></div>
             <AnimatedButton type="button" onClick={() => { if (reducedMotion) { setReducedMotion(false); setPaused(false); } else setPaused(value => !value); }}
               aria-label={t(paused || reducedMotion ? 'Coaching-Video abspielen' : 'Coaching-Video pausieren')}
               aria-pressed={paused} className="meet-kata-sound">
