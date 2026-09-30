@@ -1,0 +1,81 @@
+/* Local replacement for section-2's three rows; no page-wide scroll controller. */
+#section-2.struggle-features {
+  background: #080808;
+  padding-inline: clamp(20px, 2.6vw, 50px);
+  scroll-snap-align: none;
+}
+#section-2 .sf-container { max-width: 1800px; }
+
+.ka-project-rows {
+  --project-frame-height: 560px; /* Must equal MAX in ProjectScrollRows.tsx. */
+  width: 100%;
+  color: #f4f4f4;
+  overflow: visible;
+  overflow-anchor: none;
+}
+.ka-project-rows * { box-sizing: border-box; }
+.ka-project-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(110px, .3fr);
+  gap: clamp(24px, 3.1vw, 60px);
+  align-items: start;
+  padding-block: clamp(36px, 3.1vw, 60px);
+  border-top: 1px solid rgb(255 255 255 / .23);
+  overflow: visible; /* The climb reveal must NOT be clipped by the row. */
+  isolation: isolate;
+}
+.ka-project-row:last-child { border-bottom: 1px solid rgb(255 255 255 / .23); }
+.ka-project-row .ka-project-title {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: clamp(25px, 3.25vw, 64px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -.055em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.ka-project-image {
+  height: var(--project-frame-height);
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 0;
+  background: #111;
+  /* No scale, translate, CSS transition, aspect-ratio, or animated height. */
+}
+.ka-project-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  border-radius: 0;
+}
+.ka-project-detail {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+.ka-project-detail p { margin: 8px 0 0; color: #d4dad7; }
+.ka-project-number { color: #20c997; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 809px), (pointer: coarse) {
+  .ka-project-row { grid-template-columns: 1fr; gap: 20px; padding-block: 30px; }
+  .ka-project-row .ka-project-title { font-size: clamp(28px, 6vw, 44px); }
+  .ka-project-image { height: auto; aspect-ratio: 4 / 3; }
+  .ka-project-detail { max-width: 42ch; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ka-project-image { clip-path: none !important; margin: 0 !important; }
+  .ka-project-rows [data-project-text] { opacity: 1 !important; }
+}
+@media print {
+  .ka-project-image { clip-path: none !important; margin: 0 !important; }
+  .ka-project-rows [data-project-text] { opacity: 1 !important; }
+}
