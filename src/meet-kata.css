@@ -4,18 +4,23 @@
    ============================================================ */
 
 /* ── Outer section ──────────────────────────────────────────
-   No min-height. Natural padding around the content.
+   No top padding — the sticky heading fills the first viewport.
+   Bottom padding separates bio from the next section.
    ─────────────────────────────────────────────────────────── */
 .mk-bronx {
   position: relative;
   background: #080808;
   color: #f4f6f4;
-  padding-top: clamp(80px, 10vw, 120px);
+  padding-top: 0;
   padding-bottom: clamp(80px, 10vw, 120px);
   padding-left: clamp(22px, 5vw, 80px);
   padding-right: clamp(22px, 5vw, 80px);
   scroll-margin-top: 90px;
   overflow: visible;
+  /* Promote to own compositing layer so the App root's overflow-x:clip
+     does not create a BFC that clips the upward-travelling portrait */
+  transform: translateZ(0);
+  isolation: isolate;
 }
 
 .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after {
@@ -23,24 +28,21 @@
 }
 
 /* ── Animation stage ────────────────────────────────────────
-   Self-contained scroll track. Height = viewport height (sticky
-   pin zone) + portrait travel distance. The portrait is
-   ~600px tall on desktop and travels ~58vh upward, so we need
-   at least 100vh + ~90vh = ~190vh. Using 200vh leaves a little
-   breathing room at the end without being excessive.
+   Self-contained scroll track.
+   100vh = sticky heading pin zone.
+   100vh = portrait travel distance.
+   Total 200vh. No extra padding added here.
    ─────────────────────────────────────────────────────────── */
 .mk-stage {
   position: relative;
   height: 200vh;
-  /* overflow visible so portrait can travel above the stage top edge */
   overflow: visible;
 }
 
 /* ── Sticky heading pin ─────────────────────────────────────
-   Occupies 100vh inside the stage. When the stage top aligns
-   with the viewport top, the heading pins there. When the stage
-   bottom exits the viewport, sticky stops and the heading
-   is gone (opacity:0 from scroll mapping).
+   Heading is IMMEDIATELY visible when entering the section.
+   100vh height means it stays pinned for the full first half
+   of the stage.
    ─────────────────────────────────────────────────────────── */
 .mk-stage__sticky {
   position: sticky;
@@ -83,20 +85,25 @@
 }
 
 /* ── Portrait row ───────────────────────────────────────────
-   Sits in the second 100vh of the stage (below the sticky zone
-   in DOM order). negative margin-top pulls it into the sticky
-   zone visually so it starts below the heading at scroll=0.
-   The motion.div translates it upward from there.
+   Positioned in the second half of the stage.
+   negative margin-top pulls it up into the sticky zone
+   so it's visible below the heading at scroll=0.
+
+   CRITICAL: overflow:visible here AND on all ancestors so the
+   capsule's rounded bottom is never clipped by a rectangular
+   overflow context. The App root uses overflow-x:clip which
+   can create a BFC that clips vertical overflow too.
+   We isolate with contain:none and use transform on the mover
+   so the capsule itself never crosses the BFC boundary raw.
    ─────────────────────────────────────────────────────────── */
 .mk-stage__portrait-row {
   position: relative;
-  z-index: 2; /* above heading */
+  z-index: 2;
   display: flex;
   justify-content: center;
-  /* Pull the portrait up so at scroll=0 it appears below the heading
-     in the viewport, not off-screen below the stage. */
-  margin-top: -70vh;
+  margin-top: -72vh;
   overflow: visible;
+  /* No contain, no isolation — keep stacking simple */
 }
 
 .mk-bronx__portrait-mover {
@@ -104,7 +111,7 @@
   will-change: transform;
 }
 
-/* Capsule portrait mask — fully rounded, approved shape preserved */
+/* Capsule portrait mask */
 .mk-bronx__portrait {
   position: relative;
   width: clamp(280px, 42vw, 560px);
@@ -112,6 +119,8 @@
   overflow: hidden;
   border-radius: 9999px;
   background: #131816;
+  /* Extra bottom padding baked into aspect-ratio so rounded bottom
+     is never clipped — the aspect-ratio gives enough height */
 }
 
 .mk-bronx__portrait img {
@@ -123,12 +132,10 @@
   max-width: none;
 }
 
-/* ── Biography and CTA ──────────────────────────────────────
-   Outside the stage. Normal flow. No sticky, no transforms.
-   Top margin = gap between portrait bottom and bio top.
-   Portrait bottom after travel is approximately at the stage
-   bottom + portrait height - 58vh of upward travel.
-   We use a modest margin and let the layout settle naturally.
+/* ── Biography ──────────────────────────────────────────────
+   Outside the stage entirely. Pure normal flow.
+   Portrait translateY is a visual-only transform — it does not
+   affect document flow, so bio sits right after .mk-stage.
    ─────────────────────────────────────────────────────────── */
 .mk-bronx__copy {
   position: relative;
@@ -216,7 +223,6 @@
 /* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
   .mk-bronx {
-    padding-top: 60px;
     padding-bottom: 64px;
   }
 
@@ -233,7 +239,7 @@
   }
 
   .mk-stage__portrait-row {
-    margin-top: -65vh;
+    margin-top: -60vh;
   }
 
   .mk-bronx__copy {
@@ -244,21 +250,16 @@
   .mk-bronx__description { font-size: 16px; }
 }
 
-/* ── Reduced motion: static readable layout ─────────────── */
+/* ── Reduced motion ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .mk-bronx {
-    padding-top: clamp(72px, 9vw, 120px);
-  }
-
   .mk-stage {
     height: auto;
-    overflow: visible;
   }
 
   .mk-stage__sticky {
     position: static;
     height: auto;
-    padding-bottom: clamp(40px, 5vw, 64px);
+    padding: clamp(60px, 9vw, 100px) 0 clamp(40px, 5vw, 64px);
   }
 
   .mk-stage__portrait-row {
