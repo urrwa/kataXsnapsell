@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { AnimatedButton } from '../AnimatedButton';
 import { ASSET_SLOTS } from '../../data/content';
@@ -35,7 +35,8 @@ interface MeetKataSectionProps { onStartWithKata: () => void }
  *  </section>
  */
 export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKata }) => {
-  useLanguage();
+  const language = useLanguage();
+  const [coachingStarted, setCoachingStarted] = useState(false);
   const reduceMotion = useReducedMotion();
   const stageRef   = useRef<HTMLDivElement>(null);
   const videoRef   = useRef<HTMLVideoElement>(null);
@@ -203,21 +204,36 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
           animateArrow
         >{t('Für die Academy bewerben')}</AnimatedButton>
 
-        <details className="mk-bronx__coaching" onToggle={event => {
-          if (!event.currentTarget.open) videoRef.current?.pause();
-        }}>
-          <summary>{t('Coaching-Einblick')}</summary>
+        <div className="mk-bronx__coaching">
+          <div className="mk-bronx__coaching-player">
           <video
             ref={videoRef}
             src="/media/mentor/coaching-ai-v2.mp4"
             poster="/media/mentor/coaching-ai-v2-poster.jpg"
-            controls
+            controls={coachingStarted}
             playsInline
             preload="none"
+            onPlay={() => setCoachingStarted(true)}
+            onEnded={() => setCoachingStarted(false)}
             aria-label={t('Coaching-Einblick · KI-generierte Vorschau')}
           />
+          {!coachingStarted && <button type="button" className="mk-bronx__video-play"
+            aria-label={language === 'en' ? 'Play coaching preview' : 'Coaching-Vorschau abspielen'}
+            onClick={() => {
+              const video = videoRef.current;
+              if (!video) return;
+              if (video.ended) video.currentTime = 0;
+              void video.play().catch(() => setCoachingStarted(false));
+            }}>
+            <span className="mk-bronx__play-circle" aria-hidden="true">▶</span>
+            <span className="mk-bronx__video-caption">
+              <strong>{language === 'en' ? 'Watch coaching preview' : 'Coaching-Vorschau ansehen'}</strong>
+              <span>{language === 'en' ? 'Short video · 8 sec' : 'Kurzvideo · 8 Sek.'}</span>
+            </span>
+          </button>}
+          </div>
           <p>{t('KI-generierte Vorschau')}</p>
-        </details>
+        </div>
       </div>
 
     </section>

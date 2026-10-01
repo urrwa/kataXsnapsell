@@ -213,21 +213,22 @@
   margin: 36px auto 0;
 }
 
-.mk-bronx__coaching summary {
-  width: fit-content;
-  margin: auto;
-  padding: 10px;
-  color: #a5b4ac;
-  cursor: pointer;
-  font-size: 13px;
-}
+.mk-bronx__coaching-player { position: relative; border-radius: 20px; overflow: hidden; background: #131816; }
+.mk-bronx__video-play { position: absolute; inset: 0; width: 100%; border: 0; color: white; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: linear-gradient(transparent 25%,rgba(0,0,0,.75)); }
+.mk-bronx__play-circle { display: grid; place-items: center; width: 64px; height: 64px; padding-left: 4px; border-radius: 50%; background: #20c997; color: #061e14; font-size: 24px; box-shadow: 0 4px 24px #0005; transition: transform .2s; }
+.mk-bronx__video-play:hover .mk-bronx__play-circle { transform: scale(1.06); }
+.mk-bronx__video-caption { display: flex; flex-direction: column; gap: 5px; }
+.mk-bronx__video-caption strong { font-size: 18px; font-weight: 600; }
+.mk-bronx__video-caption > span { font-size: 12px; color: #d4e1da; }
+.mk-bronx__video-play:focus-visible { outline: 3px solid #a6f4d8; outline-offset: -5px; }
+@media(prefers-reduced-motion:reduce) { .mk-bronx__play-circle { transition: none; } }
 
 .mk-bronx__coaching video {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 14px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .mk-bronx__coaching p { color: #9eb0a6; font-size: 12px; }
