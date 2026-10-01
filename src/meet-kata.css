@@ -9,7 +9,9 @@
 .meet-kata-experience { position: absolute; z-index: 1; left: 17px; bottom: 18px; display: flex; align-items: center; gap: 9px; padding: 11px 12px; border: 1px solid rgb(123 222 190 / .18); border-radius: 13px; background: rgb(8 20 15 / .82); backdrop-filter: blur(12px); color: #82dfc2; }
 .meet-kata-experience strong { display: block; color: #f0f6f3; font-size: 11px; font-weight: 600; }
 .meet-kata-experience span { display: block; margin-top: 3px; font-size: 10px; color: #b4c4be; }
-.meet-kata-video { position: absolute; right: 0; bottom: 0; width: 47%; aspect-ratio: 1.26; box-shadow: 0 16px 40px rgb(0 0 0 / .4); }
+.meet-kata-video { position: absolute; right: 0; bottom: 0; width: 47%; aspect-ratio: 1.26; box-shadow: 0 16px 40px rgb(0 0 0 / .4); animation: mk-float 5s ease-in-out infinite; }
+@keyframes mk-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (prefers-reduced-motion: reduce) { .meet-kata-video { animation: none; } }
 .meet-kata-video video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 43%; filter: brightness(1.08); }
 .meet-kata-video-caption { position: absolute; inset: auto 0 0; padding: 28px 13px 12px; background: linear-gradient(transparent, rgb(0 0 0 / .8)); pointer-events: none; }
 .meet-kata-video-caption strong { display: block; color: #fff; font-size: 12px; font-weight: 600; }
@@ -25,7 +27,10 @@
 .meet-kata-subtitle { margin-top: 17px; color: #bdc4c0; font-size: 14px; line-height: 1.7; }
 .meet-kata-subtitle span { color: #71daba; }
 .meet-kata-description { color: #aeb8b2; font-size: 14px; line-height: 1.9; max-width: 490px; }
-.meet-kata-note { border-left: 2px solid rgb(32 201 151 / .65); padding: 1px 0 1px 17px; max-width: 420px; font-size: 15px; line-height: 1.75; color: #dde4df; }
+.meet-kata-note { border-left: 2px solid rgb(32 201 151 / .65); padding: 1px 0 1px 17px; max-width: 420px; font-size: 15px; line-height: 1.75; color: #dde4df; position: relative; overflow: hidden; }
+.meet-kata-note::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 0; background: #20c997; border-radius: 2px; animation: mk-border-draw 0.7s 0.5s ease forwards; }
+@keyframes mk-border-draw { to { height: 100%; } }
+@media (prefers-reduced-motion: reduce) { .meet-kata-note::before { animation: none; height: 100%; } }
 .meet-kata-benefits { color: #98aaa0; font-size: 11px; line-height: 1.8; }
 .meet-kata-cta { padding: 14px 26px; border-radius: 100px; background: #20c997; color: #071a13; font-size: 13px; font-weight: 600; }
 @media (max-width: 760px) {
