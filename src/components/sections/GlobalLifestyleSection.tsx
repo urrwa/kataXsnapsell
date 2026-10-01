@@ -23,7 +23,7 @@ const DESTINATIONS = [
     title: "Filmreife Shootings",
     tagline: "Premium-Content an besonderen Orten",
     location: "Internationale Möglichkeiten",
-    image: "https://images.unsplash.com/photo-1543175741-80199a6408b4?q=85&w=1000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=85&w=1000&auto=format&fit=crop",
     desc: "Produziere Premium-Fotos und Videos an ausgewählten Locations."
   },
   {
@@ -37,7 +37,7 @@ const DESTINATIONS = [
     title: "Creator Networking",
     tagline: "Katharina Creator Circle",
     location: "Internationale Community",
-    image: "https://images.unsplash.com/photo-1554200876-980213841c94?q=85&w=1000&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=85&w=1000&auto=format&fit=crop",
     desc: "Baue wertvolle Kontakte und internationale Partnerschaften auf."
   }
 ];
