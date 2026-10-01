@@ -48,6 +48,7 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
   useLanguage();
 
   const [touching, setTouching] = useState(false);
+  const [revealedCard, setRevealedCard] = useState<string | null>(null);
 
   return (
     <section
@@ -73,12 +74,18 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
 
         <div className="creator-carousel" role="region" aria-label={t('Creator Experiences')}>
           <div className="creator-carousel-window" tabIndex={0}
-            onPointerDown={event => { if (event.pointerType !== 'mouse') { event.currentTarget.setPointerCapture(event.pointerId); setTouching(true); } }}
+            onPointerDown={event => { if (event.pointerType !== 'mouse') setTouching(true); }}
             onPointerUp={() => setTouching(false)} onPointerCancel={() => setTouching(false)}
             onLostPointerCapture={() => setTouching(false)}>
-            <div className="creator-carousel-track" style={{ animationPlayState: touching ? 'paused' : undefined }}>
-              {[0, 1].map(copy => <div className="creator-carousel-group" key={copy} aria-hidden={copy === 1 ? true : undefined} inert={copy === 1 ? true : undefined}>
-                {DESTINATIONS.map(item => <article key={item.title} className="creator-experience-card">
+            <div className="creator-carousel-track" style={{ animationPlayState: touching || revealedCard ? 'paused' : undefined }}>
+              {[0, 1].map(copy => <div className="creator-carousel-group" key={copy} aria-hidden={copy === 1 ? true : undefined}>
+                {DESTINATIONS.map(item => <article key={item.title} className={`creator-experience-card${revealedCard === `${copy}-${item.title}` ? ' is-revealed' : ''}`}
+                  tabIndex={copy === 0 ? 0 : -1}
+                  aria-label={t(item.title)}
+                  onClick={() => { if (window.matchMedia('(hover: none)').matches) setRevealedCard(current => current === `${copy}-${item.title}` ? null : `${copy}-${item.title}`); }}
+                  onKeyDown={event => {
+                    if (event.key === 'Escape') { setRevealedCard(null); event.currentTarget.blur(); }
+                  }}>
                   <img src={item.image} alt={copy === 0 ? t(item.title) : ''} loading="lazy" referrerPolicy="no-referrer" />
                   <div className="creator-experience-shade" />
                   <div className="creator-experience-copy">
