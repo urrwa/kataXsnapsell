@@ -101,7 +101,7 @@
   z-index: 2;
   display: flex;
   justify-content: center;
-  margin-top: -72vh;
+  margin-top: -88vh;
   overflow: visible;
   /* No contain, no isolation — keep stacking simple */
 }
@@ -239,7 +239,7 @@
   }
 
   .mk-stage__portrait-row {
-    margin-top: -60vh;
+    margin-top: -76vh;
   }
 
   .mk-bronx__copy {
