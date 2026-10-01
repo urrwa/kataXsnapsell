@@ -28,9 +28,9 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
     offset: ['start start', 'end end'],
   });
 
-  // Heading: stays sticky, scale 1→0.72, opacity 1→0.25 as portrait approaches
-  const headingScale = useTransform(scrollYProgress, [0, 0.55], [1, 0.72]);
-  const headingOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0.25]);
+  // Heading: stays sticky, scale down slightly, opacity stays readable until portrait is well past
+  const headingScale = useTransform(scrollYProgress, [0, 0.7], [1, 0.78]);
+  const headingOpacity = useTransform(scrollYProgress, [0.3, 0.75], [1, 0.55]);
 
   // Portrait travels upward. At progress=0 it sits in normal flow below the heading.
   // Negative translateY pulls it up, overlapping the heading.
@@ -71,8 +71,9 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
           {/* Capsule mask — fully rounded, constant silhouette */}
           <div className="mk-bronx__portrait">
             <img
-              src={ASSET_SLOTS.heroKata.src}
+              src={ASSET_SLOTS.kataPortrait.src}
               alt={t('Katharina, Creator-Coach und Mentorin')}
+              className="mk-bronx__portrait-img"
               loading="lazy" decoding="async" referrerPolicy="no-referrer"
             />
           </div>
