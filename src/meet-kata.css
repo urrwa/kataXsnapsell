@@ -1,305 +1,101 @@
-/* ── MeetKata Section ─────────────────────────────────────────────────────── */
-/* Framer-style: giant heading, portrait rises from below through the text    */
-
-.meet-kata {
+/* All selectors are scoped. Replace the previous meet-kata.css contents. */
+.mk-bronx {
   background: #080808;
-  color: #f4f4f4;
-  overflow: hidden;
-  padding-inline: 0;
+  color: #f4f6f4;
+  padding: clamp(72px, 9vw, 140px) clamp(22px, 5vw, 80px);
+  scroll-margin-top: 90px;
 }
-
-/* ── Giant hero text ─────────────────────────────────────────────────────── */
-.mk-hero-text {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: clamp(64px, 10vw, 120px) clamp(20px, 4vw, 60px) 0;
-  pointer-events: none;
-  user-select: none;
-}
-
-.mk-hero-text span {
-  display: block;
-  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
-  font-size: clamp(52px, 10.5vw, 160px);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
-  color: #f4f4f4;
-}
-
-.mk-hero-name {
-  color: #20c997 !important;
-}
-
-/* ── Portrait stage ──────────────────────────────────────────────────────── */
-.mk-portrait-stage {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  margin-top: clamp(-120px, -14vw, -80px); /* portrait overlaps behind heading */
-  padding-inline: clamp(20px, 4vw, 60px);
-}
-
-.mk-portrait-reveal {
-  position: relative;
-  width: min(520px, 90vw);
-  aspect-ratio: 0.78;
-  border-radius: clamp(200px, 50vw, 400px) clamp(200px, 50vw, 400px) 28px 28px; /* arch top */
-  overflow: hidden;
-  border: 1px solid rgb(123 222 190 / .18);
-  background: #111815;
-  /* clip-path animated by scroll JS */
-}
-
-.mk-portrait-reveal img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 52% top;
-}
-
-.mk-portrait-reveal::after {
-  content: '';
-  position: absolute;
-  inset: 55% 0 0;
-  background: linear-gradient(transparent, rgb(0 0 0 / .55));
-  pointer-events: none;
-}
-
-/* ── Experience badge on portrait ───────────────────────────────────────── */
-.mk-experience-badge {
-  position: absolute;
-  z-index: 1;
-  left: 18px;
-  bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 11px 13px;
-  border: 1px solid rgb(123 222 190 / .2);
-  border-radius: 13px;
-  background: rgb(8 20 15 / .85);
-  backdrop-filter: blur(12px);
-  color: #82dfc2;
-  animation: mk-badge-in 0.55s 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-.mk-experience-badge strong {
-  display: block;
-  color: #f0f6f3;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-.mk-experience-badge span {
-  display: block;
-  margin-top: 3px;
-  font-size: 10px;
-  color: #b4c4be;
-}
-
-@keyframes mk-badge-in {
-  from { opacity: 0; transform: scale(0.8) translateY(8px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-/* ── Body (copy + video) ────────────────────────────────────────────────── */
-.mk-body {
-  padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 60px) clamp(64px, 10vw, 120px);
-}
-
-.mk-body-grid {
-  max-width: 1200px;
-  margin-inline: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-}
-
-/* ── Copy ────────────────────────────────────────────────────────────────── */
-.mk-copy {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(14px, 1.6vw, 22px);
-}
-
-.mk-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: #20c997;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.mk-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: currentColor;
-  flex-shrink: 0;
-}
-
-.mk-heading {
+.mk-bronx *, .mk-bronx *::before, .mk-bronx *::after { box-sizing: border-box; }
+.mk-bronx__inner { max-width: 1280px; margin-inline: auto; text-align: center; }
+.mk-bronx__eyebrow { margin: 0 0 26px; font-size: 11px; letter-spacing: .16em; color: #20c997; text-transform: uppercase; }
+.mk-bronx__heading {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(28px, 3vw, 44px);
-  line-height: 1.15;
-  letter-spacing: -.04em;
-  font-weight: 700;
-  color: #f4f7f5;
-  margin: 0;
-}
-
-.mk-heading-mint { color: #20c997; }
-
-.mk-subtitle {
-  margin: 0;
-  color: #bdc4c0;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-.mk-subtitle span { color: #71daba; }
-
-.mk-description {
-  color: #aeb8b2;
-  font-size: 14px;
-  line-height: 1.9;
-  margin: 0;
-}
-
-.mk-note {
-  border-left: 2px solid rgb(32 201 151 / .65);
-  padding: 2px 0 2px 17px;
-  font-size: 15px;
-  line-height: 1.75;
-  color: #dde4df;
-  margin: 0;
-  position: relative;
-}
-
-.mk-note::before {
-  content: '';
-  position: absolute;
-  left: -2px;
-  top: 0;
-  width: 2px;
-  height: 0;
-  background: #20c997;
-  border-radius: 2px;
-  animation: mk-border-draw 0.7s 0.4s ease forwards;
-}
-
-@keyframes mk-border-draw { to { height: 100%; } }
-
-.mk-benefits {
-  color: #98aaa0;
-  font-size: 11px;
-  line-height: 1.8;
-  margin: 0;
-}
-
-.mk-cta {
-  display: inline-flex;
-  padding: 14px 26px;
-  border-radius: 100px;
-  background: #20c997;
-  color: #071a13;
-  font-size: 13px;
   font-weight: 600;
-  margin-top: 6px;
+  font-size: clamp(48px, 7.3vw, 116px);
+  line-height: .99;
+  letter-spacing: -.065em;
+  text-transform: uppercase;
+  margin: 0;
 }
-
-/* ── Video card ──────────────────────────────────────────────────────────── */
-.mk-video-wrap {
+.mk-bronx__line { display: block; overflow: hidden; padding-bottom: .09em; }
+.mk-bronx__line > span { display: block; }
+.mk-bronx__portrait-anchor {
+  width: min(100%, 610px);
+  margin: clamp(44px, 6vw, 92px) auto clamp(44px, 6vw, 88px);
+}
+.mk-bronx__portrait {
   position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgb(123 222 190 / .18);
-  background: #111;
-  aspect-ratio: 1.1;
-  box-shadow: 0 24px 60px rgb(0 0 0 / .5);
-  animation: mk-float 5s ease-in-out infinite;
-}
-
-@keyframes mk-float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
-}
-
-.mk-video-wrap video {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 43%;
-  filter: brightness(1.08);
-}
-
-.mk-video-caption {
-  position: absolute;
-  inset: auto 0 0;
-  padding: 28px 13px 12px;
-  background: linear-gradient(transparent, rgb(0 0 0 / .8));
-  pointer-events: none;
-}
-
-.mk-video-caption strong {
-  display: block;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.mk-video-caption span {
-  display: block;
-  margin-top: 3px;
-  color: #c6d2cc;
-  font-size: 9px;
-}
-
-.mk-sound-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
+  aspect-ratio: .95;
+  overflow: hidden;
   border-radius: 50%;
-  color: white;
-  background: rgb(0 0 0 / .5);
+  background: #131816;
 }
-
-/* ── Reduced motion ──────────────────────────────────────────────────────── */
+.mk-bronx__portrait img {
+  position: absolute;
+  left: 0; top: -6%;
+  width: 100%; height: 112%;
+  max-width: none;
+  display: block;
+  object-fit: cover;
+  object-position: 52% 30%;
+}
+.mk-bronx__copy { max-width: 960px; margin-inline: auto; }
+.mk-bronx__statement {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  margin: 0;
+  font-size: clamp(25px, 2.7vw, 42px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+}
+.mk-bronx__statement span { color: #20c997; }
+.mk-bronx__description {
+  max-width: 760px;
+  margin: 26px auto 0;
+  font-size: clamp(16px, 1.5vw, 22px);
+  line-height: 1.65;
+  color: #b7c0bb;
+  text-wrap: pretty;
+}
+.mk-bronx__note {
+  max-width: 680px;
+  margin: 20px auto 0;
+  font-size: clamp(15px, 1.25vw, 18px);
+  line-height: 1.6;
+  color: #d9e1dc;
+}
+.mk-bronx__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+  padding: 16px 28px;
+  min-height: 48px;
+  border: 0;
+  border-radius: 999px;
+  background: #20c997;
+  color: #061e14;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+.mk-bronx__cta:hover { background: #50dbae; }
+.mk-bronx :focus-visible { outline: 2px solid #a6f4d8; outline-offset: 6px; }
+.mk-bronx__coaching { max-width: 540px; margin: 25px auto 0; }
+.mk-bronx__coaching summary { width: fit-content; margin: auto; padding: 10px; color: #a5b4ac; cursor: pointer; font-size: 13px; }
+.mk-bronx__coaching video { display: block; width: 100%; height: auto; border-radius: 14px; margin-top: 20px; }
+.mk-bronx__coaching p { color: #9eb0a6; font-size: 12px; }
+@media (max-width: 600px) {
+  .mk-bronx { padding-block: 70px; }
+  .mk-bronx__heading { font-size: clamp(39px, 10.3vw, 62px); }
+  .mk-bronx__portrait-anchor { width: min(84%, 390px); margin-block: 40px; }
+  .mk-bronx__statement { font-size: 27px; }
+  .mk-bronx__description { font-size: 16px; }
+}
 @media (prefers-reduced-motion: reduce) {
-  .mk-portrait-reveal { clip-path: none !important; transform: none !important; }
-  .mk-experience-badge { animation: none; }
-  .mk-note::before { animation: none; height: 100%; }
-  .mk-video-wrap { animation: none; }
-}
-
-/* ── Mobile ──────────────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .mk-hero-text span { font-size: clamp(40px, 13vw, 80px); }
-  .mk-portrait-stage { margin-top: clamp(-80px, -12vw, -50px); }
-  .mk-portrait-reveal { width: min(380px, 88vw); }
-  .mk-body-grid { grid-template-columns: 1fr; gap: 40px; max-width: 560px; }
-  .mk-video-wrap { animation: none; }
-}
-
-@media (max-width: 420px) {
-  .mk-hero-text span { font-size: clamp(36px, 14vw, 56px); }
-  .mk-portrait-reveal { border-radius: clamp(140px, 40vw, 260px) clamp(140px, 40vw, 260px) 20px 20px; }
+  .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after { animation: none !important; transition: none !important; }
 }
