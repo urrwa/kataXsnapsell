@@ -44,36 +44,43 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
     } else video.pause();
   }, [inView, documentVisible, paused, hovered, focused, reducedMotion]);
 
-  // Shared entrance config
-  const fadeUp = (delay = 0) => prefersReducedMotion ? {} : {
-    initial: { opacity: 0, y: 28 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: '-60px' },
-    transition: { duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] },
+  // Framer-style: clip-path wipe from bottom (curtain reveal)
+  const wipe = (delay = 0) => prefersReducedMotion ? {} : {
+    initial: { clipPath: 'inset(100% 0% 0% 0%)', y: 10 },
+    whileInView: { clipPath: 'inset(0% 0% 0% 0%)', y: 0 },
+    viewport: { once: true, amount: 0.05 },
+    transition: { duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] },
   };
 
-  const scaleIn = prefersReducedMotion ? {} : {
-    initial: { opacity: 0, scale: 0.94 },
-    whileInView: { opacity: 1, scale: 1 },
-    viewport: { once: true, margin: '-60px' },
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  // Smooth fade+lift for paragraphs
+  const lift = (delay = 0) => prefersReducedMotion ? {} : {
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.05 },
+    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
   };
 
   return (
     <section id="section-3" className="landing-section meet-kata" aria-labelledby="meet-kata-heading">
       <div className="meet-kata-layout">
 
-        {/* Visuals column */}
-        <motion.div className="meet-kata-visuals" {...scaleIn}>
+        {/* Visuals column — slides in from left */}
+        <motion.div
+          className="meet-kata-visuals"
+          initial={prefersReducedMotion ? false : { opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="meet-kata-portrait">
             <img loading="lazy" src={ASSET_SLOTS.heroKata.src}
               alt={t('Katharina, Creator-Coach und Mentorin')} referrerPolicy="no-referrer" />
             <motion.div
               className="meet-kata-experience"
-              initial={prefersReducedMotion ? false : { opacity: 0, x: -16, y: 12 }}
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.55, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.8, y: 10 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 0.5, delay: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
             >
               <Award size={19} strokeWidth={1.5} aria-hidden="true" />
               <div><strong>{t('20+ Jahre Erfahrung')}</strong><span>{t('Coaching und Training')}</span></div>
@@ -83,10 +90,10 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
           {/* Floating video card */}
           <motion.div
             className="meet-kata-video"
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.92 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 30, scale: 0.9 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             onPointerEnter={event => { if (event.pointerType === 'mouse') setHovered(true); }}
             onPointerLeave={() => setHovered(false)}
             onFocusCapture={event => { if (event.target.matches(':focus-visible')) setFocused(true); }}
@@ -106,38 +113,48 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
           </motion.div>
         </motion.div>
 
-        {/* Copy column — staggered entrance */}
+        {/* Copy column — Framer-style wipe reveals */}
         <div className="meet-kata-copy space-y-6">
-          <motion.p className="meet-kata-eyebrow" {...fadeUp(0.05)}>
-            <span />{t('DEINE CREATOR-MENTORIN')}
-          </motion.p>
 
-          <motion.div {...fadeUp(0.15)}>
-            <h2 id="meet-kata-heading">{t('Dein nächstes Kapitel.')}<br />{t('Mit Katharina.')}</h2>
-            <p className="meet-kata-subtitle">{t('Creatorin. Coach.')} <span>{t('Deine Creator Mama.')}</span></p>
-          </motion.div>
+          {/* Eyebrow — quick wipe */}
+          <div className="mk-clip-wrap">
+            <motion.p className="meet-kata-eyebrow" {...wipe(0)}>
+              <span />{t('DEINE CREATOR-MENTORIN')}
+            </motion.p>
+          </div>
 
-          <motion.p className="meet-kata-description" {...fadeUp(0.25)}>
+          {/* Headline — each line wipes up independently */}
+          <div>
+            <div className="mk-clip-wrap">
+              <motion.h2 id="meet-kata-heading" {...wipe(0.08)}>
+                {t('Dein nächstes Kapitel.')}<br />{t('Mit Katharina.')}
+              </motion.h2>
+            </div>
+            <motion.p className="meet-kata-subtitle" {...lift(0.3)}>
+              {t('Creatorin. Coach.')} <span>{t('Deine Creator Mama.')}</span>
+            </motion.p>
+          </div>
+
+          <motion.p className="meet-kata-description" {...lift(0.38)}>
             {t('Baue dein Creator-Business mit Katharinas Begleitung auf. Mit über 20 Jahren Branchenerfahrung hilft sie Frauen, ihre persönliche Marke zu stärken, selbstbewusste Entscheidungen zu treffen und Systeme für ihr Wachstum aufzubauen.')}
           </motion.p>
 
+          {/* Quote — slides from left like Framer side-reveal */}
           <motion.p
             className="meet-kata-note"
-            {...(prefersReducedMotion ? {} : {
-              initial: { opacity: 0, x: -20 },
-              whileInView: { opacity: 1, x: 0 },
-              viewport: { once: true, margin: '-40px' },
-              transition: { duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] },
-            })}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.05 }}
+            transition={{ duration: 0.65, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
           >
             {t('Hör auf, alles allein zu machen. Fang an, wie eine Unternehmerin zu denken.')}
           </motion.p>
 
-          <motion.p className="meet-kata-benefits" {...fadeUp(0.45)}>
+          <motion.p className="meet-kata-benefits" {...lift(0.55)}>
             {t('Persönliche Begleitung · Klare Systeme · Deine eigene Marke')}
           </motion.p>
 
-          <motion.div {...fadeUp(0.55)}>
+          <motion.div {...lift(0.65)}>
             <AnimatedButton animateArrow id="meet-kata-start-btn" onClick={onStartWithKata}
               className="meet-kata-cta">{t('Für die Academy bewerben')}</AnimatedButton>
           </motion.div>
