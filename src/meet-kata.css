@@ -1,43 +1,56 @@
 /* ============================================================
    Meet Katharina — scroll-driven portrait-over-heading effect
-   All selectors scoped to .mk-bronx
+   All selectors scoped to .mk-bronx or .mk-stage
    ============================================================ */
 
+/* ── Outer section ──────────────────────────────────────────
+   No min-height. Natural padding around the content.
+   ─────────────────────────────────────────────────────────── */
 .mk-bronx {
   position: relative;
   background: #080808;
   color: #f4f6f4;
-  /* Tall scroll track: gives room for the portrait to travel upward
-     and the heading to scale/dim before the copy section arrives. */
-  padding-top: clamp(80px, 12vw, 160px);
+  padding-top: clamp(80px, 10vw, 120px);
+  padding-bottom: clamp(80px, 10vw, 120px);
   padding-left: clamp(22px, 5vw, 80px);
   padding-right: clamp(22px, 5vw, 80px);
-  /* Extra bottom padding so biography doesn't collide with next section */
-  padding-bottom: clamp(80px, 12vw, 160px);
-  /* The scroll track height drives how long the animation plays.
-     min-height gives enough space for the full portrait travel. */
-  min-height: 280vh;
   scroll-margin-top: 90px;
-  overflow: visible; /* portrait must be able to overlap outside section bounds */
+  overflow: visible;
 }
 
 .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after {
   box-sizing: border-box;
 }
 
-/* ── Sticky heading shell ────────────────────────────────── */
-.mk-bronx__sticky-shell {
+/* ── Animation stage ────────────────────────────────────────
+   Self-contained scroll track. Height = viewport height (sticky
+   pin zone) + portrait travel distance. The portrait is
+   ~600px tall on desktop and travels ~58vh upward, so we need
+   at least 100vh + ~90vh = ~190vh. Using 200vh leaves a little
+   breathing room at the end without being excessive.
+   ─────────────────────────────────────────────────────────── */
+.mk-stage {
+  position: relative;
+  height: 200vh;
+  /* overflow visible so portrait can travel above the stage top edge */
+  overflow: visible;
+}
+
+/* ── Sticky heading pin ─────────────────────────────────────
+   Occupies 100vh inside the stage. When the stage top aligns
+   with the viewport top, the heading pins there. When the stage
+   bottom exits the viewport, sticky stops and the heading
+   is gone (opacity:0 from scroll mapping).
+   ─────────────────────────────────────────────────────────── */
+.mk-stage__sticky {
   position: sticky;
   top: 0;
-  z-index: 1; /* behind portrait (z-index: 2) */
+  height: 100vh;
+  z-index: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Height of the sticky zone — how long the heading holds position */
-  height: 100vh;
-  /* Negative margin-bottom so the foreground starts right after,
-     overlapping the sticky area during scroll */
-  margin-bottom: -100vh;
   pointer-events: none;
 }
 
@@ -69,33 +82,35 @@
   display: block;
 }
 
-/* ── Foreground: portrait travels upward ────────────────── */
-.mk-bronx__foreground {
+/* ── Portrait row ───────────────────────────────────────────
+   Sits in the second 100vh of the stage (below the sticky zone
+   in DOM order). negative margin-top pulls it into the sticky
+   zone visually so it starts below the heading at scroll=0.
+   The motion.div translates it upward from there.
+   ─────────────────────────────────────────────────────────── */
+.mk-stage__portrait-row {
   position: relative;
   z-index: 2; /* above heading */
   display: flex;
   justify-content: center;
-  /* Push the portrait down so it starts below the heading in the viewport.
-     This gap determines where in the scroll range the portrait enters. */
-  padding-top: 60vh;
+  /* Pull the portrait up so at scroll=0 it appears below the heading
+     in the viewport, not off-screen below the stage. */
+  margin-top: -70vh;
   overflow: visible;
 }
 
 .mk-bronx__portrait-mover {
-  /* The whole capsule + image move together — nothing clips inside a
-     stationary wrapper. overflow must be visible here. */
   overflow: visible;
   will-change: transform;
 }
 
-/* Capsule portrait mask — fully rounded top and bottom */
+/* Capsule portrait mask — fully rounded, approved shape preserved */
 .mk-bronx__portrait {
   position: relative;
   width: clamp(280px, 42vw, 560px);
-  /* Tall capsule: taller than wide */
   aspect-ratio: 0.62;
   overflow: hidden;
-  border-radius: 9999px; /* fully rounded capsule */
+  border-radius: 9999px;
   background: #131816;
 }
 
@@ -108,12 +123,18 @@
   max-width: none;
 }
 
-/* ── Biography and CTA ──────────────────────────────────── */
+/* ── Biography and CTA ──────────────────────────────────────
+   Outside the stage. Normal flow. No sticky, no transforms.
+   Top margin = gap between portrait bottom and bio top.
+   Portrait bottom after travel is approximately at the stage
+   bottom + portrait height - 58vh of upward travel.
+   We use a modest margin and let the layout settle naturally.
+   ─────────────────────────────────────────────────────────── */
 .mk-bronx__copy {
   position: relative;
   z-index: 3;
   max-width: 960px;
-  margin: clamp(60px, 10vw, 120px) auto 0;
+  margin: clamp(48px, 6vw, 80px) auto 0;
   text-align: center;
 }
 
@@ -196,8 +217,11 @@
 @media (max-width: 600px) {
   .mk-bronx {
     padding-top: 60px;
-    padding-bottom: 80px;
-    min-height: 240vh;
+    padding-bottom: 64px;
+  }
+
+  .mk-stage {
+    height: 180vh;
   }
 
   .mk-bronx__heading {
@@ -208,8 +232,12 @@
     width: clamp(220px, 72vw, 360px);
   }
 
-  .mk-bronx__foreground {
-    padding-top: 50vh;
+  .mk-stage__portrait-row {
+    margin-top: -65vh;
+  }
+
+  .mk-bronx__copy {
+    margin-top: clamp(40px, 5vw, 60px);
   }
 
   .mk-bronx__statement { font-size: 26px; }
@@ -219,17 +247,22 @@
 /* ── Reduced motion: static readable layout ─────────────── */
 @media (prefers-reduced-motion: reduce) {
   .mk-bronx {
-    min-height: auto;
+    padding-top: clamp(72px, 9vw, 120px);
   }
 
-  .mk-bronx__sticky-shell {
+  .mk-stage {
+    height: auto;
+    overflow: visible;
+  }
+
+  .mk-stage__sticky {
     position: static;
     height: auto;
-    margin-bottom: clamp(40px, 6vw, 80px);
+    padding-bottom: clamp(40px, 5vw, 64px);
   }
 
-  .mk-bronx__foreground {
-    padding-top: 0;
+  .mk-stage__portrait-row {
+    margin-top: 0;
   }
 
   .mk-bronx__portrait-mover {
@@ -242,7 +275,7 @@
   }
 
   .mk-bronx__copy {
-    margin-top: clamp(40px, 6vw, 80px);
+    margin-top: clamp(40px, 5vw, 64px);
   }
 
   .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after {
