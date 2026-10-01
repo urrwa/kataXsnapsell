@@ -45,7 +45,8 @@
   background: #111;
   /* No scale, translate, CSS transition, aspect-ratio, or animated height. */
 }
-.ka-project-image img {
+.ka-project-image img,
+.ka-project-image video {
   display: block;
   width: 100%;
   height: 100%;
