@@ -54,17 +54,17 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
   ─────────────────────────────────────────────────────── */
   const headingOpacity = useTransform(
     scrollYProgress,
-    [0, 0.12, 0.32, 0.62],
-    [0,  1,   1,   0],
+    [0, 0.35, 0.65],
+    [1,  1,   0],
   );
   const headingY = useTransform(
     scrollYProgress,
-    [0, 0.12],
-    ['24px', '0px'],
+    [0, 1],
+    ['0px', '0px'],
   );
   const headingScale = useTransform(
     scrollYProgress,
-    [0.12, 0.62],
+    [0, 0.65],
     [1, 0.82],
   );
 
@@ -76,7 +76,7 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
   const portraitY = useTransform(
     scrollYProgress,
     [0, 0.85],
-    ['0vh', '-95vh'],
+    ['0vh', '-75vh'],
   );
 
   /* ── Biography blur-reveal ───────────────────────────────
