@@ -50,7 +50,7 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
 
   // Portrait: entire capsule translates up from its natural position to
   // well above the heading. Preserved from approved animation.
-  const portraitY = useTransform(scrollYProgress, [0, 0.85], ['0vh', '-72vh']);
+  const portraitY = useTransform(scrollYProgress, [0, 0.85], ['0vh', '-95vh']);
 
   const ease = [0.22, 1, 0.36, 1] as const;
 
