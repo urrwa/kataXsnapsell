@@ -19,11 +19,11 @@ export function AcademySection(){
         {/* Header */}
         <div className="text-center space-y-3">
           <p className="text-xs uppercase tracking-widest font-bold text-[#20C997]">{t("THE KATHARINA METHOD")}</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-white leading-[1.05]" style={{letterSpacing:'-0.04em'}}>
             {t("Deine Marke. Dein Business.")}<br/>
             <span className="text-[#20C997]">{t("Deine Zukunft.")}</span>
           </h2>
-          <p className="text-sm sm:text-base text-white/70">{t("In der Katharina Academy lernst du das komplette System Schritt für Schritt.")}</p>
+          <p className="text-base sm:text-lg text-white/60 max-w-xl mx-auto leading-relaxed mt-1">{t("In der Katharina Academy lernst du das komplette System Schritt für Schritt.")}</p>
         </div>
 
         {/* Two-column: cards + glow panel */}

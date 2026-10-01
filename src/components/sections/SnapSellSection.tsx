@@ -25,10 +25,10 @@ export const SnapSellSection: React.FC<SnapSellSectionProps> = ({ onDiscoverSnap
             <span>{t("SÄULE 03")}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-display text-white leading-[1.15] pb-1 overflow-visible">{t(" Mehr als ein ")}<span className="text-[#20C997] inline-block">{t("Payment-Link.")}</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black font-display text-white leading-[1.05] tracking-tight pb-1 overflow-visible" style={{letterSpacing:'-0.04em'}}>{t("Mehr als ein ")}<span className="text-[#20C997] inline-block">{t("Payment-Link.")}</span>
           </h2>
 
-          <p className="text-sm sm:text-base text-white/80 max-w-xl mx-auto">{t(" SnapSell verbindet dein gesamtes Creator-Business in einem System. ")}</p>
+          <p className="text-base sm:text-lg text-white/70 max-w-xl mx-auto leading-relaxed mt-2">{t("SnapSell verbindet dein gesamtes Creator-Business in einem System.")}</p>
         </div>
 
         {/* Dominant 5-Step Connected Interface Mockup */}

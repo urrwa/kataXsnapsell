@@ -63,12 +63,12 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
             <span>{t("KATHARINA CREATOR CIRCLE")}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold font-display text-white leading-[1.15]">
+          <h2 className="text-4xl sm:text-5xl font-black font-display text-white leading-[1.05]" style={{letterSpacing:'-0.04em'}}>
             {t("Lerne. Wachse.")}{' '}
             <span className="text-[#20C997]">{t("Erstelle Content weltweit.")}</span>
           </h2>
 
-          <p className="text-sm text-white/60 max-w-md mx-auto">{t("Für ausgewählte Mitglieder – exklusive Shootings, Events und Community.")}</p>
+          <p className="text-base text-white/60 max-w-md mx-auto leading-relaxed mt-1">{t("Für ausgewählte Mitglieder – exklusive Shootings, Events und Community.")}</p>
         </div>
 
         <div className="creator-carousel" role="region" aria-label={t('Creator Experiences')}>
