@@ -1,6 +1,5 @@
 import { t, useLanguage } from '../../i18n';
 import React from 'react';
-import { FAQAccordion } from '../BriefAdditions';
 import { ApplicationForm } from '../ApplicationForm';
 import '../../application.css';
 
@@ -42,10 +41,7 @@ export const FinalApplicationSection: React.FC<FinalApplicationSectionProps> = (
         />
       </div>
 
-      {/* FAQ below, on dark ground */}
-      <div className="app-faq">
-        <FAQAccordion />
-      </div>
+
     </section>
   );
 };
