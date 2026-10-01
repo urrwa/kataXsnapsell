@@ -1,46 +1,123 @@
-/* All selectors are scoped. Replace the previous meet-kata.css contents. */
+/* ============================================================
+   Meet Katharina — scroll-driven portrait-over-heading effect
+   All selectors scoped to .mk-bronx
+   ============================================================ */
+
 .mk-bronx {
+  position: relative;
   background: #080808;
   color: #f4f6f4;
-  padding: clamp(72px, 9vw, 140px) clamp(22px, 5vw, 80px);
+  /* Tall scroll track: gives room for the portrait to travel upward
+     and the heading to scale/dim before the copy section arrives. */
+  padding-top: clamp(80px, 12vw, 160px);
+  padding-left: clamp(22px, 5vw, 80px);
+  padding-right: clamp(22px, 5vw, 80px);
+  /* Extra bottom padding so biography doesn't collide with next section */
+  padding-bottom: clamp(80px, 12vw, 160px);
+  /* The scroll track height drives how long the animation plays.
+     min-height gives enough space for the full portrait travel. */
+  min-height: 280vh;
   scroll-margin-top: 90px;
+  overflow: visible; /* portrait must be able to overlap outside section bounds */
 }
-.mk-bronx *, .mk-bronx *::before, .mk-bronx *::after { box-sizing: border-box; }
-.mk-bronx__inner { max-width: 1280px; margin-inline: auto; text-align: center; }
-.mk-bronx__eyebrow { margin: 0 0 26px; font-size: 11px; letter-spacing: .16em; color: #20c997; text-transform: uppercase; }
+
+.mk-bronx *, .mk-bronx *::before, .mk-bronx *::after {
+  box-sizing: border-box;
+}
+
+/* ── Sticky heading shell ────────────────────────────────── */
+.mk-bronx__sticky-shell {
+  position: sticky;
+  top: 0;
+  z-index: 1; /* behind portrait (z-index: 2) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Height of the sticky zone — how long the heading holds position */
+  height: 100vh;
+  /* Negative margin-bottom so the foreground starts right after,
+     overlapping the sticky area during scroll */
+  margin-bottom: -100vh;
+  pointer-events: none;
+}
+
+.mk-bronx__heading-wrap {
+  text-align: center;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.mk-bronx__eyebrow {
+  margin: 0 0 20px;
+  font-size: 11px;
+  letter-spacing: .16em;
+  color: #20c997;
+  text-transform: uppercase;
+}
+
 .mk-bronx__heading {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 600;
-  font-size: clamp(48px, 7.3vw, 116px);
-  line-height: .99;
+  font-size: clamp(52px, 8vw, 124px);
+  line-height: 0.96;
   letter-spacing: -.065em;
   text-transform: uppercase;
   margin: 0;
 }
-.mk-bronx__line { display: block; overflow: hidden; padding-bottom: .09em; }
-.mk-bronx__line > span { display: block; }
-.mk-bronx__portrait-anchor {
-  width: min(100%, 610px);
-  margin: clamp(44px, 6vw, 92px) auto clamp(44px, 6vw, 88px);
+
+.mk-bronx__line {
+  display: block;
 }
+
+/* ── Foreground: portrait travels upward ────────────────── */
+.mk-bronx__foreground {
+  position: relative;
+  z-index: 2; /* above heading */
+  display: flex;
+  justify-content: center;
+  /* Push the portrait down so it starts below the heading in the viewport.
+     This gap determines where in the scroll range the portrait enters. */
+  padding-top: 60vh;
+  overflow: visible;
+}
+
+.mk-bronx__portrait-mover {
+  /* The whole capsule + image move together — nothing clips inside a
+     stationary wrapper. overflow must be visible here. */
+  overflow: visible;
+  will-change: transform;
+}
+
+/* Capsule portrait mask — fully rounded top and bottom */
 .mk-bronx__portrait {
   position: relative;
-  width: 100%;
-  aspect-ratio: .95;
+  width: clamp(280px, 42vw, 560px);
+  /* Tall capsule: taller than wide */
+  aspect-ratio: 0.62;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 9999px; /* fully rounded capsule */
   background: #131816;
 }
+
 .mk-bronx__portrait img {
-  position: absolute;
-  left: 0; top: -6%;
-  width: 100%; height: 112%;
-  max-width: none;
   display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  object-position: 50% 15%;
+  /* Katharina is seated; face is upper-center of the source image */
+  object-position: 50% 12%;
+  max-width: none;
 }
-.mk-bronx__copy { max-width: 960px; margin-inline: auto; }
+
+/* ── Biography and CTA ──────────────────────────────────── */
+.mk-bronx__copy {
+  position: relative;
+  z-index: 3;
+  max-width: 960px;
+  margin: clamp(60px, 10vw, 120px) auto 0;
+  text-align: center;
+}
+
 .mk-bronx__statement {
   font-family: 'Plus Jakarta Sans', sans-serif;
   margin: 0;
@@ -50,7 +127,9 @@
   letter-spacing: -.035em;
   text-transform: uppercase;
 }
+
 .mk-bronx__statement span { color: #20c997; }
+
 .mk-bronx__description {
   max-width: 760px;
   margin: 26px auto 0;
@@ -59,6 +138,7 @@
   color: #b7c0bb;
   text-wrap: pretty;
 }
+
 .mk-bronx__note {
   max-width: 680px;
   margin: 20px auto 0;
@@ -66,6 +146,7 @@
   line-height: 1.6;
   color: #d9e1dc;
 }
+
 .mk-bronx__cta {
   display: inline-flex;
   align-items: center;
@@ -83,19 +164,90 @@
   cursor: pointer;
   transition: background-color .2s ease;
 }
+
 .mk-bronx__cta:hover { background: #50dbae; }
+
 .mk-bronx :focus-visible { outline: 2px solid #a6f4d8; outline-offset: 6px; }
-.mk-bronx__coaching { max-width: 540px; margin: 25px auto 0; }
-.mk-bronx__coaching summary { width: fit-content; margin: auto; padding: 10px; color: #a5b4ac; cursor: pointer; font-size: 13px; }
-.mk-bronx__coaching video { display: block; width: 100%; height: auto; border-radius: 14px; margin-top: 20px; }
+
+.mk-bronx__coaching {
+  max-width: 540px;
+  margin: 36px auto 0;
+}
+
+.mk-bronx__coaching summary {
+  width: fit-content;
+  margin: auto;
+  padding: 10px;
+  color: #a5b4ac;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.mk-bronx__coaching video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  margin-top: 20px;
+}
+
 .mk-bronx__coaching p { color: #9eb0a6; font-size: 12px; }
+
+/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .mk-bronx { padding-block: 70px; }
-  .mk-bronx__heading { font-size: clamp(39px, 10.3vw, 62px); }
-  .mk-bronx__portrait-anchor { width: min(84%, 390px); margin-block: 40px; }
-  .mk-bronx__statement { font-size: 27px; }
+  .mk-bronx {
+    padding-top: 60px;
+    padding-bottom: 80px;
+    min-height: 240vh;
+  }
+
+  .mk-bronx__heading {
+    font-size: clamp(38px, 11vw, 62px);
+  }
+
+  .mk-bronx__portrait {
+    width: clamp(220px, 72vw, 360px);
+  }
+
+  .mk-bronx__foreground {
+    padding-top: 50vh;
+  }
+
+  .mk-bronx__statement { font-size: 26px; }
   .mk-bronx__description { font-size: 16px; }
 }
+
+/* ── Reduced motion: static readable layout ─────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after { animation: none !important; transition: none !important; }
+  .mk-bronx {
+    min-height: auto;
+  }
+
+  .mk-bronx__sticky-shell {
+    position: static;
+    height: auto;
+    margin-bottom: clamp(40px, 6vw, 80px);
+  }
+
+  .mk-bronx__foreground {
+    padding-top: 0;
+  }
+
+  .mk-bronx__portrait-mover {
+    transform: none !important;
+  }
+
+  .mk-bronx__heading-wrap {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .mk-bronx__copy {
+    margin-top: clamp(40px, 6vw, 80px);
+  }
+
+  .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
