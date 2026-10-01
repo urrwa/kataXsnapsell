@@ -9,7 +9,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 FF = glob.glob(str(ROOT.parent / '.video-inspection-deps/imageio_ffmpeg/binaries/*.exe'))[0]
 W,H,FPS = 960,600,24
 MINT='#20c997'
-PHOTO=Image.open(ROOT/'public/images/editorial/campaign.webp').convert('RGB')
+PHOTO=Image.open(OUT/'lookbook-model.png').convert('RGB')
 def font(n): return ImageFont.truetype('C:/Windows/Fonts/arial.ttf', n)
 def ease(t):
     t=max(0,min(1,t)); return t*t*(3-2*t)
