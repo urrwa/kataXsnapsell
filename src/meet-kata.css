@@ -4,8 +4,9 @@
    ============================================================ */
 
 /* ── Outer section ──────────────────────────────────────────
-   No top padding — the sticky heading fills the first viewport.
-   Bottom padding separates bio from the next section.
+   No top padding — heading appears immediately on section entry.
+   isolation: isolate creates a local stacking context so z-index
+   values inside don't leak out to the page.
    ─────────────────────────────────────────────────────────── */
 .mk-bronx {
   position: relative;
@@ -17,8 +18,8 @@
   padding-right: clamp(22px, 5vw, 80px);
   scroll-margin-top: 90px;
   overflow: visible;
-  /* Promote to own compositing layer so the App root's overflow-x:clip
-     does not create a BFC that clips the upward-travelling portrait */
+  /* Own compositing layer so App's overflow-x:clip BFC
+     does not clip the portrait capsule's rounded bottom */
   transform: translateZ(0);
   isolation: isolate;
 }
@@ -29,9 +30,9 @@
 
 /* ── Animation stage ────────────────────────────────────────
    Self-contained scroll track.
-   100vh = sticky heading pin zone.
-   100vh = portrait travel distance.
-   Total 200vh. No extra padding added here.
+   First 100vh: heading visible, portrait below viewport.
+   Next 100vh: portrait rises up and covers the heading.
+   Total 200vh track.
    ─────────────────────────────────────────────────────────── */
 .mk-stage {
   position: relative;
@@ -40,15 +41,16 @@
 }
 
 /* ── Sticky heading pin ─────────────────────────────────────
-   Heading is IMMEDIATELY visible when entering the section.
-   100vh height means it stays pinned for the full first half
-   of the stage.
+   z-index: 1 — heading lives in the BACK layer.
+   Portrait (z-index: 2) travels in front of it.
+   Heading fades via opacity before portrait fully covers it.
    ─────────────────────────────────────────────────────────── */
 .mk-stage__sticky {
   position: sticky;
   top: 0;
   height: 100vh;
-  z-index: 3;
+  /* Back layer — portrait must sit in front */
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,25 +87,18 @@
 }
 
 /* ── Portrait row ───────────────────────────────────────────
-   Positioned in the second half of the stage.
-   negative margin-top pulls it up into the sticky zone
-   so it's visible below the heading at scroll=0.
-
-   CRITICAL: overflow:visible here AND on all ancestors so the
-   capsule's rounded bottom is never clipped by a rectangular
-   overflow context. The App root uses overflow-x:clip which
-   can create a BFC that clips vertical overflow too.
-   We isolate with contain:none and use transform on the mover
-   so the capsule itself never crosses the BFC boundary raw.
+   z-index: 2 — portrait sits in the FRONT layer.
+   margin-top: -55vh pulls it up so the top of the capsule
+   is visible at the bottom of the viewport when scroll=0.
+   overflow: visible so the rounded bottom is never clipped.
    ─────────────────────────────────────────────────────────── */
 .mk-stage__portrait-row {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   justify-content: center;
   margin-top: -55vh;
   overflow: visible;
-  /* No contain, no isolation — keep stacking simple */
 }
 
 .mk-bronx__portrait-mover {
@@ -111,7 +106,7 @@
   will-change: transform;
 }
 
-/* Capsule portrait mask */
+/* Capsule portrait mask — overflow:hidden only here */
 .mk-bronx__portrait {
   position: relative;
   width: clamp(280px, 42vw, 560px);
@@ -119,8 +114,6 @@
   overflow: hidden;
   border-radius: 9999px;
   background: #131816;
-  /* Extra bottom padding baked into aspect-ratio so rounded bottom
-     is never clipped — the aspect-ratio gives enough height */
 }
 
 .mk-bronx__portrait img {
@@ -133,9 +126,7 @@
 }
 
 /* ── Biography ──────────────────────────────────────────────
-   Outside the stage entirely. Pure normal flow.
-   Portrait translateY is a visual-only transform — it does not
-   affect document flow, so bio sits right after .mk-stage.
+   Outside the stage entirely — normal flow.
    ─────────────────────────────────────────────────────────── */
 .mk-bronx__copy {
   position: relative;
@@ -157,6 +148,11 @@
 
 .mk-bronx__statement span { color: #20c997; }
 
+/* ── Biography blur-reveal words ───────────────────────────
+   Each word is wrapped in a span.mk-word.
+   JS adds .mk-word--visible when the paragraph enters viewport.
+   Transition staggers by --i (word index) set inline.
+   ─────────────────────────────────────────────────────────── */
 .mk-bronx__description {
   max-width: 760px;
   margin: 26px auto 0;
@@ -164,6 +160,21 @@
   line-height: 1.65;
   color: #b7c0bb;
   text-wrap: pretty;
+}
+
+.mk-word {
+  display: inline-block;
+  /* Start: slightly blurred and dim */
+  opacity: 0.25;
+  filter: blur(5px);
+  transition:
+    opacity 0.55s ease calc(var(--i, 0) * 35ms),
+    filter  0.55s ease calc(var(--i, 0) * 35ms);
+}
+
+.mk-word--visible {
+  opacity: 1;
+  filter: blur(0px);
 }
 
 .mk-bronx__note {
@@ -277,6 +288,13 @@
 
   .mk-bronx__copy {
     margin-top: clamp(40px, 5vw, 64px);
+  }
+
+  /* Reduced motion: words fully visible, no blur */
+  .mk-word {
+    opacity: 1 !important;
+    filter: none !important;
+    transition: none !important;
   }
 
   .mk-bronx *, .mk-bronx *::before, .mk-bronx *::after {
