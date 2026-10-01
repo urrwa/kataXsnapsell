@@ -5,8 +5,7 @@ export interface ProjectScrollItem {
   id: string;
   title: string;
   description: string;
-  image?: string;
-  video?: string;
+  image: string;
   alt: string;
 }
 
@@ -163,18 +162,7 @@ export function ProjectScrollRows({
         <article key={item.id} className="ka-project-row" role="listitem">
           <h3 className="ka-project-title" data-project-text>{item.title}</h3>
           <div className="ka-project-image" data-project-image>
-            {item.video ? (
-              <video
-                src={item.video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                aria-label={item.alt}
-              />
-            ) : (
-              <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
-            )}
+            <img src={item.image} alt={item.alt} loading="lazy" decoding="async" />
           </div>
           <div className="ka-project-detail" data-project-text>
             <span className="ka-project-number">{item.id}</span>

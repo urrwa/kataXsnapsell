@@ -12,21 +12,21 @@ const rows = [
     num: '01',
     categoryKey: 'Content',
     sentenceKey: 'Planen, filmen, schneiden – dein Content braucht immer dich.',
-    video: '/client-assets/struggle/row1.mp4',
+    img: '/client-assets/struggle/row1.png',
     altKey: 'Creatorin am Schnittplatz mit Monitor, Kamera und Ringlicht',
   },
   {
     num: '02',
     categoryKey: 'Gespräche',
     sentenceKey: 'Nachrichten, Käuferfragen und Follow-ups – alle warten auf dich.',
-    video: '/client-assets/struggle/row2.mp4',
+    img: '/client-assets/struggle/row2.png',
     altKey: 'Creatorin im Aufnahmestudio mit Laptop und Kamera',
   },
   {
     num: '03',
     categoryKey: 'Deine Zeit',
     sentenceKey: 'Der Wechsel zwischen Plattformen lässt weniger Raum für dein Leben.',
-    video: '/client-assets/struggle/row3.mp4',
+    img: '/client-assets/struggle/row3.png',
     altKey: 'Creatorin am Schreibtisch mit Sony-Kamera, Laptop, Mikrofon und Content-Kalender',
   },
 ] as const;
@@ -69,7 +69,7 @@ export const StruggleSection: React.FC<StruggleSectionProps> = ({ onNext }) => {
             id: row.num,
             title: t(row.categoryKey),
             description: t(row.sentenceKey),
-            video: row.video,
+            image: row.img,
             alt: t(row.altKey),
           }))}
         />
