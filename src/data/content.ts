@@ -144,7 +144,7 @@ export const ASSET_SLOTS = {
   },
   kataPortrait: {
     slotName: "Kata Coach Portrait Slot",
-    src: "https://res.cloudinary.com/n5nqkpmk/image/upload/v1789594297/Pic_33_wpzd8n.png",
+    src: "/media/mentor/katharina-client-portrait.png",
     alt: "Kata, Creator Coach and Trainer with 20 years experience"
   },
   kataCoachingVideoPoster: {
