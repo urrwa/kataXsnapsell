@@ -42,14 +42,12 @@
 
 /* ── Sticky heading pin ─────────────────────────────────────
    z-index: 1 — heading lives in the BACK layer.
-   Portrait (z-index: 2) travels in front of it.
-   Heading fades via opacity before portrait fully covers it.
+   Portrait (z-index: 10) travels in front of it.
    ─────────────────────────────────────────────────────────── */
 .mk-stage__sticky {
   position: sticky;
   top: 0;
   height: 100vh;
-  /* Back layer — portrait must sit in front */
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -94,7 +92,7 @@
    ─────────────────────────────────────────────────────────── */
 .mk-stage__portrait-row {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   justify-content: center;
   margin-top: -78vh;
@@ -104,6 +102,9 @@
 .mk-bronx__portrait-mover {
   overflow: visible;
   will-change: transform;
+  /* No isolation here — let z-index from parent portrait-row apply */
+  position: relative;
+  z-index: 10;
 }
 
 /* Capsule portrait mask — overflow:hidden only here */
