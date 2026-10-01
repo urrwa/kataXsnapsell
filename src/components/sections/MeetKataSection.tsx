@@ -1,23 +1,26 @@
 import { AnimatedButton } from '../AnimatedButton';
 import { t, useLanguage } from '../../i18n';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ASSET_SLOTS } from '../../data/content';
 import { Award, Play, Pause } from 'lucide-react';
-import { motion, useReducedMotion } from 'motion/react';
 import '../../meet-kata.css';
 
 interface MeetKataSectionProps { onStartWithKata: () => void; }
 
 export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKata }) => {
   useLanguage();
-  const prefersReducedMotion = useReducedMotion();
   const [paused, setPaused] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [focused, setFocused] = useState(false);
   const [inView, setInView] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Video play/pause logic
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -36,6 +39,7 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
       document.removeEventListener('visibilitychange', updateVisibility);
     };
   }, []);
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -44,123 +48,129 @@ export const MeetKataSection: React.FC<MeetKataSectionProps> = ({ onStartWithKat
     } else video.pause();
   }, [inView, documentVisible, paused, hovered, focused, reducedMotion]);
 
-  // Framer-style: clip-path wipe from bottom (curtain reveal)
-  const wipe = (delay = 0) => prefersReducedMotion ? {} : {
-    initial: { clipPath: 'inset(100% 0% 0% 0%)', y: 10 },
-    whileInView: { clipPath: 'inset(0% 0% 0% 0%)', y: 0 },
-    viewport: { once: true, amount: 0.05 },
-    transition: { duration: 0.75, delay, ease: [0.16, 1, 0.3, 1] },
-  };
+  // Scroll-driven portrait reveal — image rises up behind the heading
+  useEffect(() => {
+    if (reducedMotion) return;
+    const section = sectionRef.current;
+    const portrait = portraitRef.current;
+    if (!section || !portrait) return;
 
-  // Smooth fade+lift for paragraphs
-  const lift = (delay = 0) => prefersReducedMotion ? {} : {
-    initial: { opacity: 0, y: 24 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.05 },
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-  };
+    let raf = 0;
+    const render = () => {
+      raf = 0;
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // progress: 0 when section top hits bottom of viewport, 1 when section top hits viewport top
+      const progress = Math.max(0, Math.min(1, (vh - rect.top) / (vh + rect.height * 0.4)));
+      // Portrait starts fully clipped (only top visible), reveals as you scroll in
+      const revealed = Math.round(progress * 100);
+      portrait.style.clipPath = `inset(${100 - revealed}% 0 0 0)`;
+      portrait.style.transform = `translateY(${(1 - progress) * 60}px)`;
+    };
+
+    const schedule = () => { if (!raf) raf = requestAnimationFrame(render); };
+    render();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (portraitRef.current) {
+        portraitRef.current.style.clipPath = '';
+        portraitRef.current.style.transform = '';
+      }
+    };
+  }, [reducedMotion]);
 
   return (
-    <section id="section-3" className="landing-section meet-kata" aria-labelledby="meet-kata-heading">
-      <div className="meet-kata-layout">
+    <section id="section-3" ref={sectionRef} className="landing-section meet-kata" aria-labelledby="meet-kata-heading">
 
-        {/* Visuals column — slides in from left */}
-        <motion.div
-          className="meet-kata-visuals"
-          initial={prefersReducedMotion ? false : { opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.05 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="meet-kata-portrait">
-            <img loading="lazy" src={ASSET_SLOTS.heroKata.src}
-              alt={t('Katharina, Creator-Coach und Mentorin')} referrerPolicy="no-referrer" />
-            <motion.div
-              className="meet-kata-experience"
-              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.8, y: 10 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.05 }}
-              transition={{ duration: 0.5, delay: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-            >
-              <Award size={19} strokeWidth={1.5} aria-hidden="true" />
-              <div><strong>{t('20+ Jahre Erfahrung')}</strong><span>{t('Coaching und Training')}</span></div>
-            </motion.div>
+      {/* Giant heading — stays on top via z-index, portrait rises behind it */}
+      <div className="mk-hero-text" aria-hidden="true">
+        <span>{t('MEHR ÜBER')}</span>
+        <span className="mk-hero-name">{t('KATHARINA©')}</span>
+      </div>
+
+      {/* Portrait rises through the heading */}
+      <div className="mk-portrait-stage">
+        <div className="mk-portrait-reveal" ref={portraitRef}>
+          <img
+            loading="lazy"
+            src={ASSET_SLOTS.heroKata.src}
+            alt={t('Katharina, Creator-Coach und Mentorin')}
+            referrerPolicy="no-referrer"
+          />
+          <div className="mk-experience-badge">
+            <Award size={19} strokeWidth={1.5} aria-hidden="true" />
+            <div>
+              <strong>{t('20+ Jahre Erfahrung')}</strong>
+              <span>{t('Coaching und Training')}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Copy + video below */}
+      <div className="mk-body">
+        <div className="mk-body-grid">
+
+          {/* Left: copy */}
+          <div className="mk-copy">
+            <p className="mk-eyebrow"><span className="mk-dot" />{t('DEINE CREATOR-MENTORIN')}</p>
+            <h2 id="meet-kata-heading" className="mk-heading">
+              {t('Dein nächstes Kapitel.')}<br />
+              <span className="mk-heading-mint">{t('Mit Katharina.')}</span>
+            </h2>
+            <p className="mk-subtitle">
+              {t('Creatorin. Coach.')} <span>{t('Deine Creator Mama.')}</span>
+            </p>
+            <p className="mk-description">
+              {t('Baue dein Creator-Business mit Katharinas Begleitung auf. Mit über 20 Jahren Branchenerfahrung hilft sie Frauen, ihre persönliche Marke zu stärken, selbstbewusste Entscheidungen zu treffen und Systeme für ihr Wachstum aufzubauen.')}
+            </p>
+            <p className="mk-note">
+              {t('Hör auf, alles allein zu machen. Fang an, wie eine Unternehmerin zu denken.')}
+            </p>
+            <p className="mk-benefits">{t('Persönliche Begleitung · Klare Systeme · Deine eigene Marke')}</p>
+            <AnimatedButton animateArrow id="meet-kata-start-btn" onClick={onStartWithKata} className="mk-cta">
+              {t('Für die Academy bewerben')}
+            </AnimatedButton>
           </div>
 
-          {/* Floating video card */}
-          <motion.div
-            className="meet-kata-video"
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 30, scale: 0.9 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          {/* Right: floating video card */}
+          <div
+            className="mk-video-wrap"
             onPointerEnter={event => { if (event.pointerType === 'mouse') setHovered(true); }}
             onPointerLeave={() => setHovered(false)}
             onFocusCapture={event => { if (event.target.matches(':focus-visible')) setFocused(true); }}
-            onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
-            <video ref={videoRef}
+            onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
+          >
+            <video
+              ref={videoRef}
               src="/media/mentor/coaching-ai-v2.mp4"
               poster="/media/mentor/coaching-ai-v2-poster.jpg"
               aria-label={t('Coaching-Einblick · KI-generierte Vorschau')}
               playsInline preload="metadata" muted loop
-              onError={() => setPaused(true)} />
-            <div className="meet-kata-video-caption"><strong>{t('Coaching-Einblick')}</strong><span>{t('KI-generierte Vorschau')}</span></div>
-            <AnimatedButton type="button" onClick={() => { if (reducedMotion) { setReducedMotion(false); setPaused(false); } else setPaused(value => !value); }}
+              onError={() => setPaused(true)}
+            />
+            <div className="mk-video-caption">
+              <strong>{t('Coaching-Einblick')}</strong>
+              <span>{t('KI-generierte Vorschau')}</span>
+            </div>
+            <AnimatedButton
+              type="button"
+              onClick={() => { if (reducedMotion) { setReducedMotion(false); setPaused(false); } else setPaused(v => !v); }}
               aria-label={t(paused || reducedMotion ? 'Coaching-Video abspielen' : 'Coaching-Video pausieren')}
-              aria-pressed={paused} className="meet-kata-sound">
+              aria-pressed={paused}
+              className="mk-sound-btn"
+            >
               {paused || reducedMotion ? <Play size={15} /> : <Pause size={15} />}
             </AnimatedButton>
-          </motion.div>
-        </motion.div>
-
-        {/* Copy column — Framer-style wipe reveals */}
-        <div className="meet-kata-copy space-y-6">
-
-          {/* Eyebrow — quick wipe */}
-          <div className="mk-clip-wrap">
-            <motion.p className="meet-kata-eyebrow" {...wipe(0)}>
-              <span />{t('DEINE CREATOR-MENTORIN')}
-            </motion.p>
           </div>
 
-          {/* Headline — each line wipes up independently */}
-          <div>
-            <div className="mk-clip-wrap">
-              <motion.h2 id="meet-kata-heading" {...wipe(0.08)}>
-                {t('Dein nächstes Kapitel.')}<br />{t('Mit Katharina.')}
-              </motion.h2>
-            </div>
-            <motion.p className="meet-kata-subtitle" {...lift(0.3)}>
-              {t('Creatorin. Coach.')} <span>{t('Deine Creator Mama.')}</span>
-            </motion.p>
-          </div>
-
-          <motion.p className="meet-kata-description" {...lift(0.38)}>
-            {t('Baue dein Creator-Business mit Katharinas Begleitung auf. Mit über 20 Jahren Branchenerfahrung hilft sie Frauen, ihre persönliche Marke zu stärken, selbstbewusste Entscheidungen zu treffen und Systeme für ihr Wachstum aufzubauen.')}
-          </motion.p>
-
-          {/* Quote — slides from left like Framer side-reveal */}
-          <motion.p
-            className="meet-kata-note"
-            initial={prefersReducedMotion ? false : { opacity: 0, x: -28 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.05 }}
-            transition={{ duration: 0.65, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {t('Hör auf, alles allein zu machen. Fang an, wie eine Unternehmerin zu denken.')}
-          </motion.p>
-
-          <motion.p className="meet-kata-benefits" {...lift(0.55)}>
-            {t('Persönliche Begleitung · Klare Systeme · Deine eigene Marke')}
-          </motion.p>
-
-          <motion.div {...lift(0.65)}>
-            <AnimatedButton animateArrow id="meet-kata-start-btn" onClick={onStartWithKata}
-              className="meet-kata-cta">{t('Für die Academy bewerben')}</AnimatedButton>
-          </motion.div>
         </div>
-
       </div>
+
     </section>
   );
 };

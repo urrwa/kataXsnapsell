@@ -1,53 +1,305 @@
-/* Framer-style wipe reveal wrapper — clips the motion without affecting layout */
-.mk-clip-wrap { overflow: hidden; }
+/* ── MeetKata Section ─────────────────────────────────────────────────────── */
+/* Framer-style: giant heading, portrait rises from below through the text    */
 
-.meet-kata { background: #080808; padding-inline: clamp(22px, 4vw, 64px); }
-.meet-kata-layout { max-width: 1280px; margin-inline: auto; display: grid; grid-template-columns: 1.08fr 1fr; align-items: center; gap: clamp(40px, 6vw, 88px); }
-.meet-kata-visuals { position: relative; min-width: 0; padding: 0 64px 58px 0; isolation: isolate; }
-.meet-kata-visuals::before { content: ''; position: absolute; z-index: -1; inset: -40px -20px; background: radial-gradient(ellipse at 42% 45%, rgb(32 201 151 / .09), transparent 66%); pointer-events: none; }
-.meet-kata-portrait, .meet-kata-video { position: relative; overflow: hidden; border: 1px solid rgb(123 222 190 / .24); border-radius: 24px; background: #111815; }
-.meet-kata-portrait { aspect-ratio: .84; }
-.meet-kata-portrait > img { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 52% top; }
-.meet-kata-portrait::after { content: ''; position: absolute; inset: 55% 0 0; background: linear-gradient(transparent, rgb(0 0 0 / .48)); pointer-events: none; }
-.meet-kata-experience { position: absolute; z-index: 1; left: 17px; bottom: 18px; display: flex; align-items: center; gap: 9px; padding: 11px 12px; border: 1px solid rgb(123 222 190 / .18); border-radius: 13px; background: rgb(8 20 15 / .82); backdrop-filter: blur(12px); color: #82dfc2; }
-.meet-kata-experience strong { display: block; color: #f0f6f3; font-size: 11px; font-weight: 600; }
-.meet-kata-experience span { display: block; margin-top: 3px; font-size: 10px; color: #b4c4be; }
-.meet-kata-video { position: absolute; right: 0; bottom: 0; width: 47%; aspect-ratio: 1.26; box-shadow: 0 16px 40px rgb(0 0 0 / .4); animation: mk-float 5s ease-in-out infinite; }
-@keyframes mk-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-@media (prefers-reduced-motion: reduce) { .meet-kata-video { animation: none; } }
-.meet-kata-video video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 43%; filter: brightness(1.08); }
-.meet-kata-video-caption { position: absolute; inset: auto 0 0; padding: 28px 13px 12px; background: linear-gradient(transparent, rgb(0 0 0 / .8)); pointer-events: none; }
-.meet-kata-video-caption strong { display: block; color: #fff; font-size: 12px; font-weight: 600; }
-.meet-kata-video-caption span { display: block; margin-top: 3px; color: #c6d2cc; font-size: 9px; }
-.meet-kata-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; flex-direction: column; gap: 9px; padding: 16px 10px; background: linear-gradient(transparent 30%, rgb(0 0 0 / .65)); color: #fff; font-size: 12px; font-weight: 600; }
-.meet-kata-play-icon { display: flex; align-items: center; justify-content: center; width: 43px; height: 43px; border-radius: 50%; background: #20c997; color: #062219; transition: scale .2s ease; }
-.meet-kata-play:hover .meet-kata-play-icon { scale: 1.08; }
-.meet-kata-sound { position: absolute; top: 10px; right: 10px; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: white; background: rgb(0 0 0 / .5); }
-.meet-kata-copy { min-width: 0; }
-.meet-kata-eyebrow { display: flex; align-items: center; gap: 9px; color: #20c997; font-size: 10px; font-weight: 600; letter-spacing: .15em; }
-.meet-kata-eyebrow > span { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
-.meet-kata-copy h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(30px, 3.2vw, 46px); line-height: 1.2; letter-spacing: -.045em; font-weight: 500; color: #f4f7f5; }
-.meet-kata-subtitle { margin-top: 17px; color: #bdc4c0; font-size: 14px; line-height: 1.7; }
-.meet-kata-subtitle span { color: #71daba; }
-.meet-kata-description { color: #aeb8b2; font-size: 14px; line-height: 1.9; max-width: 490px; }
-.meet-kata-note { border-left: 2px solid rgb(32 201 151 / .65); padding: 1px 0 1px 17px; max-width: 420px; font-size: 15px; line-height: 1.75; color: #dde4df; position: relative; overflow: hidden; }
-.meet-kata-note::before { content: ''; position: absolute; left: 0; top: 0; width: 2px; height: 0; background: #20c997; border-radius: 2px; animation: mk-border-draw 0.7s 0.5s ease forwards; }
-@keyframes mk-border-draw { to { height: 100%; } }
-@media (prefers-reduced-motion: reduce) { .meet-kata-note::before { animation: none; height: 100%; } }
-.meet-kata-benefits { color: #98aaa0; font-size: 11px; line-height: 1.8; }
-.meet-kata-cta { padding: 14px 26px; border-radius: 100px; background: #20c997; color: #071a13; font-size: 13px; font-weight: 600; }
-@media (max-width: 760px) {
-  .meet-kata-layout { grid-template-columns: 1fr; gap: 40px; max-width: 560px; }
-  .meet-kata-visuals { width: 100%; max-width: 480px; margin-inline: auto; }
-  .meet-kata-copy h2 { font-size: clamp(31px, 7.8vw, 42px); }
+.meet-kata {
+  background: #080808;
+  color: #f4f4f4;
+  overflow: hidden;
+  padding-inline: 0;
 }
+
+/* ── Giant hero text ─────────────────────────────────────────────────────── */
+.mk-hero-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(64px, 10vw, 120px) clamp(20px, 4vw, 60px) 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mk-hero-text span {
+  display: block;
+  font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+  font-size: clamp(52px, 10.5vw, 160px);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #f4f4f4;
+}
+
+.mk-hero-name {
+  color: #20c997 !important;
+}
+
+/* ── Portrait stage ──────────────────────────────────────────────────────── */
+.mk-portrait-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(-120px, -14vw, -80px); /* portrait overlaps behind heading */
+  padding-inline: clamp(20px, 4vw, 60px);
+}
+
+.mk-portrait-reveal {
+  position: relative;
+  width: min(520px, 90vw);
+  aspect-ratio: 0.78;
+  border-radius: clamp(200px, 50vw, 400px) clamp(200px, 50vw, 400px) 28px 28px; /* arch top */
+  overflow: hidden;
+  border: 1px solid rgb(123 222 190 / .18);
+  background: #111815;
+  /* clip-path animated by scroll JS */
+}
+
+.mk-portrait-reveal img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 52% top;
+}
+
+.mk-portrait-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 55% 0 0;
+  background: linear-gradient(transparent, rgb(0 0 0 / .55));
+  pointer-events: none;
+}
+
+/* ── Experience badge on portrait ───────────────────────────────────────── */
+.mk-experience-badge {
+  position: absolute;
+  z-index: 1;
+  left: 18px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 13px;
+  border: 1px solid rgb(123 222 190 / .2);
+  border-radius: 13px;
+  background: rgb(8 20 15 / .85);
+  backdrop-filter: blur(12px);
+  color: #82dfc2;
+  animation: mk-badge-in 0.55s 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.mk-experience-badge strong {
+  display: block;
+  color: #f0f6f3;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.mk-experience-badge span {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: #b4c4be;
+}
+
+@keyframes mk-badge-in {
+  from { opacity: 0; transform: scale(0.8) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── Body (copy + video) ────────────────────────────────────────────────── */
+.mk-body {
+  padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 60px) clamp(64px, 10vw, 120px);
+}
+
+.mk-body-grid {
+  max-width: 1200px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: start;
+}
+
+/* ── Copy ────────────────────────────────────────────────────────────────── */
+.mk-copy {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.6vw, 22px);
+}
+
+.mk-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #20c997;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.mk-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.mk-heading {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(28px, 3vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -.04em;
+  font-weight: 700;
+  color: #f4f7f5;
+  margin: 0;
+}
+
+.mk-heading-mint { color: #20c997; }
+
+.mk-subtitle {
+  margin: 0;
+  color: #bdc4c0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.mk-subtitle span { color: #71daba; }
+
+.mk-description {
+  color: #aeb8b2;
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 0;
+}
+
+.mk-note {
+  border-left: 2px solid rgb(32 201 151 / .65);
+  padding: 2px 0 2px 17px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #dde4df;
+  margin: 0;
+  position: relative;
+}
+
+.mk-note::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 2px;
+  height: 0;
+  background: #20c997;
+  border-radius: 2px;
+  animation: mk-border-draw 0.7s 0.4s ease forwards;
+}
+
+@keyframes mk-border-draw { to { height: 100%; } }
+
+.mk-benefits {
+  color: #98aaa0;
+  font-size: 11px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.mk-cta {
+  display: inline-flex;
+  padding: 14px 26px;
+  border-radius: 100px;
+  background: #20c997;
+  color: #071a13;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* ── Video card ──────────────────────────────────────────────────────────── */
+.mk-video-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgb(123 222 190 / .18);
+  background: #111;
+  aspect-ratio: 1.1;
+  box-shadow: 0 24px 60px rgb(0 0 0 / .5);
+  animation: mk-float 5s ease-in-out infinite;
+}
+
+@keyframes mk-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+.mk-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 43%;
+  filter: brightness(1.08);
+}
+
+.mk-video-caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 28px 13px 12px;
+  background: linear-gradient(transparent, rgb(0 0 0 / .8));
+  pointer-events: none;
+}
+
+.mk-video-caption strong {
+  display: block;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.mk-video-caption span {
+  display: block;
+  margin-top: 3px;
+  color: #c6d2cc;
+  font-size: 9px;
+}
+
+.mk-sound-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: white;
+  background: rgb(0 0 0 / .5);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .mk-portrait-reveal { clip-path: none !important; transform: none !important; }
+  .mk-experience-badge { animation: none; }
+  .mk-note::before { animation: none; height: 100%; }
+  .mk-video-wrap { animation: none; }
+}
+
+/* ── Mobile ──────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .mk-hero-text span { font-size: clamp(40px, 13vw, 80px); }
+  .mk-portrait-stage { margin-top: clamp(-80px, -12vw, -50px); }
+  .mk-portrait-reveal { width: min(380px, 88vw); }
+  .mk-body-grid { grid-template-columns: 1fr; gap: 40px; max-width: 560px; }
+  .mk-video-wrap { animation: none; }
+}
+
 @media (max-width: 420px) {
-  .meet-kata-visuals { padding-right: 38px; padding-bottom: 55px; }
-  .meet-kata-video { width: 49%; border-radius: 20px; }
-  .meet-kata-experience { left: 10px; bottom: 14px; padding: 8px; gap: 5px; }
-  .meet-kata-experience strong { font-size: 9px; }
-  .meet-kata-experience span { font-size: 8px; }
-  .meet-kata-experience svg { width: 15px; }
-  .meet-kata-play { padding-bottom: 12px; font-size: 10px; gap: 6px; }
-  .meet-kata-play-icon { width: 35px; height: 35px; }
+  .mk-hero-text span { font-size: clamp(36px, 14vw, 56px); }
+  .mk-portrait-reveal { border-radius: clamp(140px, 40vw, 260px) clamp(140px, 40vw, 260px) 20px 20px; }
 }
