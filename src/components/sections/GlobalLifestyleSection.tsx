@@ -63,7 +63,7 @@ export const GlobalLifestyleSection: React.FC<GlobalLifestyleSectionProps> = ({
             <span>{t("KATHARINA CREATOR CIRCLE")}</span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-black font-display text-white leading-[1.05]" style={{letterSpacing:'-0.04em'}}>
+          <h2 className="text-4xl sm:text-5xl font-black text-white leading-[1.05]" style={{fontFamily:"'DM Sans',sans-serif",letterSpacing:'-0.05em'}}>
             {t("Lerne. Wachse.")}{' '}
             <span className="text-[#20C997]">{t("Erstelle Content weltweit.")}</span>
           </h2>
